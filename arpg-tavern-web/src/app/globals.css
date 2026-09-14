@@ -1804,3 +1804,825 @@ a {
     font-size: 0.85rem;
   }
 }
+/* =========================================================
+   ARPG TAVERN — ATMOSFERA REALISTICA, ASSET E BARDO
+   Da aggiungere in fondo a globals.css
+   ========================================================= */
+
+:root {
+  --tavern-black: #080403;
+  --tavern-smoke: #120905;
+  --tavern-walnut: #241008;
+  --tavern-walnut-light: #5b2a16;
+  --tavern-brass: #c98a37;
+  --tavern-brass-light: #f2c76f;
+  --tavern-fire: #e8792b;
+  --tavern-paper: #e3c383;
+  --tavern-ink: #311606;
+}
+
+/* Sfondo con muro in pietra: rimane fisso e molto discreto. */
+body {
+  isolation: isolate;
+  background-color: var(--tavern-black);
+  background-image:
+    radial-gradient(
+      circle at 18% -8%,
+      rgba(235, 119, 39, 0.19),
+      transparent 30rem
+    ),
+    radial-gradient(
+      circle at 94% 41%,
+      rgba(134, 54, 20, 0.14),
+      transparent 33rem
+    ),
+    linear-gradient(
+      180deg,
+      rgba(11, 5, 3, 0.62),
+      rgba(8, 4, 3, 0.91)
+    ),
+    url("/images/tavern-stone-wall.webp");
+  background-attachment: fixed, fixed, fixed, fixed;
+  background-position: center top, right 36%, center, center;
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+  background-size: auto, auto, auto, 980px auto;
+}
+
+/* Vignettatura globale: fa sembrare l'interfaccia illuminata dal focolare. */
+body::before {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse at 50% 18%,
+      transparent 10%,
+      rgba(3, 1, 1, 0.24) 69%,
+      rgba(0, 0, 0, 0.68) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.33),
+      transparent 19%,
+      transparent 81%,
+      rgba(0, 0, 0, 0.33)
+    );
+}
+
+/*
+  Elemento inserito in layout.tsx:
+  <div className="tavern-global-atmosphere" aria-hidden="true">...</div>
+*/
+.tavern-global-atmosphere {
+  position: fixed;
+  z-index: 30;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Braci molto leggere, in primo piano ma senza ostacolare la UI. */
+.tavern-ember {
+  position: absolute;
+  bottom: -30px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  opacity: 0;
+  background: #ffc166;
+  box-shadow:
+    0 0 8px #ff7a2d,
+    0 0 18px rgba(241, 94, 28, 0.68);
+  animation: tavern-ember-rise 9s linear infinite;
+}
+
+.tavern-ember-one {
+  left: 8%;
+  animation-delay: -1s;
+  animation-duration: 10s;
+}
+
+.tavern-ember-two {
+  left: 22%;
+  width: 3px;
+  height: 3px;
+  animation-delay: -6s;
+  animation-duration: 12s;
+}
+
+.tavern-ember-three {
+  left: 45%;
+  animation-delay: -3s;
+  animation-duration: 8s;
+}
+
+.tavern-ember-four {
+  left: 61%;
+  width: 4px;
+  height: 4px;
+  animation-delay: -8s;
+  animation-duration: 11s;
+}
+
+.tavern-ember-five {
+  left: 78%;
+  width: 3px;
+  height: 3px;
+  animation-delay: -4s;
+  animation-duration: 13s;
+}
+
+.tavern-ember-six {
+  left: 91%;
+  animation-delay: -7s;
+  animation-duration: 9s;
+}
+
+@keyframes tavern-ember-rise {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.65);
+  }
+
+  11% {
+    opacity: 0.72;
+  }
+
+  72% {
+    opacity: 0.32;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(38px, -103vh, 0) scale(0.15);
+  }
+}
+
+/* Il hero diventa una scena con più contrasto e illuminazione dal camino. */
+.hero-scene {
+  isolation: isolate;
+  background-position: center 46%;
+}
+
+.hero-scene::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse at 73% 55%,
+      rgba(255, 165, 65, 0.16) 0%,
+      rgba(181, 68, 22, 0.06) 25%,
+      transparent 51%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.31),
+      transparent 32%,
+      rgba(4, 2, 1, 0.66) 100%
+    );
+  mix-blend-mode: screen;
+}
+
+/* Il contenuto deve rimanere sopra i due overlay del hero. */
+.topbar,
+.hero-content {
+  z-index: 3;
+}
+
+/* La dashboard ora sembra appoggiata su un tavolo da gioco. */
+.dashboard-page {
+  position: relative;
+  isolation: isolate;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(11, 5, 3, 0.92) 0%,
+      rgba(15, 7, 4, 0.77) 48%,
+      rgba(9, 4, 3, 0.84) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.14),
+      rgba(0, 0, 0, 0.58)
+    ),
+    url("/images/tavern-tabletop.webp");
+  background-position: center, center, center top;
+  background-repeat: no-repeat;
+  background-size: cover, cover, cover;
+  background-attachment: fixed;
+}
+
+.dashboard-page::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 214, 133, 0.018) 0 1px,
+      transparent 1px 8px
+    ),
+    radial-gradient(
+      ellipse at 47% 17%,
+      rgba(240, 140, 54, 0.11),
+      transparent 30rem
+    );
+}
+
+.dashboard-topbar,
+.dashboard-hero,
+.dashboard-grid {
+  position: relative;
+  z-index: 1;
+}
+
+/* Header da locanda: venature, bordo in ottone e ombra fisica. */
+.dashboard-topbar,
+.build-editor-page .dashboard-topbar {
+  border-bottom-color: rgba(227, 170, 77, 0.36);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 194, 104, 0.08),
+      transparent 44%,
+      rgba(0, 0, 0, 0.19)
+    ),
+    url("/images/tavern-dark-oak-texture.webp");
+  background-position: center;
+  background-size: cover;
+  box-shadow:
+    0 8px 22px rgba(0, 0, 0, 0.31),
+    inset 0 -1px rgba(255, 215, 139, 0.13);
+}
+
+/* Carte scure come tavolette/registri esposti nella gilda. */
+.dashboard-card {
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(222, 164, 74, 0.31);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 185, 86, 0.09),
+      transparent 31%,
+      rgba(0, 0, 0, 0.26) 100%
+    ),
+    url("/images/tavern-dark-oak-texture.webp");
+  background-position: center;
+  background-size: cover;
+  box-shadow:
+    0 4px 0 rgba(25, 8, 4, 0.82),
+    0 19px 31px rgba(0, 0, 0, 0.46),
+    inset 0 1px rgba(255, 221, 144, 0.15),
+    inset 0 -18px 27px rgba(5, 1, 1, 0.35);
+}
+
+.dashboard-card::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  opacity: 0.22;
+  pointer-events: none;
+  background-image:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 210, 124, 0.16),
+      transparent
+    ),
+    url("/images/arpg-tavern-ui-textures.png");
+  background-position: center, 42% 12%;
+  background-size: auto, 500px;
+  mix-blend-mode: soft-light;
+}
+
+.dashboard-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.dashboard-card-primary {
+  border-color: rgba(246, 192, 98, 0.58);
+  background:
+    radial-gradient(
+      circle at 84% 14%,
+      rgba(248, 154, 55, 0.29),
+      transparent 11rem
+    ),
+    linear-gradient(
+      135deg,
+      rgba(255, 195, 93, 0.11),
+      transparent 38%
+    ),
+    url("/images/tavern-dark-oak-texture.webp");
+  background-position: center;
+  background-size: auto, auto, cover;
+}
+
+/* Modulo pergamena: bordo materico e angoli ornamentali del grimorio. */
+.auth-panel,
+.build-form,
+.map-card,
+.feature-card {
+  isolation: isolate;
+}
+
+.auth-panel::after,
+.build-form .tavern-grimoire-decoration {
+  pointer-events: none;
+}
+
+/* L'ornamento della copertina del grimorio è volutamente tenue. */
+.build-form {
+  background-image:
+    linear-gradient(
+      135deg,
+      rgba(255, 248, 197, 0.18),
+      transparent 43%,
+      rgba(86, 39, 8, 0.12)
+    ),
+    url("/images/arpg-tavern-grimoire-corner.webp"),
+    url("/images/arpg-tavern-ui-textures.png"),
+    repeating-linear-gradient(
+      0deg,
+      rgba(88, 49, 13, 0.04) 0 1px,
+      transparent 1px 5px
+    ),
+    linear-gradient(135deg, #c99855 0%, #f0d69a 49%, #bc8445 100%);
+  background-position: center, right bottom, 44% 2%, center, center;
+  background-repeat: no-repeat, no-repeat, repeat, repeat, no-repeat;
+  background-size: auto, 250px, 620px, auto, auto;
+  background-blend-mode: normal, multiply, soft-light, normal, normal;
+}
+
+/* Applicato anche al pannello login, ma senza riempire lo schermo. */
+.auth-panel {
+  background-image:
+    radial-gradient(
+      circle at 17% 11%,
+      rgba(255, 249, 191, 0.86),
+      transparent 5rem
+    ),
+    url("/images/tavern-grimoire-corner.webp"),
+    url("/images/arpg-tavern-ui-textures.png"),
+    repeating-linear-gradient(
+      0deg,
+      rgba(88, 50, 15, 0.045) 0 1px,
+      transparent 1px 5px
+    ),
+    linear-gradient(135deg, #d0a15d, #f3d89b 50%, #c49350);
+  background-position: center, right bottom, center, center, center;
+  background-repeat: no-repeat, no-repeat, repeat, repeat, no-repeat;
+  background-size: auto, 220px, 650px, auto, auto;
+  background-blend-mode: normal, multiply, soft-light, normal, normal;
+}
+
+/* Controllo musicale fisso. Le classi corrispondono a BardMusic.tsx. */
+.bard-player {
+  position: fixed;
+  z-index: 100;
+  right: 22px;
+  bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bard-toggle {
+  display: inline-flex;
+  align-items: center;
+  min-height: 46px;
+  gap: 8px;
+  border: 1px solid rgba(239, 184, 91, 0.6);
+  border-radius: 6px;
+  padding: 10px 13px;
+  color: #eed7a6;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 216, 138, 0.16),
+      transparent 32%,
+      rgba(0, 0, 0, 0.22)
+    ),
+    url("/images/tavern-dark-oak-texture.webp");
+  background-position: center;
+  background-size: cover;
+  box-shadow:
+    0 4px 0 #160603,
+    0 10px 21px rgba(0, 0, 0, 0.55),
+    inset 0 1px rgba(255, 230, 164, 0.27),
+    inset 0 -8px 12px rgba(0, 0, 0, 0.28);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.035em;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    filter 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.bard-toggle span:first-child {
+  display: grid;
+  width: 23px;
+  height: 23px;
+  place-items: center;
+  border: 1px solid rgba(255, 221, 141, 0.45);
+  border-radius: 50%;
+  color: #ffe19a;
+  background: rgba(51, 16, 6, 0.64);
+  box-shadow: inset 0 1px rgba(255, 225, 153, 0.16);
+  font-size: 0.95rem;
+}
+
+.bard-toggle:hover {
+  filter: brightness(1.14);
+  transform: translateY(-2px);
+}
+
+.bard-toggle:active {
+  transform: translateY(3px);
+  box-shadow:
+    0 1px 0 #160603,
+    0 4px 9px rgba(0, 0, 0, 0.5),
+    inset 0 3px 8px rgba(0, 0, 0, 0.36);
+}
+
+.bard-toggle-on {
+  border-color: #ffd06c;
+  color: #fff1ca;
+  background:
+    radial-gradient(
+      circle at 22% 24%,
+      rgba(255, 183, 64, 0.34),
+      transparent 42%
+    ),
+    url("/images/tavern-dark-oak-texture.webp");
+  box-shadow:
+    0 4px 0 #160603,
+    0 0 25px rgba(245, 135, 40, 0.38),
+    0 10px 21px rgba(0, 0, 0, 0.55),
+    inset 0 1px rgba(255, 230, 164, 0.35),
+    inset 0 -8px 12px rgba(0, 0, 0, 0.28);
+}
+
+.bard-volume {
+  display: flex;
+  align-items: center;
+  width: 108px;
+  min-height: 42px;
+  border: 1px solid rgba(219, 164, 76, 0.36);
+  border-radius: 5px;
+  padding: 0 11px;
+  background: rgba(23, 8, 4, 0.86);
+  box-shadow:
+    0 7px 17px rgba(0, 0, 0, 0.42),
+    inset 0 1px rgba(255, 218, 143, 0.09);
+}
+
+.bard-volume input {
+  width: 100%;
+  accent-color: #e69a3d;
+  cursor: pointer;
+}
+
+/* Popup iniziale: una finestra da locanda, non un modal generico. */
+.bard-welcome-backdrop {
+  position: fixed;
+  z-index: 200;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(105, 39, 12, 0.26),
+      rgba(0, 0, 0, 0.84) 77%
+    ),
+    rgba(4, 2, 1, 0.45);
+  backdrop-filter: blur(4px);
+}
+
+/* =========================================================
+   CORREZIONE POPUP DEL BARDO
+   Pergamena leggibile, illustrazione confinata nell'angolo
+   ========================================================= */
+
+.bard-welcome-modal {
+  position: relative;
+  width: min(100%, 510px);
+  overflow: hidden;
+  border: 9px solid #311308;
+  outline: 1px solid rgba(244, 190, 94, 0.44);
+  outline-offset: -16px;
+  padding: 44px 40px 39px;
+  color: #43230e;
+  text-align: center;
+  isolation: isolate;
+  background:
+    radial-gradient(
+      circle at 50% 10%,
+      rgba(255, 251, 211, 0.86),
+      transparent 10rem
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(91, 49, 16, 0.04) 0 1px,
+      transparent 1px 5px
+    ),
+    url("/images/arpg-tavern-ui-textures.png"),
+    linear-gradient(135deg, #c6944c 0%, #efd99d 48%, #bd8442 100%);
+  background-position: center, center, 45% 3%, center;
+  background-repeat: no-repeat, repeat, repeat, no-repeat;
+  background-size: auto, auto, 530px, auto;
+  background-blend-mode: normal, normal, soft-light, normal;
+  box-shadow:
+    0 34px 80px rgba(0, 0, 0, 0.74),
+    inset 0 0 38px rgba(78, 36, 8, 0.22);
+}
+
+/* La sola decorazione visiva: non mescolarla con la pergamena. */
+.bard-welcome-modal::after {
+  position: absolute;
+  z-index: -1;
+  right: -20px;
+  bottom: -28px;
+  width: 192px;
+  height: 192px;
+  content: "";
+  opacity: 0.18;
+  pointer-events: none;
+  background-image:
+    linear-gradient(
+      135deg,
+      rgba(232, 204, 139, 0.12),
+      rgba(75, 26, 8, 0.1)
+    ),
+    url("/images/tavern-grimoire-corner.webp");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: sepia(0.3) saturate(0.82) contrast(0.95);
+  mix-blend-mode: multiply;
+}
+
+/* Cornice interna, sempre sopra l'ornamento e sotto i contenuti. */
+.bard-welcome-modal::before {
+  position: absolute;
+  z-index: 0;
+  inset: 15px;
+  border: 1px dashed rgba(95, 46, 12, 0.31);
+  content: "";
+  pointer-events: none;
+}
+
+/* Testo e pulsanti restano sempre nello strato più alto. */
+.bard-welcome-modal > * {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 760px) {
+  .bard-welcome-modal {
+    border-width: 7px;
+    padding: 37px 23px 30px;
+  }
+
+  .bard-welcome-modal::after {
+    right: -52px;
+    bottom: -58px;
+    width: 175px;
+    height: 175px;
+    opacity: 0.12;
+  }
+}
+
+.bard-welcome-symbol {
+  display: grid;
+  width: 57px;
+  height: 57px;
+  margin: 0 auto 16px;
+  place-items: center;
+  border: 2px solid #792014;
+  border-radius: 50%;
+  color: #ffd681;
+  background:
+    radial-gradient(circle at 36% 28%, #ef6340, #8b2114 64%, #4a0a07);
+  box-shadow:
+    0 5px 8px rgba(75, 17, 7, 0.37),
+    inset 2px 2px 6px rgba(255, 190, 112, 0.33);
+  font-size: 1.8rem;
+}
+
+.bard-welcome-eyebrow {
+  margin: 0 0 10px;
+  color: #87501d;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.bard-welcome-modal h2 {
+  margin: 0;
+  color: #3a1b0d;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.8rem, 5vw, 2.55rem);
+  line-height: 1.08;
+}
+
+.bard-welcome-modal > p:not(.bard-welcome-eyebrow) {
+  margin: 17px auto 0;
+  color: #694622;
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+.bard-welcome-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 27px;
+  gap: 10px;
+}
+
+.bard-button {
+  min-height: 45px;
+  border-radius: 5px;
+  padding: 11px 15px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    filter 150ms ease,
+    transform 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.bard-button:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+}
+
+.bard-button:active {
+  transform: translateY(2px);
+}
+
+.bard-button-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #783110;
+  color: #381602;
+  background: linear-gradient(135deg, #ffe09a, #d4862f 54%, #9b4817);
+  box-shadow:
+    0 4px 0 #5a1d08,
+    0 8px 14px rgba(70, 25, 6, 0.25),
+    inset 0 1px rgba(255, 249, 200, 0.78);
+}
+
+.bard-button-secondary {
+  border: 1px solid rgba(92, 45, 15, 0.55);
+  color: #59361c;
+  background: rgba(255, 236, 174, 0.34);
+  box-shadow: inset 0 1px rgba(255, 252, 211, 0.46);
+}
+
+.bard-status-message {
+  position: fixed;
+  z-index: 101;
+  right: 22px;
+  bottom: 81px;
+  width: min(330px, calc(100% - 44px));
+  margin: 0;
+  border: 1px solid rgba(204, 101, 44, 0.56);
+  border-left: 4px solid #d36b2e;
+  padding: 10px 12px;
+  color: #f1d7a4;
+  background: rgba(36, 10, 5, 0.93);
+  box-shadow: 0 10px 21px rgba(0, 0, 0, 0.42);
+  font-size: 0.74rem;
+  line-height: 1.48;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+/* Accessibilità coerente per tutte le nuove interazioni. */
+.bard-toggle:focus-visible,
+.bard-button:focus-visible,
+.bard-volume input:focus-visible {
+  outline: 3px solid #ffe3a2;
+  outline-offset: 3px;
+}
+
+@media (max-width: 760px) {
+  body {
+    background-attachment: scroll;
+    background-size: auto, auto, auto, auto 1000px;
+  }
+
+  .dashboard-page {
+    background-attachment: scroll;
+    background-position: center, center, 57% top;
+  }
+
+  .bard-player {
+    right: 14px;
+    bottom: 14px;
+  }
+
+  .bard-toggle {
+    min-height: 44px;
+    padding: 9px 11px;
+  }
+
+  .bard-toggle span:last-child {
+    display: none;
+  }
+
+  .bard-volume {
+    width: 92px;
+  }
+
+  .bard-status-message {
+    right: 14px;
+    bottom: 69px;
+    width: min(310px, calc(100% - 28px));
+  }
+
+  .bard-welcome-backdrop {
+    padding: 15px;
+  }
+
+  .bard-welcome-modal {
+    border-width: 7px;
+    padding: 37px 23px 30px;
+  }
+
+  .bard-welcome-actions {
+    flex-direction: column;
+  }
+
+  .bard-button {
+    width: 100%;
+  }
+
+  .build-form {
+    background-position: center, right -58px bottom -42px, 44% 2%, center, center;
+    background-size: auto, 180px, 540px, auto, auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .tavern-ember {
+    display: none;
+  }
+
+  .bard-volume {
+    display: none;
+  }
+
+  .bard-player {
+    right: 12px;
+    bottom: 12px;
+  }
+
+  .bard-status-message {
+    right: 12px;
+    bottom: 65px;
+    width: min(290px, calc(100% - 24px));
+  }
+
+  .bard-welcome-modal h2 {
+    font-size: 1.85rem;
+  }
+
+  .bard-welcome-modal > p:not(.bard-welcome-eyebrow) {
+    font-size: 0.87rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tavern-ember {
+    display: none;
+  }
+}

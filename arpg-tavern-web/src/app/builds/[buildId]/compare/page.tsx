@@ -85,13 +85,13 @@ export default function CompareBuildPage() {
     if (!user || !buildId) {
       return;
     }
-
+const userId = user.uid;
     async function loadComparableData() {
       setIsLoading(true);
       setErrorMessage("");
 
       try {
-        const buildReference = doc(db, "users", user.uid, "builds", buildId);
+        const buildReference = doc(db, "users", userId, "builds", buildId);
         const buildSnapshot = await getDoc(buildReference);
 
         if (!buildSnapshot.exists()) {
@@ -115,12 +115,12 @@ export default function CompareBuildPage() {
         };
 
         const variantsQuery = query(
-          collection(db, "users", user.uid, "builds", buildId, "variants"),
+          collection(db, "users", userId, "builds", buildId, "variants"),
           orderBy("createdAt", "desc")
         );
 
         const versionsQuery = query(
-          collection(db, "users", user.uid, "builds", buildId, "versions"),
+          collection(db, "users", userId, "builds", buildId, "versions"),
           orderBy("createdAt", "desc")
         );
 
