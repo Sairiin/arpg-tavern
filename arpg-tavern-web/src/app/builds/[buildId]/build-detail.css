@@ -572,3 +572,38 @@
     margin-top: 3px;
   }
 }
+.build-detail-hero-actions {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 10px;
+}
+
+.compare-build-link {
+  border: 1px solid rgba(243, 183, 88, 0.56);
+  border-radius: 4px;
+  padding: 8px 11px;
+  color: #f1d39b;
+  background: linear-gradient(135deg, #6f3618, #2d1007);
+  box-shadow:
+    0 3px 0 #170604,
+    inset 0 1px rgba(255, 205, 113, 0.15);
+  font-size: 0.72rem;
+  text-decoration: none;
+}
+
+.compare-build-link:hover {
+  color: #fff0c7;
+  filter: brightness(1.12);
+}
+
+@media (max-width: 640px) {
+  .build-detail-hero-actions {
+    width: 100%;
+  }
+
+  .build-detail-hero-actions > * {
+    flex: 1;
+    text-align: center;
+  }
+}

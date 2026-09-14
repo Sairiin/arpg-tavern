@@ -332,13 +332,19 @@ export default function BuildDetailPage() {
           </p>
         </div>
 
-        <button
-          className="delete-build-button"
-          type="button"
-          onClick={removeBuild}
-        >
-          Elimina build
-        </button>
+        <div className="build-detail-hero-actions">
+          <Link className="compare-build-link" href={`/builds/${buildId}/compare`}>
+            Confronta build
+          </Link>
+
+          <button
+            className="delete-build-button"
+            type="button"
+            onClick={removeBuild}
+          >
+            Elimina build
+          </button>
+        </div>
       </section>
 
       <div className="build-detail-layout">
