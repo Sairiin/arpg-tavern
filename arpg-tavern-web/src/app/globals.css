@@ -2,7 +2,7 @@
 @import "tailwindcss";
 
 :root {
-  --night: #0c0806;
+  --night: #080403;
   --deep-wood: #211009;
   --wood: #582818;
   --wood-light: #89502c;
@@ -12,6 +12,14 @@
   --muted: #c4ad8b;
   --ink: #3d2110;
   --paper: #e6c27d;
+  --font-tavern-display: "Trade Winds", Georgia, "Times New Roman", serif;
+  --font-tavern-body: Georgia, "Times New Roman", serif;
+  --tavern-parchment-image: url("/images/tavern-parchment.jpg");
+  --tavern-button-border: rgba(239, 184, 91, 0.6);
+  --tavern-button-text: #eed7a6;
+  --tavern-button-text-hover: #fff1ca;
+  --tavern-button-shadow: #160603;
+  --tavern-button-focus: #ffe3a2;
 }
 
 * {
@@ -27,15 +35,46 @@ body {
   min-width: 320px;
   margin: 0;
   color: var(--cream);
+  background-color: var(--night);
+  background-image:
+    radial-gradient(circle at 18% -8%, rgba(235, 119, 39, 0.19), transparent 30rem),
+    radial-gradient(circle at 94% 41%, rgba(134, 54, 20, 0.14), transparent 33rem),
+    linear-gradient(180deg, rgba(11, 5, 3, 0.62), rgba(8, 4, 3, 0.91)),
+    url("/images/tavern-stone-wall.webp");
+  background-attachment: fixed, fixed, fixed, fixed;
+  background-position: center top, right 36%, center, center;
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+  background-size: auto, auto, auto, 980px auto;
+  font-family: var(--font-tavern-body);
+  font-weight: 500;
+  line-height: 1.55;
+}
+
+body::before {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  content: "";
+  pointer-events: none;
   background:
-    radial-gradient(circle at 50% 0%, rgba(158, 80, 30, 0.16), transparent 28rem),
-    linear-gradient(180deg, #140b07, #0a0604);
-  font-family: Arial, Helvetica, sans-serif;
+    radial-gradient(ellipse at 50% 18%, transparent 10%, rgba(3, 1, 1, 0.24) 69%, rgba(0, 0, 0, 0.68) 100%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.33), transparent 19%, transparent 81%, rgba(0, 0, 0, 0.33));
 }
 
 a {
   color: inherit;
   text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
 }
 
 .site-shell {
@@ -44,38 +83,352 @@ a {
   background:
     radial-gradient(circle at 10% 34%, rgba(108, 48, 21, 0.18), transparent 24rem),
     radial-gradient(circle at 90% 60%, rgba(103, 46, 21, 0.14), transparent 27rem),
-    linear-gradient(180deg, #140b07 0%, #0c0705 100%);
+    linear-gradient(180deg, rgba(20, 11, 7, 0.76), rgba(12, 7, 5, 0.9));
 }
 
+/* Shared tavern buttons */
+.button,
+.bard-toggle,
+.bard-button,
+.google-sign-in-button,
+.adventurer-menu button,
+.dashboard-card button,
+.build-editor-page .back-home-link,
+.back-home-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  overflow: hidden;
+  border: 1px solid var(--tavern-button-border);
+  border-radius: 6px;
+  padding: 10px 14px;
+  color: var(--tavern-button-text);
+  background-color: #351408;
+  background-image:
+    linear-gradient(180deg, rgba(255, 216, 138, 0.16) 0%, transparent 32%, rgba(0, 0, 0, 0.22) 100%),
+    url("/images/tavern-dark-oak-texture.webp");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto, cover;
+  box-shadow:
+    0 4px 0 var(--tavern-button-shadow),
+    0 10px 21px rgba(0, 0, 0, 0.55),
+    inset 0 1px rgba(255, 230, 164, 0.27),
+    inset 0 -8px 12px rgba(0, 0, 0, 0.28);
+  font-family: var(--font-tavern-display);
+  font-size: 0.74rem;
+  font-weight: 400;
+  letter-spacing: 0.025em;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.86);
+  transition: transform 160ms ease, filter 160ms ease, box-shadow 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.button::before,
+.bard-toggle::before,
+.bard-button::before,
+.google-sign-in-button::before,
+.adventurer-menu button::before,
+.dashboard-card button::before,
+.build-editor-page .back-home-link::before,
+.back-home-link::before {
+  position: absolute;
+  inset: 1px 2px auto;
+  height: 38%;
+  border-radius: 4px 4px 50% 50%;
+  content: "";
+  opacity: 0.35;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 238, 177, 0.27), transparent);
+}
+
+.button > *,
+.bard-toggle > *,
+.bard-button > *,
+.google-sign-in-button > *,
+.adventurer-menu button > *,
+.dashboard-card button > *,
+.build-editor-page .back-home-link > *,
+.back-home-link > * {
+  position: relative;
+  z-index: 1;
+}
+
+.button:hover:not(:disabled),
+.bard-toggle:hover:not(:disabled),
+.bard-button:hover:not(:disabled),
+.google-sign-in-button:hover:not(:disabled),
+.adventurer-menu button:hover:not(:disabled),
+.dashboard-card button:hover:not(:disabled),
+.build-editor-page .back-home-link:hover,
+.back-home-link:hover {
+  border-color: #ffd06c;
+  color: var(--tavern-button-text-hover);
+  filter: brightness(1.14);
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 0 var(--tavern-button-shadow),
+    0 14px 24px rgba(0, 0, 0, 0.58),
+    inset 0 1px rgba(255, 231, 170, 0.38),
+    inset 0 -8px 12px rgba(0, 0, 0, 0.24);
+}
+
+.button:active:not(:disabled),
+.bard-toggle:active:not(:disabled),
+.bard-button:active:not(:disabled),
+.google-sign-in-button:active:not(:disabled),
+.adventurer-menu button:active:not(:disabled),
+.dashboard-card button:active:not(:disabled),
+.build-editor-page .back-home-link:active,
+.back-home-link:active {
+  transform: translateY(3px);
+  box-shadow:
+    0 1px 0 var(--tavern-button-shadow),
+    0 4px 9px rgba(0, 0, 0, 0.5),
+    inset 0 3px 8px rgba(0, 0, 0, 0.36);
+}
+
+.button:focus-visible,
+.bard-toggle:focus-visible,
+.bard-button:focus-visible,
+.google-sign-in-button:focus-visible,
+.adventurer-menu button:focus-visible,
+.dashboard-card button:focus-visible,
+.build-editor-page .back-home-link:focus-visible,
+.back-home-link:focus-visible,
+.bard-skip-button:focus-visible {
+  outline: 3px solid var(--tavern-button-focus);
+  outline-offset: 4px;
+}
+
+.button:disabled,
+.bard-toggle:disabled,
+.bard-button:disabled,
+.google-sign-in-button:disabled,
+.adventurer-menu button:disabled,
+.dashboard-card button:disabled {
+  cursor: not-allowed;
+  filter: grayscale(0.55) brightness(0.72);
+  opacity: 0.66;
+}
+
+.button-gold,
+.bard-button-primary {
+  border-color: #ffd06c;
+  color: #fff1c9;
+  background-image:
+    radial-gradient(circle at 24% 21%, rgba(255, 191, 73, 0.38), transparent 42%),
+    linear-gradient(180deg, rgba(255, 227, 147, 0.2), transparent 34%, rgba(0, 0, 0, 0.22)),
+    url("/images/tavern-dark-oak-texture.webp");
+  background-size: auto, auto, cover;
+  box-shadow:
+    0 4px 0 var(--tavern-button-shadow),
+    0 0 22px rgba(241, 133, 38, 0.29),
+    0 10px 21px rgba(0, 0, 0, 0.55),
+    inset 0 1px rgba(255, 235, 177, 0.38),
+    inset 0 -8px 12px rgba(0, 0, 0, 0.28);
+}
+
+.button-wood,
+.bard-button-secondary {
+  color: #ead3a2;
+  background-image:
+    linear-gradient(180deg, rgba(255, 205, 114, 0.11), transparent 32%, rgba(0, 0, 0, 0.28)),
+    url("/images/tavern-dark-oak-texture.webp");
+}
+
+.button-rune {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  border: 1px solid rgba(255, 220, 135, 0.43);
+  border-radius: 50%;
+  color: #ffe09a;
+  background: rgba(43, 14, 5, 0.62);
+  box-shadow: inset 0 1px rgba(255, 227, 159, 0.18);
+  font-size: 0.65rem;
+}
+
+.button-arrow {
+  margin-left: 2px;
+  font-size: 1rem;
+  transition: transform 180ms ease;
+}
+
+.button:hover .button-arrow {
+  transform: translateX(4px);
+}
+
+/* Home facade */
+.tavern-facade-header {
+  position: relative;
+  z-index: 5;
+  min-height: 370px;
+  overflow: hidden;
+  isolation: isolate;
+  border-bottom: 1px solid rgba(242, 184, 84, 0.26);
+  background: #120906;
+  box-shadow: 0 13px 34px rgba(0, 0, 0, 0.62), inset 0 -22px 35px rgba(0, 0, 0, 0.44);
+}
+
+.tavern-facade-background {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(5, 3, 2, 0.1) 0%, rgba(7, 3, 2, 0.04) 43%, rgba(5, 2, 1, 0.61) 100%),
+    url("/images/tavern-facade-header.webp") center top / cover no-repeat;
+}
+
+.tavern-facade-header::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 11% 48%, rgba(255, 174, 71, 0.2), transparent 10rem),
+    radial-gradient(ellipse at 89% 48%, rgba(255, 174, 71, 0.2), transparent 10rem),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.23), transparent 18%, transparent 82%, rgba(0, 0, 0, 0.23));
+  mix-blend-mode: screen;
+}
+
+.tavern-facade-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: min(1100px, calc(100% - 48px));
+  min-height: 370px;
+  margin: 0 auto;
+  padding: 24px 0 28px;
+}
+
+.tavern-facade-signboard-link {
+  display: block;
+  width: min(81vw, 790px);
+  max-width: 100%;
+  margin-top: 12px;
+  outline: none;
+  filter: drop-shadow(0 6px 2px rgba(0, 0, 0, 0.6)) drop-shadow(0 16px 17px rgba(0, 0, 0, 0.46));
+  transition: filter 180ms ease, transform 180ms ease;
+}
+
+.tavern-facade-signboard-link:hover {
+  filter: brightness(1.08) drop-shadow(0 7px 3px rgba(0, 0, 0, 0.67)) drop-shadow(0 20px 20px rgba(0, 0, 0, 0.5));
+  transform: translateY(-2px);
+}
+
+.tavern-facade-signboard-link:focus-visible {
+  outline: 3px solid #ffe19a;
+  outline-offset: 8px;
+}
+
+.tavern-facade-signboard,
+.tavern-signboard {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+  pointer-events: none;
+}
+
+.tavern-facade-navigation {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(100%, 760px);
+  min-height: 61px;
+  margin-top: auto;
+  padding: 9px 28px 11px;
+  gap: clamp(13px, 2.7vw, 30px);
+  background:
+    linear-gradient(180deg, rgba(255, 203, 106, 0.08), transparent 32%, rgba(0, 0, 0, 0.2)),
+    url("/images/tavern-nav-plank.webp") center / 100% 100% no-repeat;
+  filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.48));
+}
+
+.tavern-facade-navigation::before,
+.tavern-facade-navigation::after {
+  position: absolute;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border: 1px solid rgba(26, 10, 5, 0.86);
+  border-radius: 50%;
+  content: "";
+  background: radial-gradient(circle at 33% 28%, #8f6a3d, #211007 65%);
+  box-shadow: inset 0 1px rgba(255, 210, 139, 0.2), 0 1px 2px rgba(0, 0, 0, 0.66);
+  transform: translateY(-50%);
+}
+
+.tavern-facade-navigation::before { left: 17px; }
+.tavern-facade-navigation::after { right: 17px; }
+
+.tavern-facade-navigation a {
+  position: relative;
+  z-index: 1;
+  color: #ead0a0;
+  font-family: var(--font-tavern-display);
+  font-size: clamp(0.62rem, 1.2vw, 0.78rem);
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-align: center;
+  text-shadow: 0 1px 1px #160703, 0 0 10px rgba(0, 0, 0, 0.76);
+  transition: color 150ms ease, filter 150ms ease, transform 150ms ease;
+}
+
+.tavern-facade-navigation a:not(:last-child)::after {
+  position: absolute;
+  top: 50%;
+  right: calc(clamp(13px, 2.7vw, 30px) / -2);
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  content: "";
+  background: #c58b45;
+  box-shadow: 0 0 7px rgba(240, 172, 73, 0.58);
+  transform: translate(50%, -50%);
+}
+
+.tavern-facade-navigation a:hover {
+  color: #fff0bd;
+  filter: drop-shadow(0 0 7px rgba(255, 179, 62, 0.68));
+  transform: translateY(-1px);
+}
+
+.tavern-facade-navigation a:focus-visible {
+  outline: 2px solid #ffe2a0;
+  outline-offset: 5px;
+}
+
+.tavern-facade-navigation-cta { color: #ffd989 !important; }
+
+/* Home hero and content */
 .hero-scene {
   position: relative;
-  min-height: min(830px, 100vh);
+  min-height: min(650px, 82vh);
   overflow: hidden;
-  background-image: url("/images/tavern-hero.webp");
-  background-position: center center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  isolation: isolate;
+  background: url("/images/tavern-hero.webp") center 46% / cover no-repeat;
   box-shadow: inset 0 -110px 80px rgba(8, 4, 3, 0.8);
 }
 
 .hero-overlay {
   position: absolute;
+  z-index: 0;
   inset: 0;
-  background:
-    linear-gradient(
-      90deg,
-      rgba(10, 5, 3, 0.94) 0%,
-      rgba(18, 9, 5, 0.8) 31%,
-      rgba(18, 9, 5, 0.34) 62%,
-      rgba(8, 4, 3, 0.17) 100%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(5, 3, 2, 0.51) 0%,
-      transparent 35%,
-      rgba(8, 4, 3, 0.72) 100%
-    );
   pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(10, 5, 3, 0.94) 0%, rgba(18, 9, 5, 0.8) 31%, rgba(18, 9, 5, 0.34) 62%, rgba(8, 4, 3, 0.17) 100%),
+    linear-gradient(180deg, rgba(5, 3, 2, 0.51) 0%, transparent 35%, rgba(8, 4, 3, 0.72) 100%);
 }
 
 .hero-scene::before {
@@ -85,97 +438,22 @@ a {
   content: "";
   opacity: 0.38;
   pointer-events: none;
-  background-image:
-    repeating-linear-gradient(
-      90deg,
-      rgba(255, 216, 152, 0.025) 0 1px,
-      transparent 1px 7px
-    ),
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 216, 152, 0.025) 0 1px, transparent 1px 7px),
     radial-gradient(circle at 74% 33%, rgba(255, 169, 65, 0.22), transparent 18rem);
   mix-blend-mode: screen;
 }
 
-.topbar {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: min(1180px, calc(100% - 48px));
-  margin: 0 auto;
-  padding: 28px 0;
-  gap: 20px;
-}
-
-.brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 11px;
-  color: var(--gold-light);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.08rem;
-  font-weight: 700;
-  letter-spacing: 0.075em;
-  text-transform: uppercase;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
-}
-
-.brand-mark {
-  display: grid;
-  width: 38px;
-  height: 38px;
-  place-items: center;
-  border: 1px solid rgba(255, 220, 140, 0.73);
-  border-radius: 50%;
-  color: #fff0ad;
+.hero-scene::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  content: "";
+  pointer-events: none;
   background:
-    radial-gradient(circle, rgba(254, 175, 52, 0.65), rgba(82, 28, 10, 0.72) 67%),
-    #3d1609;
-  box-shadow:
-    0 0 23px rgba(248, 136, 41, 0.36),
-    inset 0 0 13px rgba(255, 230, 151, 0.38);
-}
-
-.brand-text small {
-  display: block;
-  margin-bottom: 3px;
-  color: #c8a673;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 0.48rem;
-  font-weight: 700;
-  letter-spacing: 0.17em;
-}
-
-.navigation {
-  display: flex;
-  gap: 28px;
-  color: #ddc5a0;
-  font-size: 0.77rem;
-}
-
-.navigation a {
-  transition: color 180ms ease;
-}
-
-.navigation a:hover {
-  color: #ffe1a1;
-}
-
-.music-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  border: 1px solid rgba(229, 173, 84, 0.34);
-  border-radius: 999px;
-  padding: 8px 12px;
-  color: #c3a67d;
-  background: rgba(16, 7, 4, 0.54);
-  font-size: 0.68rem;
-  box-shadow: inset 0 1px rgba(255, 218, 148, 0.08);
-}
-
-.music-status span {
-  color: var(--gold);
+    radial-gradient(ellipse at 73% 55%, rgba(255, 165, 65, 0.16) 0%, rgba(181, 68, 22, 0.06) 25%, transparent 51%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.31), transparent 32%, rgba(4, 2, 1, 0.66) 100%);
+  mix-blend-mode: screen;
 }
 
 .hero-content {
@@ -186,7 +464,7 @@ a {
   flex-direction: column;
   justify-content: center;
   width: min(1180px, calc(100% - 48px));
-  min-height: 670px;
+  min-height: 650px;
   margin: 0 auto;
   padding-bottom: 74px;
 }
@@ -194,10 +472,10 @@ a {
 .eyebrow {
   margin: 0 0 16px;
   color: var(--gold);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-tavern-body);
   font-size: 0.68rem;
   font-weight: 700;
-  letter-spacing: 0.19em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
 }
 
@@ -205,19 +483,17 @@ a {
 .section-heading h2,
 .map-card h2 {
   margin: 0;
-  font-family: Georgia, "Times New Roman", serif;
-  font-weight: 700;
+  font-family: var(--font-tavern-display);
+  font-weight: 400;
 }
 
 .hero-content h1 {
   max-width: 780px;
   color: #fff0ce;
-  font-size: clamp(3rem, 6.2vw, 6.5rem);
-  line-height: 0.99;
-  letter-spacing: -0.07em;
-  text-shadow:
-    0 5px 22px rgba(0, 0, 0, 0.8),
-    0 0 48px rgba(237, 138, 51, 0.12);
+  font-size: clamp(3rem, 6.2vw, 6.1rem);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  text-shadow: 0 5px 22px rgba(0, 0, 0, 0.8), 0 0 48px rgba(237, 138, 51, 0.12);
 }
 
 .hero-content h1 span {
@@ -238,53 +514,6 @@ a {
   flex-wrap: wrap;
   margin-top: 33px;
   gap: 12px;
-}
-
-.button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 166px;
-  border: 1px solid transparent;
-  border-radius: 5px;
-  padding: 14px 18px;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.055em;
-  transition:
-    transform 170ms ease,
-    filter 170ms ease,
-    box-shadow 170ms ease;
-}
-
-.button:hover {
-  filter: brightness(1.1);
-  transform: translateY(-2px);
-}
-
-.button-gold {
-  gap: 10px;
-  color: #351804;
-  background: linear-gradient(135deg, #ffde91, #b66a25);
-  box-shadow:
-    0 8px 20px rgba(0, 0, 0, 0.42),
-    inset 0 1px rgba(255, 249, 198, 0.76);
-}
-
-.button-dark {
-  border-color: rgba(232, 179, 92, 0.42);
-  color: #ebd3a4;
-  background:
-    repeating-linear-gradient(
-      90deg,
-      rgba(255, 175, 78, 0.05) 0 2px,
-      transparent 2px 17px
-    ),
-    linear-gradient(135deg, rgba(89, 39, 18, 0.9), rgba(28, 11, 7, 0.94));
-  box-shadow:
-    0 8px 20px rgba(0, 0, 0, 0.4),
-    inset 0 1px rgba(255, 197, 108, 0.1);
 }
 
 .hero-note {
@@ -308,10 +537,124 @@ a {
   bottom: -1px;
   left: 0;
   height: 160px;
+  pointer-events: none;
   background: linear-gradient(transparent, #120a06);
+}
+
+/* Door motto */
+.tavern-door-motto {
+  position: relative;
+  z-index: 4;
+  display: grid;
+  min-height: 285px;
+  overflow: hidden;
+  place-items: center;
+  border-top: 1px solid rgba(243, 182, 79, 0.14);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.75);
+  padding: 48px 24px;
+  isolation: isolate;
+  background:
+    linear-gradient(90deg, rgba(5, 2, 1, 0.71), rgba(14, 6, 3, 0.26) 29%, rgba(14, 6, 3, 0.21) 71%, rgba(5, 2, 1, 0.73)),
+    linear-gradient(180deg, rgba(255, 164, 62, 0.08), transparent 34%, rgba(0, 0, 0, 0.55)),
+    url("/images/tavern-dark-oak-texture.webp") center / cover no-repeat;
+  box-shadow: inset 0 13px 28px rgba(0, 0, 0, 0.55), inset 0 -17px 30px rgba(0, 0, 0, 0.72), 0 12px 26px rgba(0, 0, 0, 0.42);
+}
+
+.tavern-door-motto::before {
+  position: absolute;
+  z-index: -1;
+  inset: 15px;
+  border: 11px solid rgba(31, 11, 5, 0.76);
+  border-radius: 3px;
+  content: "";
+  box-shadow: inset 0 0 0 1px rgba(213, 149, 60, 0.2), 0 4px 8px rgba(0, 0, 0, 0.44);
   pointer-events: none;
 }
 
+.tavern-door-motto::after {
+  position: absolute;
+  z-index: -1;
+  inset: 31px;
+  content: "";
+  opacity: 0.28;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 12.4%, rgba(5, 1, 1, 0.64) 12.4% 13.1%, transparent 13.1% 25%),
+    repeating-linear-gradient(0deg, rgba(255, 191, 94, 0.025) 0 1px, transparent 1px 8px);
+}
+
+.tavern-door-motto-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  text-align: center;
+}
+
+.tavern-door-motto-kicker {
+  margin: 0 0 15px;
+  color: rgba(240, 183, 96, 0.74);
+  font-family: var(--font-tavern-body);
+  font-size: 0.69rem;
+  font-weight: 700;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  text-shadow: 0 2px 3px rgba(0, 0, 0, 0.85);
+}
+
+.tavern-door-motto h1 {
+  margin: 0;
+  color: #f4ca76;
+  font-family: var(--font-tavern-display);
+  font-size: clamp(2rem, 5.3vw, 4.8rem);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.04;
+  text-shadow:
+    -1px -1px 0 rgba(255, 232, 163, 0.72),
+    1px 1px 0 #431405,
+    2px 2px 0 #210904,
+    4px 5px 7px rgba(0, 0, 0, 0.88),
+    0 0 10px rgba(242, 133, 39, 0.34),
+    0 0 24px rgba(211, 82, 20, 0.16);
+}
+
+.tavern-door-motto h1 span {
+  display: block;
+  margin-top: 8px;
+  color: #e7ad59;
+  font-size: 0.62em;
+  text-shadow:
+    -1px -1px 0 rgba(255, 226, 150, 0.58),
+    1px 1px 0 #431405,
+    2px 2px 0 #210904,
+    3px 4px 6px rgba(0, 0, 0, 0.84),
+    0 0 8px rgba(238, 125, 32, 0.26);
+}
+
+.tavern-door-motto-rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 22px auto 0;
+  gap: 10px;
+  color: rgba(231, 163, 73, 0.75);
+}
+
+.tavern-door-motto-rule::before,
+.tavern-door-motto-rule::after {
+  width: 74px;
+  height: 1px;
+  content: "";
+  background: linear-gradient(90deg, transparent, rgba(228, 165, 75, 0.62), transparent);
+}
+
+.tavern-door-motto-rule span {
+  color: #e3a34b;
+  font-size: 0.82rem;
+  text-shadow: 0 0 11px rgba(255, 147, 42, 0.48);
+}
+
+/* Home sections */
 .features-section,
 .games-section,
 .journey-section {
@@ -319,9 +662,9 @@ a {
   margin: 0 auto;
 }
 
-.features-section {
-  padding: 77px 0 31px;
-}
+.features-section { padding: 77px 0 31px; }
+.games-section { padding: 81px 0 30px; }
+.journey-section { padding: 66px 0 80px; }
 
 .section-heading {
   max-width: 670px;
@@ -356,44 +699,28 @@ a {
   border: 1px solid #947042;
   border-radius: 3px;
   padding: 28px 21px 24px;
-  color: var(--ink);
-  background:
-    radial-gradient(circle at 12% 10%, rgba(255, 250, 193, 0.88), transparent 4rem),
-    repeating-linear-gradient(
-      0deg,
-      rgba(88, 50, 15, 0.047) 0 1px,
-      transparent 1px 5px
-    ),
-    linear-gradient(135deg, #d3a765, #f0d496 52%, #c59454);
-  box-shadow:
-    0 16px 25px rgba(0, 0, 0, 0.4),
-    inset 0 0 27px rgba(89, 45, 12, 0.22);
-  transition:
-    transform 180ms ease,
-    box-shadow 180ms ease;
+  color: #3f210e;
+  background-color: #dfba70;
+  background-image:
+    radial-gradient(circle at 12% 10%, rgba(255, 252, 210, 0.46), transparent 9rem),
+    linear-gradient(135deg, rgba(99, 48, 12, 0.07), transparent 43%, rgba(79, 34, 9, 0.13)),
+    var(--tavern-parchment-image);
+  background-position: center;
+  background-repeat: no-repeat, no-repeat, repeat;
+  background-size: auto, auto, 410px auto;
+  background-blend-mode: screen, multiply, normal;
+  box-shadow: 0 16px 25px rgba(0, 0, 0, 0.4), inset 0 0 27px rgba(89, 45, 12, 0.22);
+  transition: transform 180ms ease, box-shadow 180ms ease;
 }
 
 .feature-card:hover {
-  box-shadow:
-    0 21px 31px rgba(0, 0, 0, 0.5),
-    inset 0 0 27px rgba(89, 45, 12, 0.2);
-  transform: translateY(-5px) rotate(0deg);
+  box-shadow: 0 21px 31px rgba(0, 0, 0, 0.5), inset 0 0 27px rgba(89, 45, 12, 0.2);
+  transform: translateY(-5px);
 }
 
-.feature-card:nth-child(2) {
-  margin-top: 12px;
-  transform: rotate(1deg);
-}
-
-.feature-card:nth-child(3) {
-  margin-top: 5px;
-  transform: rotate(-1deg);
-}
-
-.feature-card:nth-child(4) {
-  margin-top: 16px;
-  transform: rotate(0.7deg);
-}
+.feature-card:nth-child(2) { margin-top: 12px; transform: rotate(1deg); }
+.feature-card:nth-child(3) { margin-top: 5px; transform: rotate(-1deg); }
+.feature-card:nth-child(4) { margin-top: 16px; transform: rotate(0.7deg); }
 
 .feature-icon {
   display: grid;
@@ -404,47 +731,34 @@ a {
   border: 2px solid #781b0f;
   border-radius: 50%;
   color: #ffd486;
-  background:
-    radial-gradient(circle at 36% 28%, #eb5e39, #8c2114 64%, #4b0b08);
-  box-shadow:
-    0 3px 5px rgba(75, 17, 7, 0.42),
-    inset 2px 2px 5px rgba(255, 188, 111, 0.27);
+  background: radial-gradient(circle at 36% 28%, #eb5e39, #8c2114 64%, #4b0b08);
+  box-shadow: 0 3px 5px rgba(75, 17, 7, 0.42), inset 2px 2px 5px rgba(255, 188, 111, 0.27);
   font-size: 1.24rem;
 }
 
 .feature-card h3 {
   margin: 0;
-  color: #3c1f0f;
-  font-family: Georgia, "Times New Roman", serif;
+  color: #3c1c0b;
+  font-family: var(--font-tavern-display);
   font-size: 1.06rem;
+  font-weight: 400;
 }
 
 .feature-card p {
   margin: 12px 0 0;
-  color: #624124;
+  color: #624021;
   font-size: 0.87rem;
   line-height: 1.66;
 }
 
 .card-mark {
   position: absolute;
-  color: rgba(91, 48, 15, 0.48);
+  color: rgba(88, 42, 12, 0.45);
   font-size: 0.65rem;
 }
 
-.card-mark-top {
-  top: 12px;
-  right: 12px;
-}
-
-.card-mark-bottom {
-  bottom: 12px;
-  left: 12px;
-}
-
-.games-section {
-  padding: 81px 0 30px;
-}
+.card-mark-top { top: 12px; right: 12px; }
+.card-mark-bottom { bottom: 12px; left: 12px; }
 
 .map-card {
   position: relative;
@@ -456,17 +770,17 @@ a {
   outline-offset: -17px;
   padding: clamp(32px, 5vw, 58px);
   gap: 48px;
-  background:
-    radial-gradient(circle at 80% 26%, rgba(100, 70, 26, 0.28), transparent 14rem),
-    repeating-linear-gradient(
-      0deg,
-      rgba(70, 42, 13, 0.075) 0 1px,
-      transparent 1px 6px
-    ),
-    linear-gradient(135deg, #c9954f, #edcf8d 43%, #b97f3f);
-  box-shadow:
-    0 22px 37px rgba(0, 0, 0, 0.45),
-    inset 0 0 40px rgba(70, 38, 11, 0.3);
+  color: #3d210e;
+  background-color: #dfbb72;
+  background-image:
+    radial-gradient(circle at 13% 8%, rgba(255, 252, 209, 0.44), transparent 12rem),
+    linear-gradient(135deg, rgba(103, 52, 14, 0.09), transparent 44%, rgba(70, 29, 8, 0.14)),
+    var(--tavern-parchment-image);
+  background-position: center;
+  background-repeat: no-repeat, no-repeat, repeat;
+  background-size: auto, auto, 460px auto;
+  background-blend-mode: screen, multiply, normal;
+  box-shadow: 0 22px 37px rgba(0, 0, 0, 0.45), inset 0 0 40px rgba(70, 38, 11, 0.3);
 }
 
 .map-card::before {
@@ -483,20 +797,9 @@ a {
   z-index: 1;
 }
 
-.map-card .eyebrow {
-  color: #85521c;
-}
-
-.map-card h2 {
-  color: #33180c;
-  text-shadow: none;
-}
-
-.map-card-content > p:last-child {
-  margin: 15px 0 0;
-  color: #654322;
-  line-height: 1.72;
-}
+.map-card .eyebrow { color: #81501d; }
+.map-card h2 { color: #341708; text-shadow: none; }
+.map-card-content > p:last-child { margin: 15px 0 0; color: #5d3b1c; line-height: 1.72; }
 
 .game-list {
   display: flex;
@@ -509,23 +812,16 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  border: 1px solid rgba(70, 35, 11, 0.35);
+  border: 1px solid rgba(76, 35, 10, 0.38);
   border-radius: 999px;
   padding: 10px 12px;
-  color: #4b2911;
-  background: rgba(255, 239, 181, 0.3);
-  box-shadow: inset 0 1px rgba(255, 252, 208, 0.4);
+  color: #48240f;
+  background: rgba(255, 239, 184, 0.32);
+  box-shadow: inset 0 1px rgba(255, 252, 211, 0.55), 0 1px rgba(92, 44, 12, 0.1);
   font-size: 0.78rem;
 }
 
-.game-pill b {
-  color: #8d3e16;
-  font-size: 0.57rem;
-}
-
-.journey-section {
-  padding: 66px 0 80px;
-}
+.game-pill b { color: #873b16; font-size: 0.57rem; }
 
 .quest-board {
   overflow: hidden;
@@ -534,20 +830,10 @@ a {
   outline-offset: -19px;
   padding: clamp(30px, 5vw, 54px);
   background:
-    repeating-linear-gradient(
-      90deg,
-      rgba(255, 172, 76, 0.06) 0 2px,
-      transparent 2px 23px
-    ),
-    repeating-linear-gradient(
-      0deg,
-      rgba(7, 2, 1, 0.22) 0 2px,
-      transparent 2px 48px
-    ),
+    repeating-linear-gradient(90deg, rgba(255, 172, 76, 0.06) 0 2px, transparent 2px 23px),
+    repeating-linear-gradient(0deg, rgba(7, 2, 1, 0.22) 0 2px, transparent 2px 48px),
     linear-gradient(110deg, #3d190c, #713419 50%, #2d1108);
-  box-shadow:
-    0 20px 36px rgba(0, 0, 0, 0.46),
-    inset 0 0 42px rgba(0, 0, 0, 0.44);
+  box-shadow: 0 20px 36px rgba(0, 0, 0, 0.46), inset 0 0 42px rgba(0, 0, 0, 0.44);
 }
 
 .quest-board-title {
@@ -557,16 +843,14 @@ a {
   gap: 15px;
   margin-bottom: 29px;
   color: #f4d091;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-tavern-display);
   font-size: clamp(1.25rem, 3vw, 1.85rem);
-  font-weight: 700;
+  font-weight: 400;
   text-align: center;
   text-shadow: 0 2px 6px #130603;
 }
 
-.quest-board-title span {
-  color: #dc9538;
-}
+.quest-board-title span { color: #dc9538; }
 
 .quest-list {
   display: grid;
@@ -583,25 +867,9 @@ a {
   background: rgba(14, 5, 3, 0.26);
 }
 
-.quest-list b {
-  color: #e9ad57;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.35rem;
-}
-
-.quest-list h3 {
-  margin: 2px 0 0;
-  color: #e8d0a5;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 0.94rem;
-}
-
-.quest-list p {
-  margin: 8px 0 0;
-  color: #bb9c76;
-  font-size: 0.77rem;
-  line-height: 1.57;
-}
+.quest-list b { color: #e9ad57; font-family: var(--font-tavern-display); font-size: 1.2rem; font-weight: 400; }
+.quest-list h3 { margin: 2px 0 0; color: #e8d0a5; font-family: var(--font-tavern-display); font-size: 0.88rem; font-weight: 400; }
+.quest-list p { margin: 8px 0 0; color: #bb9c76; font-size: 0.77rem; line-height: 1.57; }
 
 .footer {
   display: flex;
@@ -616,385 +884,41 @@ a {
 
 .footer span:first-child {
   color: #c89b57;
-  font-family: Georgia, "Times New Roman", serif;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-family: var(--font-tavern-display);
+  font-weight: 400;
+  letter-spacing: 0.08em;
 }
 
-@media (max-width: 980px) {
-  .feature-grid,
-  .quest-list {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .feature-card:nth-child(2),
-  .feature-card:nth-child(3),
-  .feature-card:nth-child(4) {
-    margin-top: 0;
-    transform: none;
-  }
-
-  .map-card {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-}
-
-@media (max-width: 720px) {
-  .hero-scene {
-    min-height: 720px;
-    background-position: 63% center;
-  }
-
-  .hero-overlay {
-    background:
-      linear-gradient(
-        90deg,
-        rgba(10, 5, 3, 0.92) 0%,
-        rgba(14, 7, 4, 0.73) 72%,
-        rgba(14, 7, 4, 0.52) 100%
-      ),
-      linear-gradient(180deg, rgba(6, 3, 2, 0.51), rgba(8, 4, 3, 0.72));
-  }
-
-  .topbar {
-    width: min(100% - 30px, 1180px);
-    padding: 20px 0;
-  }
-
-  .navigation {
-    display: none;
-  }
-
-  .brand {
-    font-size: 0.84rem;
-  }
-
-  .brand-text small {
-    font-size: 0.4rem;
-  }
-
-  .brand-mark {
-    width: 33px;
-    height: 33px;
-  }
-
-  .music-status {
-    padding: 7px 9px;
-    font-size: 0.58rem;
-  }
-
-  .hero-content {
-    width: min(100% - 32px, 1180px);
-    min-height: 590px;
-    justify-content: center;
-    padding-bottom: 42px;
-  }
-
-  .hero-content h1 {
-    font-size: clamp(3rem, 14vw, 4.65rem);
-  }
-
-  .hero-description {
-    font-size: 0.97rem;
-  }
-
-  .features-section,
-  .games-section,
-  .journey-section,
-  .footer {
-    width: min(100% - 32px, 1120px);
-  }
-
-  .feature-grid,
-  .quest-list {
-    grid-template-columns: 1fr;
-  }
-
-  .map-card {
-    padding: 35px 28px;
-  }
-
-  .footer {
-    flex-direction: column;
-    gap: 7px;
-    line-height: 1.5;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
-    transition-duration: 0.01ms !important;
-  }
-}
-.music-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid rgba(225, 168, 75, 0.66);
-  border-radius: 7px;
-  padding: 9px 13px;
-  color: #f4dca9;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255, 223, 152, 0.18) 0%,
-      transparent 25%,
-      rgba(0, 0, 0, 0.2) 100%
-    ),
-    linear-gradient(135deg, #714022, #301208);
-  box-shadow:
-    0 4px 0 #170704,
-    0 7px 13px rgba(0, 0, 0, 0.48),
-    inset 0 1px rgba(255, 226, 157, 0.34),
-    inset 0 -4px 8px rgba(0, 0, 0, 0.28);
-  font: inherit;
-  font-size: 0.68rem;
-  cursor: pointer;
-  transition:
-    transform 140ms ease,
-    box-shadow 140ms ease,
-    filter 140ms ease;
-}
-
-.music-button::before {
-  position: absolute;
-  content: "";
-}
-
-.music-button:hover:not(:disabled) {
-  filter: brightness(1.15);
-  transform: translateY(-1px);
-}
-
-.music-button:active:not(:disabled) {
-  transform: translateY(3px);
-  box-shadow:
-    0 1px 0 #170704,
-    0 3px 7px rgba(0, 0, 0, 0.48),
-    inset 0 2px 7px rgba(0, 0, 0, 0.35);
-}
-
-.music-button:focus-visible,
-.button:focus-visible,
-.navigation a:focus-visible {
-  outline: 2px solid #ffe09b;
-  outline-offset: 3px;
-}
-
-.music-button:disabled {
-  cursor: not-allowed;
-  opacity: 0.58;
-}
-
-.music-button.is-playing {
-  border-color: #ffcc61;
-  color: #fff1c9;
-  background:
-    radial-gradient(circle at 25% 20%, rgba(255, 217, 104, 0.26), transparent 36%),
-    linear-gradient(135deg, #8d4d20, #381307);
-  box-shadow:
-    0 4px 0 #170704,
-    0 0 18px rgba(247, 142, 43, 0.35),
-    0 7px 13px rgba(0, 0, 0, 0.48),
-    inset 0 1px rgba(255, 234, 165, 0.45),
-    inset 0 -4px 8px rgba(0, 0, 0, 0.28);
-}
-
-.music-icon {
-  display: grid;
-  width: 19px;
-  height: 19px;
-  place-items: center;
-  border: 1px solid rgba(255, 220, 134, 0.55);
-  border-radius: 50%;
-  color: #ffe293;
-  background: rgba(43, 15, 7, 0.54);
-  font-size: 0.8rem;
-}
-
-.button {
-  position: relative;
-  overflow: hidden;
-  min-height: 49px;
-  border: 1px solid rgba(232, 178, 85, 0.56);
-  border-radius: 7px;
-  padding: 13px 18px;
-  box-shadow:
-    0 5px 0 #230d05,
-    0 9px 18px rgba(0, 0, 0, 0.42),
-    inset 0 1px rgba(255, 233, 166, 0.43),
-    inset 0 -5px 10px rgba(0, 0, 0, 0.2);
-  text-shadow: 0 1px rgba(255, 244, 195, 0.2);
-}
-
-.button::before {
-  position: absolute;
-  inset: 0;
-  content: "";
-  opacity: 0.24;
-  pointer-events: none;
-  background-image:
-    linear-gradient(
-      180deg,
-      rgba(255, 239, 185, 0.52) 0%,
-      transparent 23%,
-      rgba(0, 0, 0, 0.28) 100%
-    ),
-    url("/images/arpg-tavern-ui-textures.png");
-  background-position: center, 8% 8%;
-  background-size: auto, 390px;
-  mix-blend-mode: soft-light;
-}
-
-.button > * {
-  position: relative;
-  z-index: 1;
-}
-
-.button:hover {
-  filter: brightness(1.1) saturate(1.08);
-  transform: translateY(-2px);
-  box-shadow:
-    0 7px 0 #230d05,
-    0 13px 23px rgba(0, 0, 0, 0.46),
-    inset 0 1px rgba(255, 233, 166, 0.48),
-    inset 0 -5px 10px rgba(0, 0, 0, 0.18);
-}
-
-.button:active {
-  transform: translateY(4px);
-  box-shadow:
-    0 1px 0 #230d05,
-    0 4px 8px rgba(0, 0, 0, 0.4),
-    inset 0 3px 8px rgba(0, 0, 0, 0.3);
-}
-
-.button-gold {
-  color: #351804;
-  background:
-    linear-gradient(135deg, #ffdf91 0%, #d79239 44%, #8c4215 100%);
-}
-
-.button-wood {
-  color: #f2d9a8;
-  background:
-    linear-gradient(180deg, rgba(255, 188, 96, 0.12), transparent 28%),
-    repeating-linear-gradient(
-      90deg,
-      rgba(255, 192, 104, 0.08) 0 2px,
-      transparent 2px 19px
-    ),
-    linear-gradient(135deg, #79401f, #381308 62%, #210b06);
-}
-
-.button-rune {
-  display: grid;
-  width: 22px;
-  height: 22px;
-  place-items: center;
-  border: 1px solid rgba(99, 48, 12, 0.35);
-  border-radius: 50%;
-  color: #7a3512;
-  background: rgba(255, 238, 172, 0.32);
-  font-size: 0.65rem;
-}
-
-.button-wood .button-rune {
-  border-color: rgba(255, 211, 121, 0.3);
-  color: #f3c56e;
-  background: rgba(35, 11, 5, 0.38);
-}
-
-.button-arrow {
-  margin-left: 2px;
-  font-size: 1rem;
-  transition: transform 180ms ease;
-}
-
-.button:hover .button-arrow {
-  transform: translateX(4px);
-}
-
-.feature-card {
-  background-image:
-    radial-gradient(circle at 12% 10%, rgba(255, 250, 193, 0.86), transparent 4rem),
-    linear-gradient(rgba(255, 246, 191, 0.03), rgba(79, 40, 11, 0.13)),
-    url("/images/arpg-tavern-ui-textures.png"),
-    repeating-linear-gradient(
-      0deg,
-      rgba(88, 50, 15, 0.047) 0 1px,
-      transparent 1px 5px
-    ),
-    linear-gradient(135deg, #d3a765, #f0d496 52%, #c59454);
-  background-position: center, center, 48% 0%, center, center;
-  background-size: auto, auto, 610px, auto, auto;
-  background-blend-mode: normal, multiply, soft-light, normal, normal;
-}
-
-.map-card {
-  background-image:
-    radial-gradient(circle at 80% 26%, rgba(100, 70, 26, 0.28), transparent 14rem),
-    url("/images/arpg-tavern-ui-textures.png"),
-    repeating-linear-gradient(
-      0deg,
-      rgba(70, 42, 13, 0.075) 0 1px,
-      transparent 1px 6px
-    ),
-    linear-gradient(135deg, #c9954f, #edcf8d 43%, #b97f3f);
-  background-position: center, 51% 1%, center, center;
-  background-size: auto, 760px, auto, auto;
-  background-blend-mode: normal, soft-light, normal, normal;
-}
-
-@media (max-width: 720px) {
-  .music-button {
-    padding: 7px 9px;
-    font-size: 0.58rem;
-  }
-
-  .music-button span:last-child {
-    display: none;
-  }
-
-  .music-icon {
-    width: 20px;
-    height: 20px;
-  }
-
-  .button {
-    min-width: 0;
-    padding: 13px 15px;
-  }
-}
+/* Login */
 .auth-page {
   position: relative;
   min-height: 100vh;
   overflow: hidden;
-  background: #100705;
+  isolation: isolate;
+  background: #0a0503;
 }
 
 .auth-page-background {
   position: absolute;
+  z-index: -2;
   inset: 0;
-  background-image:
-    linear-gradient(
-      90deg,
-      rgba(9, 4, 2, 0.91) 0%,
-      rgba(17, 8, 4, 0.72) 46%,
-      rgba(8, 4, 3, 0.35) 100%
-    ),
-    url("/images/tavern-hero.webp");
-  background-position: center;
-  background-size: cover;
-  box-shadow: inset 0 0 140px rgba(0, 0, 0, 0.64);
+  background:
+    linear-gradient(90deg, rgba(7, 3, 2, 0.93) 0%, rgba(11, 5, 3, 0.8) 38%, rgba(13, 6, 3, 0.46) 67%, rgba(6, 3, 2, 0.62) 100%),
+    linear-gradient(180deg, rgba(2, 1, 1, 0.28) 0%, transparent 34%, rgba(3, 1, 1, 0.77) 100%),
+    url("/images/tavern-hero.webp") 60% center / cover no-repeat;
+  box-shadow: inset 0 0 145px rgba(0, 0, 0, 0.69);
+}
+
+.auth-page::before {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 73% 51%, rgba(247, 139, 45, 0.18), transparent 20rem),
+    radial-gradient(ellipse at 76% 38%, rgba(255, 189, 85, 0.08), transparent 12rem),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.25), transparent 23%, transparent 77%, rgba(0, 0, 0, 0.27));
 }
 
 .auth-topbar,
@@ -1009,18 +933,16 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 28px 0;
+  min-height: 82px;
+  border-bottom: 1px solid rgba(240, 181, 83, 0.26);
+  padding: 0 15px;
+  background:
+    linear-gradient(180deg, rgba(255, 198, 108, 0.1), transparent 43%, rgba(0, 0, 0, 0.32)),
+    url("/images/tavern-dark-oak-texture.webp") center / cover;
+  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.42), inset 0 1px rgba(255, 226, 151, 0.13), inset 0 -1px rgba(0, 0, 0, 0.56);
 }
 
-.back-home-link {
-  color: #d9bd8c;
-  font-size: 0.76rem;
-  transition: color 160ms ease;
-}
-
-.back-home-link:hover {
-  color: #ffe0a0;
-}
+.back-home-link { min-height: 37px; padding: 8px 12px; font-size: 0.68rem; }
 
 .auth-layout {
   display: grid;
@@ -1031,444 +953,82 @@ a {
   gap: 70px;
 }
 
-.auth-story {
-  max-width: 580px;
-}
-
+.auth-story { max-width: 580px; }
 .auth-story h2 {
   margin: 0;
-  color: #fff0c9;
-  font-family: Georgia, "Times New Roman", serif;
+  color: #fff0cf;
+  font-family: var(--font-tavern-display);
   font-size: clamp(2.45rem, 5vw, 5.2rem);
-  line-height: 1;
-  letter-spacing: -0.06em;
-  text-shadow: 0 5px 22px rgba(0, 0, 0, 0.74);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.06;
+  text-shadow: 0 3px 5px rgba(0, 0, 0, 0.91), 0 0 28px rgba(234, 129, 41, 0.15);
 }
-
-.auth-story h2 span {
-  display: block;
-  color: #dfa95b;
-}
-
-.auth-story > p:last-child {
-  max-width: 510px;
-  margin: 24px 0 0;
-  color: #dac49f;
-  font-size: 1rem;
-  line-height: 1.75;
-}
+.auth-story h2 span { display: block; color: #efb35c; }
+.auth-story > p:last-child { max-width: 510px; margin: 24px 0 0; color: #e3cc9f; font-size: 1rem; line-height: 1.75; text-shadow: 0 2px 5px rgba(0, 0, 0, 0.86); }
 
 .auth-panel {
-  border: 9px solid #34170a;
-  outline: 1px solid rgba(235, 174, 78, 0.42);
-  outline-offset: -16px;
+  position: relative;
+  overflow: hidden;
+  border: 10px solid #301206;
+  border-radius: 6px;
+  outline: 1px solid rgba(243, 185, 89, 0.46);
+  outline-offset: -17px;
   padding: 48px 38px 36px;
   color: #43230f;
-  background:
-    radial-gradient(circle at 17% 11%, rgba(255, 249, 191, 0.86), transparent 5rem),
-    url("/images/arpg-tavern-ui-textures.png"),
-    repeating-linear-gradient(
-      0deg,
-      rgba(88, 50, 15, 0.045) 0 1px,
-      transparent 1px 5px
-    ),
-    linear-gradient(135deg, #d0a15d, #f3d89b 50%, #c49350);
-  background-position: center, center, center, center;
-  background-size: auto, 650px, auto, auto;
-  background-blend-mode: normal, soft-light, normal, normal;
-  box-shadow:
-    0 24px 40px rgba(0, 0, 0, 0.5),
-    inset 0 0 35px rgba(82, 43, 11, 0.2);
+  background-color: #e2c17e;
+  background-image:
+    radial-gradient(circle at 17% 10%, rgba(255, 253, 215, 0.43), transparent 11rem),
+    linear-gradient(135deg, rgba(105, 55, 17, 0.08), transparent 42%, rgba(84, 38, 9, 0.13)),
+    var(--tavern-parchment-image);
+  background-position: center;
+  background-repeat: no-repeat, no-repeat, repeat;
+  background-size: auto, auto, 460px auto;
+  background-blend-mode: screen, multiply, normal;
+  box-shadow: 0 5px 0 #190702, 0 28px 54px rgba(0, 0, 0, 0.7), inset 0 0 42px rgba(80, 35, 8, 0.22);
 }
 
-.auth-panel h1 {
-  margin: 0;
-  color: #3d1f0e;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.8rem, 3vw, 2.5rem);
+.auth-panel::before {
+  position: absolute;
+  inset: 16px;
+  border: 1px dashed rgba(85, 39, 10, 0.3);
+  content: "";
+  pointer-events: none;
 }
 
-.auth-panel .eyebrow {
-  color: #89501b;
-}
+.auth-panel > * { position: relative; z-index: 1; }
+.auth-panel h1 { margin: 0; color: #3d1f0e; font-family: var(--font-tavern-display); font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 400; }
+.auth-panel .eyebrow { color: #89501b; }
+.auth-description { margin: 15px 0 25px; color: #694724; font-size: 0.9rem; line-height: 1.7; }
+.google-sign-in-button { width: 100%; gap: 11px; font-size: 0.8rem; }
+.google-glyph { display: grid; width: 27px; height: 27px; flex: 0 0 auto; place-items: center; border-radius: 50%; color: #8d3118; background: #fff; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.14); font-family: Arial, Helvetica, sans-serif; font-size: 0.9rem; font-weight: 700; }
+.auth-error { margin: 15px 0 0; border-left: 3px solid #a42716; padding: 10px 12px; color: #7a2416; background: rgba(184, 59, 31, 0.13); font-size: 0.76rem; line-height: 1.55; }
+.auth-note { margin: 22px 0 0; color: #76512d; font-size: 0.7rem; line-height: 1.55; text-align: center; }
 
-.auth-description {
-  margin: 15px 0 25px;
-  color: #694724;
-  font-size: 0.9rem;
-  line-height: 1.7;
-}
-
-.google-sign-in-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  min-height: 53px;
-  gap: 11px;
-  border: 1px solid #6b3314;
-  border-radius: 6px;
-  padding: 11px 16px;
-  color: #f8e7c3;
-  background:
-    linear-gradient(180deg, rgba(255, 211, 125, 0.17), transparent 34%),
-    linear-gradient(135deg, #783b1d, #321107);
-  box-shadow:
-    0 5px 0 #230c05,
-    0 10px 18px rgba(56, 22, 8, 0.33),
-    inset 0 1px rgba(255, 232, 170, 0.3),
-    inset 0 -4px 9px rgba(0, 0, 0, 0.26);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 0.86rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition:
-    transform 150ms ease,
-    box-shadow 150ms ease,
-    filter 150ms ease;
-}
-
-.google-sign-in-button:hover:not(:disabled) {
-  filter: brightness(1.12);
-  transform: translateY(-2px);
-}
-
-.google-sign-in-button:active:not(:disabled) {
-  transform: translateY(3px);
-  box-shadow:
-    0 1px 0 #230c05,
-    0 4px 8px rgba(56, 22, 8, 0.32),
-    inset 0 3px 8px rgba(0, 0, 0, 0.35);
-}
-
-.google-sign-in-button:disabled {
-  cursor: wait;
-  opacity: 0.72;
-}
-
-.google-glyph {
-  display: grid;
-  width: 27px;
-  height: 27px;
-  place-items: center;
-  border-radius: 50%;
-  color: #8d3118;
-  background: #fff;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.14);
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 0.9rem;
-  font-weight: 700;
-}
-
-.auth-error {
-  margin: 15px 0 0;
-  border-left: 3px solid #a42716;
-  padding: 10px 12px;
-  color: #7a2416;
-  background: rgba(184, 59, 31, 0.13);
-  font-size: 0.76rem;
-  line-height: 1.55;
-}
-
-.auth-note {
-  margin: 22px 0 0;
-  color: #76512d;
-  font-size: 0.7rem;
-  line-height: 1.55;
-  text-align: center;
-}
-
-.dashboard-page {
-  min-height: 100vh;
-  overflow: hidden;
-  background:
-    radial-gradient(circle at 80% 3%, rgba(186, 94, 29, 0.24), transparent 25rem),
-    radial-gradient(circle at 12% 32%, rgba(118, 52, 22, 0.22), transparent 26rem),
-    linear-gradient(145deg, #1a0c07, #0a0504 74%);
-  color: #f5e2bb;
-}
-
-.dashboard-topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: min(1180px, calc(100% - 48px));
-  margin: 0 auto;
-  border-bottom: 1px solid rgba(227, 166, 75, 0.18);
-  padding: 25px 0;
-  gap: 20px;
-}
-
-.adventurer-menu {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: #ead2a2;
-}
-
-.adventurer-menu small,
-.adventurer-menu strong {
-  display: block;
-}
-
-.adventurer-menu small {
-  color: #a98c67;
-  font-size: 0.59rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.adventurer-menu strong {
-  margin-top: 2px;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 0.83rem;
-}
-
-.adventurer-avatar {
-  display: grid;
-  width: 38px;
-  height: 38px;
-  overflow: hidden;
-  place-items: center;
-  border: 1px solid rgba(245, 193, 99, 0.58);
-  border-radius: 50%;
-  color: #301307;
-  background: linear-gradient(135deg, #f5d17d, #b76625);
-  font-family: Georgia, "Times New Roman", serif;
-  font-weight: 700;
-}
-
-.adventurer-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.adventurer-menu button {
-  margin-left: 5px;
-  border: 1px solid rgba(219, 159, 70, 0.3);
-  border-radius: 4px;
-  padding: 7px 9px;
-  color: #c9ab7e;
-  background: rgba(31, 11, 6, 0.55);
-  font: inherit;
-  font-size: 0.67rem;
-  cursor: pointer;
-}
-
-.adventurer-menu button:hover {
-  color: #ffe0a0;
-}
-
-.dashboard-hero,
-.dashboard-grid {
-  width: min(1120px, calc(100% - 48px));
-  margin: 0 auto;
-}
-
-.dashboard-hero {
-  padding: 86px 0 44px;
-}
-
-.dashboard-hero h1 {
-  margin: 0;
-  color: #fff0cf;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(2.7rem, 5vw, 5rem);
-  line-height: 1;
-  letter-spacing: -0.06em;
-}
-
-.dashboard-hero h1 span {
-  display: block;
-  color: #dfa75d;
-}
-
-.dashboard-hero > p:last-child {
-  max-width: 610px;
-  margin: 22px 0 0;
-  color: #cbb18d;
-  line-height: 1.75;
-}
-
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: 1.3fr 1fr 1fr;
-  padding-bottom: 90px;
-  gap: 16px;
-}
-
-.dashboard-card {
-  min-height: 255px;
-  border: 1px solid rgba(221, 161, 73, 0.2);
-  padding: 28px 24px;
-  background:
-    linear-gradient(145deg, rgba(109, 47, 19, 0.24), rgba(26, 10, 6, 0.86)),
-    rgba(34, 14, 8, 0.76);
-  box-shadow:
-    0 17px 28px rgba(0, 0, 0, 0.32),
-    inset 0 1px rgba(255, 204, 117, 0.07);
-}
-
-.dashboard-card-primary {
-  border-color: rgba(240, 185, 94, 0.4);
-  background:
-    radial-gradient(circle at 85% 12%, rgba(250, 157, 58, 0.2), transparent 10rem),
-    linear-gradient(145deg, rgba(117, 49, 18, 0.54), rgba(27, 10, 5, 0.88));
-}
-
-.dashboard-card-rune {
-  display: grid;
-  width: 43px;
-  height: 43px;
-  margin-bottom: 20px;
-  place-items: center;
-  border: 1px solid rgba(243, 187, 91, 0.42);
-  border-radius: 50%;
-  color: #ffd37b;
-  background: rgba(110, 44, 15, 0.45);
-  font-size: 1.2rem;
-}
-
-.card-label {
-  margin: 0;
-  color: #c18a47;
-  font-size: 0.64rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-}
-
-.dashboard-card h2 {
-  margin: 10px 0 0;
-  color: #f0d9ab;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.3rem;
-}
-
-.dashboard-card > p:last-of-type {
-  margin: 13px 0 0;
-  color: #bba182;
-  font-size: 0.84rem;
-  line-height: 1.65;
-}
-
-.dashboard-card button {
-  margin-top: 20px;
-  border: 1px solid rgba(226, 167, 76, 0.28);
-  border-radius: 4px;
-  padding: 8px 11px;
-  color: #aa8c66;
-  background: rgba(19, 7, 4, 0.45);
-  font: inherit;
-  font-size: 0.68rem;
-}
-
-.dashboard-loading {
-  display: grid;
-  place-items: center;
-  color: #e4c99b;
-  font-family: Georgia, "Times New Roman", serif;
-}
-
-@media (max-width: 820px) {
-  .auth-layout {
-    grid-template-columns: 1fr;
-    padding-top: 58px;
-    gap: 45px;
-  }
-
-  .auth-story {
-    text-align: center;
-  }
-
-  .auth-story > p:last-child {
-    margin-right: auto;
-    margin-left: auto;
-  }
-
-  .dashboard-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 620px) {
-  .auth-topbar,
-  .auth-layout,
-  .dashboard-topbar,
-  .dashboard-hero,
-  .dashboard-grid {
-    width: min(100% - 30px, 1180px);
-  }
-
-  .auth-topbar {
-    padding: 20px 0;
-  }
-
-  .back-home-link {
-    font-size: 0.67rem;
-  }
-
-  .auth-panel {
-    border-width: 7px;
-    padding: 42px 25px 29px;
-  }
-
-  .dashboard-topbar {
-    align-items: flex-start;
-  }
-
-  .adventurer-menu {
-    gap: 7px;
-  }
-
-  .adventurer-menu > div {
-    display: none;
-  }
-
-  .dashboard-hero {
-    padding: 62px 0 35px;
-  }
-}
-/* =========================================================
-   BUILD EDITOR — REGISTRO DI GILDA
-   Correzione definitiva layout pagina Nuova Build
-   ========================================================= */
-
+/* Build editor */
 .build-editor-page {
+  position: relative;
   min-height: 100vh;
+  overflow: hidden;
+  isolation: isolate;
+  color: var(--cream);
   background:
-    radial-gradient(
-      circle at 88% 0%,
-      rgba(201, 101, 34, 0.2),
-      transparent 27rem
-    ),
-    radial-gradient(
-      circle at 12% 42%,
-      rgba(109, 45, 16, 0.2),
-      transparent 28rem
-    ),
-    linear-gradient(145deg, #1b0d08 0%, #0d0604 72%);
+    linear-gradient(90deg, rgba(8, 4, 2, 0.92) 0%, rgba(15, 7, 4, 0.74) 47%, rgba(7, 3, 2, 0.88) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.11), rgba(0, 0, 0, 0.63)),
+    url("/images/tavern-tabletop.webp") center top / cover no-repeat;
+  background-attachment: fixed;
 }
 
 .build-editor-page::before {
   position: fixed;
-  z-index: 0;
+  z-index: -1;
   inset: 0;
   content: "";
   pointer-events: none;
-  opacity: 0.25;
-  background-image:
-    linear-gradient(
-      90deg,
-      rgba(255, 209, 132, 0.025) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      rgba(255, 209, 132, 0.018) 1px,
-      transparent 1px
-    );
-  background-size: 7px 7px;
+  background:
+    radial-gradient(ellipse at 50% 16%, rgba(251, 164, 65, 0.13), transparent 28rem),
+    radial-gradient(ellipse at center, transparent 24%, rgba(0, 0, 0, 0.24) 70%, rgba(0, 0, 0, 0.59) 100%),
+    repeating-linear-gradient(90deg, rgba(255, 216, 146, 0.018) 0 1px, transparent 1px 8px);
 }
 
 .build-editor-page .dashboard-topbar,
@@ -1479,713 +1039,101 @@ a {
 
 .build-editor-page .dashboard-topbar {
   width: min(1160px, calc(100% - 48px));
-  min-height: 87px;
+  min-height: 88px;
   margin: 0 auto;
-  border-bottom: 1px solid rgba(234, 175, 82, 0.2);
-}
-
-.build-editor-page .back-home-link {
-  display: inline-flex;
-  align-items: center;
-  min-height: 36px;
-  border: 1px solid rgba(224, 164, 73, 0.32);
-  border-radius: 4px;
-  padding: 8px 11px;
-  color: #d7ba8b;
+  border: 1px solid rgba(230, 172, 78, 0.3);
+  border-top: 0;
+  border-radius: 0 0 6px 6px;
+  padding: 0 20px;
   background:
-    linear-gradient(
-      180deg,
-      rgba(255, 194, 97, 0.08),
-      rgba(28, 9, 5, 0.7)
-    ),
-    #251008;
-  box-shadow:
-    0 3px 0 #120503,
-    inset 0 1px rgba(255, 216, 139, 0.14);
-  font-size: 0.71rem;
-  transition:
-    color 160ms ease,
-    transform 160ms ease,
-    filter 160ms ease;
+    linear-gradient(180deg, rgba(255, 199, 107, 0.1), transparent 39%, rgba(0, 0, 0, 0.31)),
+    url("/images/tavern-dark-oak-texture.webp") center / cover;
+  box-shadow: 0 8px 21px rgba(0, 0, 0, 0.5), inset 0 1px rgba(255, 224, 151, 0.12), inset 0 -1px rgba(0, 0, 0, 0.53);
 }
 
-.build-editor-page .back-home-link:hover {
-  color: #ffe2a5;
-  filter: brightness(1.15);
-  transform: translateY(-1px);
-}
-
-.build-editor-container {
-  width: min(920px, calc(100% - 48px));
-  margin: 0 auto;
-  padding: 58px 0 100px;
-}
+.build-editor-container { width: min(980px, calc(100% - 48px)); margin: 0 auto; padding: 58px 0 108px; }
 
 .build-form {
   position: relative;
   overflow: hidden;
-  border: 10px solid #2d1208;
-  border-radius: 7px;
-  outline: 1px solid rgba(244, 186, 86, 0.38);
-  outline-offset: -17px;
-  padding: clamp(32px, 5vw, 58px);
-  color: #43230f;
-  background:
-    radial-gradient(
-      circle at 14% 7%,
-      rgba(255, 251, 205, 0.87),
-      transparent 7rem
-    ),
-    linear-gradient(
-      110deg,
-      rgba(125, 67, 22, 0.14),
-      transparent 40%,
-      rgba(88, 42, 13, 0.15)
-    ),
-    repeating-linear-gradient(
-      0deg,
-      rgba(88, 49, 13, 0.04) 0 1px,
-      transparent 1px 5px
-    ),
-    linear-gradient(135deg, #cb9b58 0%, #f1d799 49%, #c28d4b 100%);
-  box-shadow:
-    0 30px 55px rgba(0, 0, 0, 0.54),
-    inset 0 0 54px rgba(70, 33, 8, 0.23);
+  border: 11px solid #2c1107;
+  border-radius: 5px;
+  outline: 1px solid rgba(246, 190, 93, 0.47);
+  outline-offset: -18px;
+  padding: clamp(35px, 5.5vw, 64px);
+  color: #40200d;
+  isolation: isolate;
+  background-color: #dfbd78;
+  background-image:
+    radial-gradient(ellipse at 20% 3%, rgba(255, 253, 217, 0.58), transparent 15rem),
+    linear-gradient(135deg, rgba(103, 52, 14, 0.1), transparent 45%, rgba(70, 29, 8, 0.15)),
+    var(--tavern-parchment-image);
+  background-position: center;
+  background-repeat: no-repeat, no-repeat, repeat;
+  background-size: auto, auto, 480px auto;
+  background-blend-mode: screen, multiply, normal;
+  box-shadow: 0 5px 0 rgba(27, 8, 3, 0.96), 0 30px 62px rgba(0, 0, 0, 0.67), inset 0 0 56px rgba(75, 33, 7, 0.25);
 }
 
-.build-form::before,
-.build-form::after {
+.build-form::before {
   position: absolute;
   z-index: 0;
-  width: 138px;
-  height: 138px;
-  border: 1px solid rgba(94, 47, 13, 0.25);
-  border-radius: 50%;
+  inset: 17px;
+  border: 1px dashed rgba(87, 40, 9, 0.31);
   content: "";
   pointer-events: none;
 }
 
-.build-form::before {
-  top: -81px;
-  right: -74px;
-  box-shadow:
-    0 0 0 14px rgba(99, 48, 11, 0.05),
-    0 0 0 29px rgba(99, 48, 11, 0.04);
-}
+.build-form > * { position: relative; z-index: 1; }
+.build-form-heading { max-width: 690px; margin: 0 auto 39px; padding: 0 28px 26px; border-bottom: 1px solid rgba(80, 39, 10, 0.3); text-align: center; }
+.build-form-heading .eyebrow { margin-bottom: 11px; color: #80501e; }
+.build-form-heading h1 { margin: 0; color: #351807; font-family: var(--font-tavern-display); font-size: clamp(2.1rem, 4.8vw, 3.6rem); font-weight: 400; letter-spacing: -0.02em; line-height: 1.05; text-shadow: 0 1px rgba(255, 245, 196, 0.49); }
+.build-form-heading > p:last-child { max-width: 590px; margin: 14px auto 0; color: #65411e; font-size: 0.93rem; line-height: 1.7; }
 
-.build-form::after {
-  bottom: -83px;
-  left: -76px;
-  box-shadow:
-    0 0 0 14px rgba(99, 48, 11, 0.05),
-    0 0 0 29px rgba(99, 48, 11, 0.04);
-}
-
-.build-form > * {
-  position: relative;
-  z-index: 1;
-}
-
-.build-form-heading {
-  max-width: 650px;
-  margin: 0 auto 36px;
-  padding-bottom: 25px;
-  border-bottom: 1px solid rgba(82, 42, 11, 0.27);
-  text-align: center;
-}
-
-.build-form-heading .eyebrow {
-  margin-bottom: 11px;
-  color: #86501c;
-}
-
-.build-form-heading h1 {
-  margin: 0;
-  color: #3c1e0e;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(2rem, 4.6vw, 3.3rem);
-  line-height: 1.1;
-  letter-spacing: -0.04em;
-}
-
-.build-form-heading > p:last-child {
-  max-width: 590px;
-  margin: 13px auto 0;
-  color: #6a4725;
-  font-size: 0.92rem;
-  line-height: 1.65;
-}
-
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: start;
-  gap: 20px;
-}
-
-.form-field {
-  display: grid;
-  min-width: 0;
-  gap: 8px;
-}
-
-.form-field-wide {
-  grid-column: 1 / -1;
-}
-
-.form-field > span {
-  color: #4c2911;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 0.86rem;
-  font-weight: 700;
-  letter-spacing: 0.01em;
-}
-
+.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 22px; }
+.form-field { display: grid; min-width: 0; gap: 8px; }
+.form-field-wide { grid-column: 1 / -1; }
+.form-field > span { color: #47230d; font-family: var(--font-tavern-body); font-size: 0.94rem; font-weight: 700; }
 .form-field input,
 .form-field select,
 .form-field textarea {
   width: 100%;
   min-width: 0;
-  border: 1px solid rgba(91, 45, 12, 0.54);
-  border-radius: 4px;
+  border: 1px solid rgba(82, 38, 9, 0.62);
+  border-radius: 3px;
   padding: 12px 13px;
-  color: #3a1d0c;
+  color: #351704;
   outline: none;
   background:
-    linear-gradient(
-      180deg,
-      rgba(255, 250, 204, 0.37) 0%,
-      rgba(255, 238, 171, 0.08) 100%
-    ),
-    #eed18f;
-  box-shadow:
-    inset 0 2px 7px rgba(72, 34, 8, 0.16),
-    0 1px rgba(255, 248, 193, 0.65);
-  font: inherit;
-  font-size: 0.87rem;
+    linear-gradient(180deg, rgba(255, 252, 211, 0.52), rgba(247, 214, 142, 0.12)),
+    repeating-linear-gradient(0deg, rgba(100, 56, 16, 0.032) 0 1px, transparent 1px 4px),
+    #e8c880;
+  box-shadow: inset 0 2px 8px rgba(66, 29, 7, 0.17), 0 1px rgba(255, 248, 192, 0.6);
+  font-size: 0.88rem;
   line-height: 1.35;
-  transition:
-    border-color 160ms ease,
-    box-shadow 160ms ease,
-    background 160ms ease;
+  transition: border-color 160ms ease, background 160ms ease, box-shadow 160ms ease;
 }
-
 .form-field input,
-.form-field select {
-  min-height: 45px;
-}
-
-.form-field textarea {
-  min-height: 148px;
-  resize: vertical;
-}
-
+.form-field select { min-height: 47px; }
+.form-field textarea { min-height: 158px; resize: vertical; }
 .form-field input::placeholder,
-.form-field textarea::placeholder {
-  color: #987550;
-  opacity: 1;
-}
-
-.form-field select {
-  cursor: pointer;
-}
-
+.form-field textarea::placeholder { color: #916b43; opacity: 1; }
 .form-field input:hover,
 .form-field select:hover,
-.form-field textarea:hover {
-  border-color: rgba(139, 75, 27, 0.72);
-}
-
+.form-field textarea:hover { border-color: rgba(136, 68, 20, 0.86); }
 .form-field input:focus,
 .form-field select:focus,
 .form-field textarea:focus {
-  border-color: #9d4d1b;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255, 252, 211, 0.54),
-      rgba(255, 238, 171, 0.12)
-    ),
-    #f2d797;
-  box-shadow:
-    0 0 0 3px rgba(175, 81, 27, 0.2),
-    inset 0 2px 7px rgba(72, 34, 8, 0.11);
+  border-color: #9b4918;
+  background: linear-gradient(180deg, rgba(255, 253, 216, 0.7), rgba(255, 226, 152, 0.19)), #efd18a;
+  box-shadow: 0 0 0 3px rgba(187, 95, 31, 0.2), inset 0 2px 8px rgba(66, 29, 7, 0.11);
 }
+.form-error { margin: 23px 0 0; border: 1px solid rgba(155, 43, 21, 0.46); border-left: 4px solid #a92e17; border-radius: 3px; padding: 11px 13px; color: #742417; background: rgba(193, 58, 27, 0.13); font-size: 0.8rem; line-height: 1.5; }
+.form-actions { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; margin-top: 33px; padding-top: 25px; border-top: 1px solid rgba(80, 39, 10, 0.27); gap: 12px; }
+.form-actions .button { min-width: 170px; }
+.form-actions .button:disabled { cursor: wait; filter: grayscale(0.3); opacity: 0.7; }
 
-.form-error {
-  margin: 23px 0 0;
-  border: 1px solid rgba(155, 43, 21, 0.45);
-  border-left: 4px solid #a92e17;
-  border-radius: 3px;
-  padding: 11px 13px;
-  color: #742417;
-  background: rgba(193, 58, 27, 0.13);
-  font-size: 0.8rem;
-  line-height: 1.5;
-}
-
-.form-actions {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  flex-wrap: wrap;
-  margin-top: 31px;
-  padding-top: 23px;
-  border-top: 1px solid rgba(82, 42, 11, 0.25);
-  gap: 12px;
-}
-
-.form-actions .button {
-  min-width: 162px;
-  cursor: pointer;
-}
-
-.form-actions .button:disabled {
-  cursor: wait;
-  filter: grayscale(0.22);
-  opacity: 0.72;
-}
-
-@media (max-width: 760px) {
-  .build-editor-page .dashboard-topbar,
-  .build-editor-container {
-    width: min(100% - 30px, 920px);
-  }
-
-  .build-editor-page .dashboard-topbar {
-    min-height: 76px;
-  }
-
-  .build-editor-container {
-    padding: 38px 0 72px;
-  }
-
-  .build-form {
-    border-width: 7px;
-    padding: 36px 23px 29px;
-  }
-
-  .form-grid {
-    grid-template-columns: 1fr;
-    gap: 17px;
-  }
-
-  .form-field-wide {
-    grid-column: auto;
-  }
-
-  .form-actions {
-    justify-content: stretch;
-  }
-
-  .form-actions .button {
-    width: 100%;
-  }
-}
-
-@media (max-width: 480px) {
-  .build-editor-page .dashboard-topbar {
-    align-items: center;
-  }
-
-  .build-editor-page .brand-text small {
-    display: none;
-  }
-
-  .build-editor-page .back-home-link {
-    padding: 7px 9px;
-    font-size: 0.64rem;
-  }
-
-  .build-form-heading h1 {
-    font-size: 2rem;
-  }
-
-  .build-form-heading > p:last-child {
-    font-size: 0.85rem;
-  }
-}
-/* =========================================================
-   ARPG TAVERN — ATMOSFERA REALISTICA, ASSET E BARDO
-   Da aggiungere in fondo a globals.css
-   ========================================================= */
-
-:root {
-  --tavern-black: #080403;
-  --tavern-smoke: #120905;
-  --tavern-walnut: #241008;
-  --tavern-walnut-light: #5b2a16;
-  --tavern-brass: #c98a37;
-  --tavern-brass-light: #f2c76f;
-  --tavern-fire: #e8792b;
-  --tavern-paper: #e3c383;
-  --tavern-ink: #311606;
-}
-
-/* Sfondo con muro in pietra: rimane fisso e molto discreto. */
-body {
-  isolation: isolate;
-  background-color: var(--tavern-black);
-  background-image:
-    radial-gradient(
-      circle at 18% -8%,
-      rgba(235, 119, 39, 0.19),
-      transparent 30rem
-    ),
-    radial-gradient(
-      circle at 94% 41%,
-      rgba(134, 54, 20, 0.14),
-      transparent 33rem
-    ),
-    linear-gradient(
-      180deg,
-      rgba(11, 5, 3, 0.62),
-      rgba(8, 4, 3, 0.91)
-    ),
-    url("/images/tavern-stone-wall.webp");
-  background-attachment: fixed, fixed, fixed, fixed;
-  background-position: center top, right 36%, center, center;
-  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
-  background-size: auto, auto, auto, 980px auto;
-}
-
-/* Vignettatura globale: fa sembrare l'interfaccia illuminata dal focolare. */
-body::before {
-  position: fixed;
-  z-index: -1;
-  inset: 0;
-  content: "";
-  pointer-events: none;
-  background:
-    radial-gradient(
-      ellipse at 50% 18%,
-      transparent 10%,
-      rgba(3, 1, 1, 0.24) 69%,
-      rgba(0, 0, 0, 0.68) 100%
-    ),
-    linear-gradient(
-      90deg,
-      rgba(0, 0, 0, 0.33),
-      transparent 19%,
-      transparent 81%,
-      rgba(0, 0, 0, 0.33)
-    );
-}
-
-/*
-  Elemento inserito in layout.tsx:
-  <div className="tavern-global-atmosphere" aria-hidden="true">...</div>
-*/
-.tavern-global-atmosphere {
-  position: fixed;
-  z-index: 30;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-/* Braci molto leggere, in primo piano ma senza ostacolare la UI. */
-.tavern-ember {
-  position: absolute;
-  bottom: -30px;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  opacity: 0;
-  background: #ffc166;
-  box-shadow:
-    0 0 8px #ff7a2d,
-    0 0 18px rgba(241, 94, 28, 0.68);
-  animation: tavern-ember-rise 9s linear infinite;
-}
-
-.tavern-ember-one {
-  left: 8%;
-  animation-delay: -1s;
-  animation-duration: 10s;
-}
-
-.tavern-ember-two {
-  left: 22%;
-  width: 3px;
-  height: 3px;
-  animation-delay: -6s;
-  animation-duration: 12s;
-}
-
-.tavern-ember-three {
-  left: 45%;
-  animation-delay: -3s;
-  animation-duration: 8s;
-}
-
-.tavern-ember-four {
-  left: 61%;
-  width: 4px;
-  height: 4px;
-  animation-delay: -8s;
-  animation-duration: 11s;
-}
-
-.tavern-ember-five {
-  left: 78%;
-  width: 3px;
-  height: 3px;
-  animation-delay: -4s;
-  animation-duration: 13s;
-}
-
-.tavern-ember-six {
-  left: 91%;
-  animation-delay: -7s;
-  animation-duration: 9s;
-}
-
-@keyframes tavern-ember-rise {
-  0% {
-    opacity: 0;
-    transform: translate3d(0, 0, 0) scale(0.65);
-  }
-
-  11% {
-    opacity: 0.72;
-  }
-
-  72% {
-    opacity: 0.32;
-  }
-
-  100% {
-    opacity: 0;
-    transform: translate3d(38px, -103vh, 0) scale(0.15);
-  }
-}
-
-/* Il hero diventa una scena con più contrasto e illuminazione dal camino. */
-.hero-scene {
-  isolation: isolate;
-  background-position: center 46%;
-}
-
-.hero-scene::after {
-  position: absolute;
-  z-index: 1;
-  inset: 0;
-  content: "";
-  pointer-events: none;
-  background:
-    radial-gradient(
-      ellipse at 73% 55%,
-      rgba(255, 165, 65, 0.16) 0%,
-      rgba(181, 68, 22, 0.06) 25%,
-      transparent 51%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.31),
-      transparent 32%,
-      rgba(4, 2, 1, 0.66) 100%
-    );
-  mix-blend-mode: screen;
-}
-
-/* Il contenuto deve rimanere sopra i due overlay del hero. */
-.topbar,
-.hero-content {
-  z-index: 3;
-}
-
-/* La dashboard ora sembra appoggiata su un tavolo da gioco. */
-.dashboard-page {
-  position: relative;
-  isolation: isolate;
-  background:
-    linear-gradient(
-      90deg,
-      rgba(11, 5, 3, 0.92) 0%,
-      rgba(15, 7, 4, 0.77) 48%,
-      rgba(9, 4, 3, 0.84) 100%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.14),
-      rgba(0, 0, 0, 0.58)
-    ),
-    url("/images/tavern-tabletop.webp");
-  background-position: center, center, center top;
-  background-repeat: no-repeat;
-  background-size: cover, cover, cover;
-  background-attachment: fixed;
-}
-
-.dashboard-page::before {
-  position: absolute;
-  z-index: 0;
-  inset: 0;
-  content: "";
-  pointer-events: none;
-  background:
-    repeating-linear-gradient(
-      90deg,
-      rgba(255, 214, 133, 0.018) 0 1px,
-      transparent 1px 8px
-    ),
-    radial-gradient(
-      ellipse at 47% 17%,
-      rgba(240, 140, 54, 0.11),
-      transparent 30rem
-    );
-}
-
-.dashboard-topbar,
-.dashboard-hero,
-.dashboard-grid {
-  position: relative;
-  z-index: 1;
-}
-
-/* Header da locanda: venature, bordo in ottone e ombra fisica. */
-.dashboard-topbar,
-.build-editor-page .dashboard-topbar {
-  border-bottom-color: rgba(227, 170, 77, 0.36);
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255, 194, 104, 0.08),
-      transparent 44%,
-      rgba(0, 0, 0, 0.19)
-    ),
-    url("/images/tavern-dark-oak-texture.webp");
-  background-position: center;
-  background-size: cover;
-  box-shadow:
-    0 8px 22px rgba(0, 0, 0, 0.31),
-    inset 0 -1px rgba(255, 215, 139, 0.13);
-}
-
-/* Carte scure come tavolette/registri esposti nella gilda. */
-.dashboard-card {
-  position: relative;
-  overflow: hidden;
-  border-color: rgba(222, 164, 74, 0.31);
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 185, 86, 0.09),
-      transparent 31%,
-      rgba(0, 0, 0, 0.26) 100%
-    ),
-    url("/images/tavern-dark-oak-texture.webp");
-  background-position: center;
-  background-size: cover;
-  box-shadow:
-    0 4px 0 rgba(25, 8, 4, 0.82),
-    0 19px 31px rgba(0, 0, 0, 0.46),
-    inset 0 1px rgba(255, 221, 144, 0.15),
-    inset 0 -18px 27px rgba(5, 1, 1, 0.35);
-}
-
-.dashboard-card::after {
-  position: absolute;
-  inset: 0;
-  content: "";
-  opacity: 0.22;
-  pointer-events: none;
-  background-image:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 210, 124, 0.16),
-      transparent
-    ),
-    url("/images/arpg-tavern-ui-textures.png");
-  background-position: center, 42% 12%;
-  background-size: auto, 500px;
-  mix-blend-mode: soft-light;
-}
-
-.dashboard-card > * {
-  position: relative;
-  z-index: 1;
-}
-
-.dashboard-card-primary {
-  border-color: rgba(246, 192, 98, 0.58);
-  background:
-    radial-gradient(
-      circle at 84% 14%,
-      rgba(248, 154, 55, 0.29),
-      transparent 11rem
-    ),
-    linear-gradient(
-      135deg,
-      rgba(255, 195, 93, 0.11),
-      transparent 38%
-    ),
-    url("/images/tavern-dark-oak-texture.webp");
-  background-position: center;
-  background-size: auto, auto, cover;
-}
-
-/* Modulo pergamena: bordo materico e angoli ornamentali del grimorio. */
-.auth-panel,
-.build-form,
-.map-card,
-.feature-card {
-  isolation: isolate;
-}
-
-.auth-panel::after,
-.build-form .tavern-grimoire-decoration {
-  pointer-events: none;
-}
-
-/* L'ornamento della copertina del grimorio è volutamente tenue. */
-.build-form {
-  background-image:
-    linear-gradient(
-      135deg,
-      rgba(255, 248, 197, 0.18),
-      transparent 43%,
-      rgba(86, 39, 8, 0.12)
-    ),
-    url("/images/arpg-tavern-grimoire-corner.webp"),
-    url("/images/arpg-tavern-ui-textures.png"),
-    repeating-linear-gradient(
-      0deg,
-      rgba(88, 49, 13, 0.04) 0 1px,
-      transparent 1px 5px
-    ),
-    linear-gradient(135deg, #c99855 0%, #f0d69a 49%, #bc8445 100%);
-  background-position: center, right bottom, 44% 2%, center, center;
-  background-repeat: no-repeat, no-repeat, repeat, repeat, no-repeat;
-  background-size: auto, 250px, 620px, auto, auto;
-  background-blend-mode: normal, multiply, soft-light, normal, normal;
-}
-
-/* Applicato anche al pannello login, ma senza riempire lo schermo. */
-.auth-panel {
-  background-image:
-    radial-gradient(
-      circle at 17% 11%,
-      rgba(255, 249, 191, 0.86),
-      transparent 5rem
-    ),
-    url("/images/tavern-grimoire-corner.webp"),
-    url("/images/arpg-tavern-ui-textures.png"),
-    repeating-linear-gradient(
-      0deg,
-      rgba(88, 50, 15, 0.045) 0 1px,
-      transparent 1px 5px
-    ),
-    linear-gradient(135deg, #d0a15d, #f3d89b 50%, #c49350);
-  background-position: center, right bottom, center, center, center;
-  background-repeat: no-repeat, no-repeat, repeat, repeat, no-repeat;
-  background-size: auto, 220px, 650px, auto, auto;
-  background-blend-mode: normal, multiply, soft-light, normal, normal;
-}
-
-/* Controllo musicale fisso. Le classi corrispondono a BardMusic.tsx. */
+/* Bard music */
 .bard-player {
   position: fixed;
   z-index: 100;
@@ -2193,44 +1141,12 @@ body::before {
   bottom: 22px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  flex-wrap: wrap;
+  max-width: min(470px, calc(100vw - 44px));
+  gap: 7px;
 }
 
-.bard-toggle {
-  display: inline-flex;
-  align-items: center;
-  min-height: 46px;
-  gap: 8px;
-  border: 1px solid rgba(239, 184, 91, 0.6);
-  border-radius: 6px;
-  padding: 10px 13px;
-  color: #eed7a6;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255, 216, 138, 0.16),
-      transparent 32%,
-      rgba(0, 0, 0, 0.22)
-    ),
-    url("/images/tavern-dark-oak-texture.webp");
-  background-position: center;
-  background-size: cover;
-  box-shadow:
-    0 4px 0 #160603,
-    0 10px 21px rgba(0, 0, 0, 0.55),
-    inset 0 1px rgba(255, 230, 164, 0.27),
-    inset 0 -8px 12px rgba(0, 0, 0, 0.28);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 0.74rem;
-  font-weight: 700;
-  letter-spacing: 0.035em;
-  cursor: pointer;
-  transition:
-    transform 160ms ease,
-    filter 160ms ease,
-    box-shadow 160ms ease;
-}
-
+.bard-toggle { min-height: 46px; gap: 8px; }
 .bard-toggle span:first-child {
   display: grid;
   width: 23px;
@@ -2243,37 +1159,28 @@ body::before {
   box-shadow: inset 0 1px rgba(255, 225, 153, 0.16);
   font-size: 0.95rem;
 }
+.bard-toggle-on { border-color: #ffd06c; color: #fff1ca; box-shadow: 0 4px 0 #160603, 0 0 25px rgba(245, 135, 40, 0.38), 0 10px 21px rgba(0, 0, 0, 0.55), inset 0 1px rgba(255, 230, 164, 0.35), inset 0 -8px 12px rgba(0, 0, 0, 0.28); }
 
-.bard-toggle:hover {
-  filter: brightness(1.14);
-  transform: translateY(-2px);
-}
-
-.bard-toggle:active {
-  transform: translateY(3px);
-  box-shadow:
-    0 1px 0 #160603,
-    0 4px 9px rgba(0, 0, 0, 0.5),
-    inset 0 3px 8px rgba(0, 0, 0, 0.36);
-}
-
-.bard-toggle-on {
-  border-color: #ffd06c;
-  color: #fff1ca;
+.bard-skip-button {
+  display: grid;
+  width: 38px;
+  height: 46px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid var(--tavern-button-border);
+  border-radius: 6px;
+  padding: 0;
+  color: var(--tavern-button-text);
   background:
-    radial-gradient(
-      circle at 22% 24%,
-      rgba(255, 183, 64, 0.34),
-      transparent 42%
-    ),
-    url("/images/tavern-dark-oak-texture.webp");
-  box-shadow:
-    0 4px 0 #160603,
-    0 0 25px rgba(245, 135, 40, 0.38),
-    0 10px 21px rgba(0, 0, 0, 0.55),
-    inset 0 1px rgba(255, 230, 164, 0.35),
-    inset 0 -8px 12px rgba(0, 0, 0, 0.28);
+    linear-gradient(180deg, rgba(255, 216, 138, 0.16), transparent 32%, rgba(0, 0, 0, 0.22)),
+    url("/images/tavern-dark-oak-texture.webp") center / cover;
+  box-shadow: 0 4px 0 #160603, 0 10px 21px rgba(0, 0, 0, 0.55), inset 0 1px rgba(255, 230, 164, 0.27), inset 0 -8px 12px rgba(0, 0, 0, 0.28);
+  font-size: 1.7rem;
+  line-height: 1;
+  transition: transform 160ms ease, filter 160ms ease, box-shadow 160ms ease;
 }
+.bard-skip-button:hover { border-color: #ffd06c; color: #fff1ca; filter: brightness(1.14); transform: translateY(-2px); }
+.bard-skip-button:active { transform: translateY(3px); box-shadow: 0 1px 0 #160603, 0 4px 9px rgba(0, 0, 0, 0.5), inset 0 3px 8px rgba(0, 0, 0, 0.36); }
 
 .bard-volume {
   display: flex;
@@ -2284,18 +1191,11 @@ body::before {
   border-radius: 5px;
   padding: 0 11px;
   background: rgba(23, 8, 4, 0.86);
-  box-shadow:
-    0 7px 17px rgba(0, 0, 0, 0.42),
-    inset 0 1px rgba(255, 218, 143, 0.09);
+  box-shadow: 0 7px 17px rgba(0, 0, 0, 0.42), inset 0 1px rgba(255, 218, 143, 0.09);
 }
+.bard-volume input { width: 100%; accent-color: #e69a3d; }
+.bard-current-track { flex-basis: 100%; order: 5; overflow: hidden; margin: 1px 4px 0; color: #d8b77f; font-size: 0.69rem; font-style: italic; line-height: 1.2; text-align: center; text-overflow: ellipsis; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85); white-space: nowrap; }
 
-.bard-volume input {
-  width: 100%;
-  accent-color: #e69a3d;
-  cursor: pointer;
-}
-
-/* Popup iniziale: una finestra da locanda, non un modal generico. */
 .bard-welcome-backdrop {
   position: fixed;
   z-index: 200;
@@ -2303,20 +1203,9 @@ body::before {
   display: grid;
   place-items: center;
   padding: 24px;
-  background:
-    radial-gradient(
-      ellipse at center,
-      rgba(105, 39, 12, 0.26),
-      rgba(0, 0, 0, 0.84) 77%
-    ),
-    rgba(4, 2, 1, 0.45);
+  background: radial-gradient(ellipse at center, rgba(105, 39, 12, 0.26), rgba(0, 0, 0, 0.84) 77%), rgba(4, 2, 1, 0.45);
   backdrop-filter: blur(4px);
 }
-
-/* =========================================================
-   CORREZIONE POPUP DEL BARDO
-   Pergamena leggibile, illustrazione confinata nell'angolo
-   ========================================================= */
 
 .bard-welcome-modal {
   position: relative;
@@ -2328,194 +1217,25 @@ body::before {
   padding: 44px 40px 39px;
   color: #43230e;
   text-align: center;
-  isolation: isolate;
-  background:
-    radial-gradient(
-      circle at 50% 10%,
-      rgba(255, 251, 211, 0.86),
-      transparent 10rem
-    ),
-    repeating-linear-gradient(
-      0deg,
-      rgba(91, 49, 16, 0.04) 0 1px,
-      transparent 1px 5px
-    ),
-    url("/images/arpg-tavern-ui-textures.png"),
-    linear-gradient(135deg, #c6944c 0%, #efd99d 48%, #bd8442 100%);
-  background-position: center, center, 45% 3%, center;
-  background-repeat: no-repeat, repeat, repeat, no-repeat;
-  background-size: auto, auto, 530px, auto;
-  background-blend-mode: normal, normal, soft-light, normal;
-  box-shadow:
-    0 34px 80px rgba(0, 0, 0, 0.74),
-    inset 0 0 38px rgba(78, 36, 8, 0.22);
-}
-
-/* La sola decorazione visiva: non mescolarla con la pergamena. */
-.bard-welcome-modal::after {
-  position: absolute;
-  z-index: -1;
-  right: -20px;
-  bottom: -28px;
-  width: 192px;
-  height: 192px;
-  content: "";
-  opacity: 0.18;
-  pointer-events: none;
+  background-color: #e4c482;
   background-image:
-    linear-gradient(
-      135deg,
-      rgba(232, 204, 139, 0.12),
-      rgba(75, 26, 8, 0.1)
-    ),
-    url("/images/tavern-grimoire-corner.webp");
+    radial-gradient(circle at 50% 8%, rgba(255, 255, 230, 0.46), transparent 11rem),
+    linear-gradient(135deg, rgba(115, 58, 16, 0.07), transparent 45%, rgba(80, 31, 8, 0.12)),
+    var(--tavern-parchment-image);
   background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  filter: sepia(0.3) saturate(0.82) contrast(0.95);
-  mix-blend-mode: multiply;
+  background-repeat: no-repeat, no-repeat, repeat;
+  background-size: auto, auto, 450px auto;
+  background-blend-mode: screen, multiply, normal;
+  box-shadow: 0 34px 80px rgba(0, 0, 0, 0.74), inset 0 0 38px rgba(78, 36, 8, 0.22);
 }
-
-/* Cornice interna, sempre sopra l'ornamento e sotto i contenuti. */
-.bard-welcome-modal::before {
-  position: absolute;
-  z-index: 0;
-  inset: 15px;
-  border: 1px dashed rgba(95, 46, 12, 0.31);
-  content: "";
-  pointer-events: none;
-}
-
-/* Testo e pulsanti restano sempre nello strato più alto. */
-.bard-welcome-modal > * {
-  position: relative;
-  z-index: 1;
-}
-
-@media (max-width: 760px) {
-  .bard-welcome-modal {
-    border-width: 7px;
-    padding: 37px 23px 30px;
-  }
-
-  .bard-welcome-modal::after {
-    right: -52px;
-    bottom: -58px;
-    width: 175px;
-    height: 175px;
-    opacity: 0.12;
-  }
-}
-
-.bard-welcome-symbol {
-  display: grid;
-  width: 57px;
-  height: 57px;
-  margin: 0 auto 16px;
-  place-items: center;
-  border: 2px solid #792014;
-  border-radius: 50%;
-  color: #ffd681;
-  background:
-    radial-gradient(circle at 36% 28%, #ef6340, #8b2114 64%, #4a0a07);
-  box-shadow:
-    0 5px 8px rgba(75, 17, 7, 0.37),
-    inset 2px 2px 6px rgba(255, 190, 112, 0.33);
-  font-size: 1.8rem;
-}
-
-.bard-welcome-eyebrow {
-  margin: 0 0 10px;
-  color: #87501d;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-
-.bard-welcome-modal h2 {
-  margin: 0;
-  color: #3a1b0d;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.8rem, 5vw, 2.55rem);
-  line-height: 1.08;
-}
-
-.bard-welcome-modal > p:not(.bard-welcome-eyebrow) {
-  margin: 17px auto 0;
-  color: #694622;
-  font-size: 0.92rem;
-  line-height: 1.65;
-}
-
-.bard-welcome-actions {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 27px;
-  gap: 10px;
-}
-
-.bard-button {
-  min-height: 45px;
-  border-radius: 5px;
-  padding: 11px 15px;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 0.76rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition:
-    filter 150ms ease,
-    transform 150ms ease,
-    box-shadow 150ms ease;
-}
-
-.bard-button:hover {
-  filter: brightness(1.1);
-  transform: translateY(-2px);
-}
-
-.bard-button:active {
-  transform: translateY(2px);
-}
-
-.bard-button-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid #783110;
-  color: #381602;
-  background: linear-gradient(135deg, #ffe09a, #d4862f 54%, #9b4817);
-  box-shadow:
-    0 4px 0 #5a1d08,
-    0 8px 14px rgba(70, 25, 6, 0.25),
-    inset 0 1px rgba(255, 249, 200, 0.78);
-}
-
-.bard-button-secondary {
-  border: 1px solid rgba(92, 45, 15, 0.55);
-  color: #59361c;
-  background: rgba(255, 236, 174, 0.34);
-  box-shadow: inset 0 1px rgba(255, 252, 211, 0.46);
-}
-
-.bard-status-message {
-  position: fixed;
-  z-index: 101;
-  right: 22px;
-  bottom: 81px;
-  width: min(330px, calc(100% - 44px));
-  margin: 0;
-  border: 1px solid rgba(204, 101, 44, 0.56);
-  border-left: 4px solid #d36b2e;
-  padding: 10px 12px;
-  color: #f1d7a4;
-  background: rgba(36, 10, 5, 0.93);
-  box-shadow: 0 10px 21px rgba(0, 0, 0, 0.42);
-  font-size: 0.74rem;
-  line-height: 1.48;
-}
+.bard-welcome-modal::before { position: absolute; inset: 15px; border: 1px dashed rgba(95, 46, 12, 0.31); content: ""; pointer-events: none; }
+.bard-welcome-modal > * { position: relative; z-index: 1; }
+.bard-welcome-symbol { display: grid; width: 57px; height: 57px; margin: 0 auto 16px; place-items: center; border: 2px solid #792014; border-radius: 50%; color: #ffd681; background: radial-gradient(circle at 36% 28%, #ef6340, #8b2114 64%, #4a0a07); box-shadow: 0 5px 8px rgba(75, 17, 7, 0.37), inset 2px 2px 6px rgba(255, 190, 112, 0.33); font-size: 1.8rem; }
+.bard-welcome-eyebrow { margin: 0 0 10px; color: #87501d; font-family: var(--font-tavern-body); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
+.bard-welcome-modal h2 { margin: 0; color: #3a1b0d; font-family: var(--font-tavern-display); font-size: clamp(1.8rem, 5vw, 2.55rem); font-weight: 400; line-height: 1.08; }
+.bard-welcome-modal > p:not(.bard-welcome-eyebrow) { margin: 17px auto 0; color: #694622; font-size: 0.92rem; line-height: 1.65; }
+.bard-welcome-actions { display: flex; justify-content: center; flex-wrap: wrap; margin-top: 27px; gap: 10px; }
+.bard-status-message { position: fixed; z-index: 101; right: 22px; bottom: 81px; width: min(330px, calc(100% - 44px)); margin: 0; border: 1px solid rgba(204, 101, 44, 0.56); border-left: 4px solid #d36b2e; padding: 10px 12px; color: #f1d7a4; background: rgba(36, 10, 5, 0.93); box-shadow: 0 10px 21px rgba(0, 0, 0, 0.42); font-size: 0.74rem; line-height: 1.48; }
 
 .sr-only {
   position: absolute;
@@ -2527,2164 +1247,120 @@ body::before {
   clip-path: inset(50%);
 }
 
-/* Accessibilità coerente per tutte le nuove interazioni. */
-.bard-toggle:focus-visible,
-.bard-button:focus-visible,
-.bard-volume input:focus-visible {
-  outline: 3px solid #ffe3a2;
-  outline-offset: 3px;
+/* Global atmospheric embers injected by RootLayout */
+.tavern-global-atmosphere { position: fixed; z-index: 30; inset: 0; overflow: hidden; pointer-events: none; }
+.tavern-ember { position: absolute; bottom: -30px; width: 5px; height: 5px; border-radius: 50%; opacity: 0; background: #ffc166; box-shadow: 0 0 8px #ff7a2d, 0 0 18px rgba(241, 94, 28, 0.68); animation: tavern-ember-rise 9s linear infinite; }
+.tavern-ember-one { left: 8%; animation-delay: -1s; animation-duration: 10s; }
+.tavern-ember-two { left: 22%; width: 3px; height: 3px; animation-delay: -6s; animation-duration: 12s; }
+.tavern-ember-three { left: 45%; animation-delay: -3s; animation-duration: 8s; }
+.tavern-ember-four { left: 61%; width: 4px; height: 4px; animation-delay: -8s; animation-duration: 11s; }
+.tavern-ember-five { left: 78%; width: 3px; height: 3px; animation-delay: -4s; animation-duration: 13s; }
+.tavern-ember-six { left: 91%; animation-delay: -7s; animation-duration: 9s; }
+@keyframes tavern-ember-rise { 0% { opacity: 0; transform: translate3d(0, 0, 0) scale(0.65); } 11% { opacity: 0.72; } 72% { opacity: 0.32; } 100% { opacity: 0; transform: translate3d(38px, -103vh, 0) scale(0.15); } }
+
+@media (max-width: 980px) {
+  .feature-grid,
+  .quest-list { grid-template-columns: repeat(2, 1fr); }
+  .feature-card:nth-child(2),
+  .feature-card:nth-child(3),
+  .feature-card:nth-child(4) { margin-top: 0; transform: none; }
+  .map-card { grid-template-columns: 1fr; gap: 28px; }
+}
+
+@media (max-width: 820px) {
+  .auth-layout { grid-template-columns: 1fr; padding-top: 58px; gap: 45px; }
+  .auth-story { text-align: center; }
+  .auth-story > p:last-child { margin-right: auto; margin-left: auto; }
+  .auth-page-background { background-position: center, center, 58% center; }
+  .auth-page::before { background: radial-gradient(ellipse at 62% 33%, rgba(247, 139, 45, 0.13), transparent 18rem), linear-gradient(180deg, rgba(0, 0, 0, 0.19), rgba(0, 0, 0, 0.41)); }
 }
 
 @media (max-width: 760px) {
-  body {
-    background-attachment: scroll;
-    background-size: auto, auto, auto, auto 1000px;
-  }
-
-  .dashboard-page {
-    background-attachment: scroll;
-    background-position: center, center, 57% top;
-  }
-
-  .bard-player {
-    right: 14px;
-    bottom: 14px;
-  }
-
-  .bard-toggle {
-    min-height: 44px;
-    padding: 9px 11px;
-  }
-
-  .bard-toggle span:last-child {
-    display: none;
-  }
-
-  .bard-volume {
-    width: 92px;
-  }
-
-  .bard-status-message {
-    right: 14px;
-    bottom: 69px;
-    width: min(310px, calc(100% - 28px));
-  }
-
-  .bard-welcome-backdrop {
-    padding: 15px;
-  }
-
-  .bard-welcome-modal {
-    border-width: 7px;
-    padding: 37px 23px 30px;
-  }
-
-  .bard-welcome-actions {
-    flex-direction: column;
-  }
-
-  .bard-button {
-    width: 100%;
-  }
-
-  .build-form {
-    background-position: center, right -58px bottom -42px, 44% 2%, center, center;
-    background-size: auto, 180px, 540px, auto, auto;
-  }
-}
-
-@media (max-width: 480px) {
-  .tavern-ember {
-    display: none;
-  }
-
-  .bard-volume {
-    display: none;
-  }
-
-  .bard-player {
-    right: 12px;
-    bottom: 12px;
-  }
-
-  .bard-status-message {
-    right: 12px;
-    bottom: 65px;
-    width: min(290px, calc(100% - 24px));
-  }
-
-  .bard-welcome-modal h2 {
-    font-size: 1.85rem;
-  }
-
-  .bard-welcome-modal > p:not(.bard-welcome-eyebrow) {
-    font-size: 0.87rem;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .tavern-ember {
-    display: none;
-  }
-}
-/* =========================================================
-   POPUP PULITI — nessun grimorio nei modali compatti
-   ========================================================= */
-
-/* Il popup Bardo resta una pergamena uniforme. */
-.bard-welcome-modal::after {
-  display: none;
-}
-
-.bard-welcome-modal {
-  background-image:
-    radial-gradient(
-      circle at 50% 10%,
-      rgba(255, 251, 211, 0.86),
-      transparent 10rem
-    ),
-    repeating-linear-gradient(
-      0deg,
-      rgba(91, 49, 16, 0.04) 0 1px,
-      transparent 1px 5px
-    ),
-    url("/images/arpg-tavern-ui-textures.png"),
-    linear-gradient(135deg, #c6944c 0%, #efd99d 48%, #bd8442 100%);
-  background-position: center, center, 45% 3%, center;
-  background-repeat: no-repeat, repeat, repeat, no-repeat;
-  background-size: auto, auto, 530px, auto;
-  background-blend-mode: normal, normal, soft-light, normal;
-}
-
-/* Stesso criterio per il pannello Google: solo carta e texture. */
-.auth-panel {
-  background-image:
-    radial-gradient(
-      circle at 17% 11%,
-      rgba(255, 249, 191, 0.86),
-      transparent 5rem
-    ),
-    url("/images/arpg-tavern-ui-textures.png"),
-    repeating-linear-gradient(
-      0deg,
-      rgba(88, 50, 15, 0.045) 0 1px,
-      transparent 1px 5px
-    ),
-    linear-gradient(135deg, #d0a15d, #f3d89b 50%, #c49350);
-  background-position: center, center, center, center;
-  background-repeat: no-repeat, repeat, repeat, no-repeat;
-  background-size: auto, 650px, auto, auto;
-  background-blend-mode: normal, soft-light, normal, normal;
-}
-/* =========================================================
-   TIPOGRAFIA EPICA — CRONACHE DELLA TAVERNA
-   ========================================================= */
-
-:root {
-  --font-display: "Cinzel", Georgia, "Times New Roman", serif;
-  --font-body: "Cormorant Garamond", Georgia, "Times New Roman", serif;
-}
-
-html,
-body {
-  font-family: var(--font-body);
-  font-size: 18px;
-  font-weight: 500;
-  letter-spacing: 0.008em;
-}
-
-body {
-  line-height: 1.55;
-}
-
-/* Titoli principali: epici, antichi e leggibili. */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-.brand,
-.brand-text,
-.navigation,
-.button,
-.music-button,
-.bard-toggle,
-.bard-button,
-.eyebrow,
-.card-label,
-.quest-board-title,
-.game-pill,
-.back-home-link,
-.google-sign-in-button,
-.adventurer-menu strong {
-  font-family: var(--font-display);
-}
-
-/* Corpo e descrizioni: più eleganti del font Arial attuale. */
-p,
-label,
-input,
-select,
-textarea,
-button,
-.hero-description,
-.auth-description,
-.auth-note,
-.dashboard-hero > p:last-child,
-.dashboard-card > p:last-of-type,
-.feature-card p,
-.quest-list p,
-.map-card-content > p:last-child {
-  font-family: var(--font-body);
-}
-
-/* Testo piccolo in maiuscolo: manteniamo la chiarezza. */
-.eyebrow,
-.card-label,
-.navigation,
-.music-status,
-.bard-toggle,
-.bard-button,
-.back-home-link {
-  letter-spacing: 0.1em;
-}
-
-/* Titoli più solenni, con spaziatura da iscrizione antica. */
-.hero-content h1,
-.dashboard-hero h1,
-.auth-story h2,
-.build-form-heading h1,
-.bard-welcome-modal h2,
-.section-heading h2,
-.map-card h2 {
-  font-family: var(--font-display);
-  font-weight: 700;
-  letter-spacing: -0.035em;
-  text-wrap: balance;
-}
-
-/* La prima riga dei titoli resta chiara; la seconda conserva l'oro. */
-.hero-content h1 span,
-.dashboard-hero h1 span,
-.auth-story h2 span {
-  font-family: var(--font-display);
-  font-weight: 600;
-  letter-spacing: -0.045em;
-}
-
-/* Pulsanti più simili a targhe o iscrizioni. */
-.button,
-.bard-toggle,
-.bard-button,
-.google-sign-in-button,
-.back-home-link {
-  font-weight: 700;
-  letter-spacing: 0.055em;
-}
-
-/* Il testo del form diventa più vicino alla scrittura su pergamena. */
-.form-field > span,
-.form-field input,
-.form-field select,
-.form-field textarea,
-.build-form-heading > p:last-child,
-.auth-description,
-.auth-note {
-  font-family: var(--font-body);
-}
-
-.form-field > span {
-  font-size: 1rem;
-  font-weight: 700;
-}
-
-.form-field input,
-.form-field select,
-.form-field textarea {
-  font-size: 1rem;
-  font-weight: 500;
-}
-
-.form-field input::placeholder,
-.form-field textarea::placeholder {
-  font-style: italic;
-}
-
-/* Popup Bardo: titolo epico, descrizione più umana. */
-.bard-welcome-modal h2 {
-  font-size: clamp(1.75rem, 4.5vw, 2.5rem);
-  line-height: 1.08;
-}
-
-.bard-welcome-modal > p:not(.bard-welcome-eyebrow) {
-  font-size: 1.03rem;
-  line-height: 1.55;
-}
-
-/* Evita che il font decorativo diventi difficile da leggere su mobile. */
-@media (max-width: 720px) {
-  html,
-  body {
-    font-size: 17px;
-  }
-
-  .hero-content h1,
-  .dashboard-hero h1,
-  .auth-story h2 {
-    letter-spacing: -0.04em;
-  }
-}
-.music-status,
-.music-button {
-  display: none !important;
-}
-/* =========================================================
-   TIPOGRAFIA — MEDIEVALSHARP
-   Font epico per l'identità della taverna
-   ========================================================= */
-
-:root {
-  --font-epic: var(--font-medieval-sharp), Georgia, "Times New Roman", serif;
-  --font-readable: Georgia, "Times New Roman", serif;
-}
-
-/* Testo normale: rimane molto leggibile. */
-html,
-body {
-  font-family: var(--font-readable);
-}
-
-/* Logo, titoli, navigazione, etichette e call-to-action. */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-.brand,
-.brand-text,
-.navigation,
-.button,
-.bard-toggle,
-.bard-button,
-.eyebrow,
-.card-label,
-.quest-board-title,
-.game-pill,
-.back-home-link,
-.google-sign-in-button,
-.adventurer-menu strong,
-.form-field > span {
-  font-family: var(--font-epic);
-  font-weight: 400;
-}
-
-/* Titoli: maggiore imponenza, senza renderli troppo grandi. */
-.hero-content h1,
-.dashboard-hero h1,
-.auth-story h2,
-.build-form-heading h1,
-.bard-welcome-modal h2,
-.section-heading h2,
-.map-card h2 {
-  font-family: var(--font-epic);
-  font-weight: 400;
-  letter-spacing: 0.012em;
-  line-height: 1.12;
-}
-
-/* Le parole/righe dorate restano leggibili nel font fantasy. */
-.hero-content h1 span,
-.dashboard-hero h1 span,
-.auth-story h2 span {
-  font-family: var(--font-epic);
-  font-weight: 400;
-}
-
-/* Pulsanti: MedievalSharp è più largo, quindi correggiamo proporzioni. */
-.button,
-.bard-toggle,
-.bard-button,
-.google-sign-in-button,
-.back-home-link {
-  font-family: var(--font-epic);
-  font-weight: 400;
-  letter-spacing: 0.025em;
-  line-height: 1.2;
-}
-
-/* Il corpo del testo, i form e le descrizioni non diventano gotici. */
-p,
-label,
-input,
-select,
-textarea,
-textarea::placeholder,
-input::placeholder,
-.hero-description,
-.auth-description,
-.auth-note,
-.dashboard-hero > p:last-child,
-.dashboard-card > p:last-of-type,
-.feature-card p,
-.quest-list p,
-.map-card-content > p:last-child,
-.build-form-heading > p:last-child,
-.bard-welcome-modal > p:not(.bard-welcome-eyebrow) {
-  font-family: var(--font-readable);
-}
-
-/* Campi e descrizioni devono rimanere chiari e rapidi da leggere. */
-.form-field input,
-.form-field select,
-.form-field textarea {
-  font-family: var(--font-readable);
-  font-size: 0.95rem;
-}
-
-/* Testi compatti in maiuscolo: meno tracking rispetto alla versione Cinzel. */
-.eyebrow,
-.card-label,
-.navigation,
-.bard-welcome-eyebrow {
-  letter-spacing: 0.07em;
-}
-
-/* MedievalSharp diventa troppo denso se troppo piccolo: qui usiamo fallback. */
-.brand-text small,
-.adventurer-menu small,
-.music-status,
-.hero-note,
-.auth-note,
-.footer,
-.form-error,
-.bard-status-message {
-  font-family: Georgia, "Times New Roman", serif;
+  body { background-attachment: scroll; background-size: auto, auto, auto, auto 1000px; }
+  .tavern-facade-header { min-height: 300px; }
+  .tavern-facade-content { width: min(100% - 26px, 1100px); min-height: 300px; padding: 17px 0 18px; }
+  .tavern-facade-signboard-link { width: min(96vw, 640px); margin-top: 6px; }
+  .tavern-facade-navigation { width: min(100%, 610px); min-height: 55px; padding: 9px 20px; gap: clamp(8px, 2vw, 16px); }
+  .tavern-facade-navigation a { font-size: clamp(0.53rem, 2vw, 0.68rem); letter-spacing: 0.025em; }
+  .tavern-facade-navigation a:not(:last-child)::after { display: none; }
+  .tavern-facade-navigation::before { left: 10px; }
+  .tavern-facade-navigation::after { right: 10px; }
+  .build-editor-page { background-attachment: scroll; background-position: center, center, 58% top; }
+  .build-editor-page .dashboard-topbar,
+  .build-editor-container { width: min(100% - 30px, 980px); }
+  .build-editor-page .dashboard-topbar { min-height: 76px; padding: 0 13px; }
+  .build-editor-container { padding: 38px 0 76px; }
+  .build-form { border-width: 7px; padding: 38px 23px 31px; background-size: auto, auto, 360px auto; }
+  .build-form-heading { padding-right: 12px; padding-left: 12px; }
+  .form-grid { grid-template-columns: 1fr; gap: 17px; }
+  .form-field-wide { grid-column: auto; }
+  .form-actions { justify-content: stretch; }
+  .form-actions .button { width: 100%; }
 }
 
 @media (max-width: 720px) {
-  .hero-content h1,
-  .dashboard-hero h1,
-  .auth-story h2,
-  .build-form-heading h1,
-  .bard-welcome-modal h2 {
-    letter-spacing: 0;
-    line-height: 1.14;
-  }
-
-  .button,
-  .bard-toggle,
-  .bard-button,
-  .google-sign-in-button {
-    letter-spacing: 0.012em;
-  }
-}
-/* =========================================================
-   TIPOGRAFIA — TRADE WINDS
-   Titoli da locanda, cronache e insegne d'avventura
-   ========================================================= */
-
-:root {
-  --font-tavern-display: "Trade Winds", Georgia, "Times New Roman", serif;
-  --font-tavern-body: Georgia, "Times New Roman", serif;
-}
-
-/* Lettura lunga: intenzionalmente sobria e nitida. */
-html,
-body {
-  font-family: var(--font-tavern-body);
-}
-
-/* Il font è decorativo: assegnato solo agli elementi d'identità. */
-.brand,
-.hero-content h1,
-.hero-content h1 span,
-.section-heading h2,
-.map-card h2,
-.auth-story h2,
-.auth-story h2 span,
-.auth-panel h1,
-.dashboard-hero h1,
-.dashboard-hero h1 span,
-.dashboard-card h2,
-.build-form-heading h1,
-.bard-welcome-modal h2,
-.quest-board-title,
-.feature-card h3 {
-  font-family: var(--font-tavern-display) !important;
-  font-weight: 400 !important;
-  letter-spacing: 0.01em;
-}
-
-/* CTA e nomi di sezioni: il font resta leggibile grazie a dimensioni maggiori. */
-.button,
-.bard-toggle,
-.bard-button,
-.google-sign-in-button,
-.back-home-link,
-.adventurer-menu strong {
-  font-family: var(--font-tavern-display) !important;
-  font-weight: 400 !important;
-  letter-spacing: 0.018em;
-  line-height: 1.2;
-}
-
-/*
-  Non applichiamo Trade Winds ai caratteri piccoli:
-  in una UI reale perderebbero leggibilità.
-*/
-.eyebrow,
-.card-label,
-.navigation,
-.navigation a,
-.game-pill,
-.form-field > span,
-.brand-text small,
-.adventurer-menu small,
-.music-status,
-.hero-note,
-.auth-note,
-.footer,
-.form-error,
-.bard-status-message,
-p,
-label,
-input,
-select,
-textarea,
-textarea::placeholder,
-input::placeholder,
-.hero-description,
-.auth-description,
-.dashboard-hero > p:last-child,
-.dashboard-card > p:last-of-type,
-.feature-card p,
-.quest-list p,
-.build-form-heading > p:last-child,
-.bard-welcome-modal > p:not(.bard-welcome-eyebrow) {
-  font-family: var(--font-tavern-body);
-}
-
-/* Compensazione: Trade Winds occupa più spazio del serif precedente. */
-.hero-content h1,
-.dashboard-hero h1,
-.auth-story h2 {
-  line-height: 1.06;
-  letter-spacing: -0.02em;
-}
-
-.build-form-heading h1,
-.bard-welcome-modal h2,
-.section-heading h2,
-.map-card h2 {
-  line-height: 1.12;
-  letter-spacing: -0.01em;
-}
-
-/* Il nome ARPG Tavern resta visibile anche in spazi stretti. */
-.brand {
-  font-size: 1rem;
-  letter-spacing: 0.025em;
-}
-
-/* Bottoni: Trade Winds deve rimanere leggibile e non comprimersi. */
-.button,
-.bard-toggle,
-.bard-button,
-.google-sign-in-button,
-.back-home-link {
-  text-transform: none;
-}
-
-/* Per pulsanti stretti, riduciamo leggermente la dimensione. */
-.back-home-link {
-  font-size: 0.68rem;
-}
-
-@media (max-width: 720px) {
-  .brand {
-    font-size: 0.8rem;
-  }
-
-  .hero-content h1,
-  .dashboard-hero h1,
-  .auth-story h2 {
-    letter-spacing: -0.035em;
-    line-height: 1.08;
-  }
-
-  .build-form-heading h1,
-  .bard-welcome-modal h2 {
-    letter-spacing: -0.02em;
-    line-height: 1.13;
-  }
-
-  .button,
-  .bard-button,
-  .google-sign-in-button {
-    letter-spacing: 0;
-  }
-}
-/* =========================================================
-   PERGAMENA PULITA — LOGIN E MODALI
-   ========================================================= */
-
-/* Login Google: pergamena uniforme e leggibile. */
-.auth-panel {
-  background-image:
-    radial-gradient(
-      circle at 18% 8%,
-      rgba(255, 255, 226, 0.38),
-      transparent 12rem
-    ),
-    linear-gradient(
-      135deg,
-      rgba(105, 55, 17, 0.08),
-      transparent 42%,
-      rgba(84, 38, 9, 0.12)
-    ),
-    url("/images/tavern-parchment.jpg");
-  background-position: center;
-  background-repeat: no-repeat, no-repeat, repeat;
-  background-size: auto, auto, 460px auto;
-  background-blend-mode: screen, multiply, normal;
-}
-
-/* Stessa carta nel popup del Bardo. */
-.bard-welcome-modal {
-  background-image:
-    radial-gradient(
-      circle at 50% 8%,
-      rgba(255, 255, 229, 0.43),
-      transparent 11rem
-    ),
-    linear-gradient(
-      135deg,
-      rgba(115, 58, 16, 0.08),
-      transparent 45%,
-      rgba(80, 31, 8, 0.13)
-    ),
-    url("/images/tavern-parchment.jpg");
-  background-position: center;
-  background-repeat: no-repeat, no-repeat, repeat;
-  background-size: auto, auto, 450px auto;
-  background-blend-mode: screen, multiply, normal;
-}
-/* =========================================================
-   PERGAMENA UNIFICATA
-   Nuova texture per Mappe, card, login, popup e Nuova Build
-   ========================================================= */
-
-:root {
-  --tavern-parchment-image: url("/images/Fogli-Carta-tipo-Pergamena.jpg");
-}
-
-/* Pergamena chiara: Mappe e Portali. */
-.map-card {
-  color: #3d210e;
-  background-color: #dfbb72;
-  background-image:
-    radial-gradient(
-      circle at 13% 8%,
-      rgba(255, 252, 209, 0.44),
-      transparent 12rem
-    ),
-    linear-gradient(
-      135deg,
-      rgba(103, 52, 14, 0.09),
-      transparent 44%,
-      rgba(70, 29, 8, 0.14)
-    ),
-    var(--tavern-parchment-image);
-  background-position: center, center, center;
-  background-repeat: no-repeat, no-repeat, repeat;
-  background-size: auto, auto, 460px auto;
-  background-blend-mode: screen, multiply, normal;
-}
-
-/* Testo della mappa: contrasto coerente con la nuova carta. */
-.map-card .eyebrow {
-  color: #81501d;
-}
-
-.map-card h2 {
-  color: #341708;
-}
-
-.map-card-content > p:last-child {
-  color: #5d3b1c;
-}
-
-/* Pillole delle stagioni/giochi incise nella pergamena. */
-.game-pill {
-  border-color: rgba(76, 35, 10, 0.38);
-  color: #48240f;
-  background: rgba(255, 239, 184, 0.32);
-  box-shadow:
-    inset 0 1px rgba(255, 252, 211, 0.55),
-    0 1px rgba(92, 44, 12, 0.1);
-}
-
-.game-pill b {
-  color: #873b16;
-}
-
-/* Carte funzionalità: stessa carta, un tono appena più caldo. */
-.feature-card {
-  color: #3f210e;
-  background-color: #dfba70;
-  background-image:
-    radial-gradient(
-      circle at 12% 10%,
-      rgba(255, 252, 210, 0.46),
-      transparent 9rem
-    ),
-    linear-gradient(
-      135deg,
-      rgba(99, 48, 12, 0.07),
-      transparent 43%,
-      rgba(79, 34, 9, 0.13)
-    ),
-    var(--tavern-parchment-image);
-  background-position: center, center, center;
-  background-repeat: no-repeat, no-repeat, repeat;
-  background-size: auto, auto, 410px auto;
-  background-blend-mode: screen, multiply, normal;
-}
-
-.feature-card h3 {
-  color: #3c1c0b;
-}
-
-.feature-card p {
-  color: #624021;
-}
-
-.card-mark {
-  color: rgba(88, 42, 12, 0.45);
-}
-
-/* Login Google: pannello carta pieno e non trasparente. */
-.auth-panel {
-  color: #43230f;
-  background-color: #e2c17e;
-  background-image:
-    radial-gradient(
-      circle at 17% 10%,
-      rgba(255, 253, 215, 0.43),
-      transparent 11rem
-    ),
-    linear-gradient(
-      135deg,
-      rgba(105, 55, 17, 0.08),
-      transparent 42%,
-      rgba(84, 38, 9, 0.13)
-    ),
-    var(--tavern-parchment-image);
-  background-position: center, center, center;
-  background-repeat: no-repeat, no-repeat, repeat;
-  background-size: auto, auto, 460px auto;
-  background-blend-mode: screen, multiply, normal;
-}
-
-/* Popup Bardo: identica pergamena, leggermente più luminosa al centro. */
-.bard-welcome-modal {
-  color: #43230e;
-  background-color: #e4c482;
-  background-image:
-    radial-gradient(
-      circle at 50% 8%,
-      rgba(255, 255, 230, 0.46),
-      transparent 11rem
-    ),
-    linear-gradient(
-      135deg,
-      rgba(115, 58, 16, 0.07),
-      transparent 45%,
-      rgba(80, 31, 8, 0.12)
-    ),
-    var(--tavern-parchment-image);
-  background-position: center, center, center;
-  background-repeat: no-repeat, no-repeat, repeat;
-  background-size: auto, auto, 450px auto;
-  background-blend-mode: screen, multiply, normal;
-}
-
-/*
-  Nuova Build: la texture è presente, ma il form mantiene un contrasto
-  leggermente più alto per input e testi lunghi.
-*/
-.build-form {
-  color: #40200d;
-  background-color: #dfbd78;
-  background-image:
-    radial-gradient(
-      ellipse at 20% 3%,
-      rgba(255, 253, 217, 0.58),
-      transparent 15rem
-    ),
-    linear-gradient(
-      135deg,
-      rgba(103, 52, 14, 0.1),
-      transparent 45%,
-      rgba(70, 29, 8, 0.15)
-    ),
-    var(--tavern-parchment-image);
-  background-position: center, center, center;
-  background-repeat: no-repeat, no-repeat, repeat;
-  background-size: auto, auto, 480px auto;
-  background-blend-mode: screen, multiply, normal;
-}
-
-/* Texture meno ripetuta nei pannelli stretti su mobile. */
-@media (max-width: 720px) {
+  .hero-scene { min-height: 620px; background-position: 63% center; }
+  .hero-overlay { background: linear-gradient(90deg, rgba(10, 5, 3, 0.92) 0%, rgba(14, 7, 4, 0.73) 72%, rgba(14, 7, 4, 0.52) 100%), linear-gradient(180deg, rgba(6, 3, 2, 0.51), rgba(8, 4, 3, 0.72)); }
+  .hero-content { width: min(100% - 32px, 1180px); min-height: 560px; padding-bottom: 42px; }
+  .hero-content h1 { font-size: clamp(3rem, 14vw, 4.65rem); }
+  .features-section,
+  .games-section,
+  .journey-section,
+  .footer { width: min(100% - 32px, 1120px); }
+  .feature-grid,
+  .quest-list { grid-template-columns: 1fr; }
+  .map-card { padding: 35px 28px; }
   .map-card,
   .auth-panel,
   .bard-welcome-modal,
-  .build-form {
-    background-size: auto, auto, 360px auto;
-  }
-
-  .feature-card {
-    background-size: auto, auto, 330px auto;
-  }
-}
-/* =========================================================
-   INSEGNA PRINCIPALE — ARPG TAVERN
-   ========================================================= */
-
-.tavern-signboard-wrap {
-  width: min(100%, 780px);
-  margin: 0 0 26px;
-  filter:
-    drop-shadow(0 8px 5px rgba(0, 0, 0, 0.5))
-    drop-shadow(0 20px 32px rgba(0, 0, 0, 0.48));
-}
-
-.tavern-signboard {
-  display: block;
-  width: 100%;
-  height: auto;
-  user-select: none;
-  pointer-events: none;
-}
-
-@media (max-width: 720px) {
-  .tavern-signboard-wrap {
-    width: min(100%, 550px);
-    margin-bottom: 22px;
-  }
-}
-
-@media (max-width: 480px) {
-  .tavern-signboard-wrap {
-    width: calc(100% + 6px);
-    margin-left: -3px;
-    margin-bottom: 19px;
-  }
-}
-/* =========================================================
-   FACCIATA DELLA TAVERNA — HEADER HOME
-   ========================================================= */
-
-.tavern-facade-header {
-  position: relative;
-  z-index: 5;
-  min-height: 370px;
-  overflow: hidden;
-  isolation: isolate;
-  border-bottom: 1px solid rgba(242, 184, 84, 0.26);
-  background: #120906;
-  box-shadow:
-    0 13px 34px rgba(0, 0, 0, 0.62),
-    inset 0 -22px 35px rgba(0, 0, 0, 0.44);
-}
-
-.tavern-facade-background {
-  position: absolute;
-  z-index: -2;
-  inset: 0;
-  background-image:
-    linear-gradient(
-      180deg,
-      rgba(5, 3, 2, 0.1) 0%,
-      rgba(7, 3, 2, 0.04) 43%,
-      rgba(5, 2, 1, 0.61) 100%
-    ),
-    url("/images/tavern-facade-header.webp");
-  background-position: center, center top;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-.tavern-facade-header::before {
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  content: "";
-  pointer-events: none;
-  background:
-    radial-gradient(
-      ellipse at 11% 48%,
-      rgba(255, 174, 71, 0.2),
-      transparent 10rem
-    ),
-    radial-gradient(
-      ellipse at 89% 48%,
-      rgba(255, 174, 71, 0.2),
-      transparent 10rem
-    ),
-    linear-gradient(
-      90deg,
-      rgba(0, 0, 0, 0.23),
-      transparent 18%,
-      transparent 82%,
-      rgba(0, 0, 0, 0.23)
-    );
-  mix-blend-mode: screen;
-}
-
-.tavern-facade-content {
-  display: flex;
-  position: relative;
-  z-index: 1;
-  align-items: center;
-  flex-direction: column;
-  width: min(1100px, calc(100% - 48px));
-  min-height: 370px;
-  margin: 0 auto;
-  padding: 24px 0 28px;
-}
-
-/* Insegna separata: resta nitida anche se cambia lo sfondo della facciata. */
-.tavern-facade-signboard-link {
-  display: block;
-  width: min(81vw, 790px);
-  max-width: 100%;
-  margin-top: 12px;
-  outline: none;
-  filter:
-    drop-shadow(0 6px 2px rgba(0, 0, 0, 0.6))
-    drop-shadow(0 16px 17px rgba(0, 0, 0, 0.46));
-  transition:
-    filter 180ms ease,
-    transform 180ms ease;
-}
-
-.tavern-facade-signboard-link:hover {
-  filter:
-    brightness(1.08)
-    drop-shadow(0 7px 3px rgba(0, 0, 0, 0.67))
-    drop-shadow(0 20px 20px rgba(0, 0, 0, 0.5));
-  transform: translateY(-2px);
-}
-
-.tavern-facade-signboard-link:focus-visible {
-  outline: 3px solid #ffe19a;
-  outline-offset: 8px;
-}
-
-.tavern-facade-signboard {
-  display: block;
-  width: 100%;
-  height: auto;
-  user-select: none;
-  pointer-events: none;
-}
-
-/* Nav posizionata sulla seconda tavola, non su uno sfondo CSS generico. */
-.tavern-facade-navigation {
-  display: flex;
-  position: relative;
-  align-items: center;
-  justify-content: center;
-  width: min(100%, 760px);
-  min-height: 61px;
-  margin-top: auto;
-  padding: 9px 28px 11px;
-  gap: clamp(13px, 2.7vw, 30px);
-  background-image:
-    linear-gradient(
-      180deg,
-      rgba(255, 203, 106, 0.08),
-      transparent 32%,
-      rgba(0, 0, 0, 0.2)
-    ),
-    url("/images/tavern-nav-plank.webp");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.48));
-}
-
-.tavern-facade-navigation::before,
-.tavern-facade-navigation::after {
-  position: absolute;
-  top: 50%;
-  width: 8px;
-  height: 8px;
-  border: 1px solid rgba(26, 10, 5, 0.86);
-  border-radius: 50%;
-  content: "";
-  background:
-    radial-gradient(circle at 33% 28%, #8f6a3d, #211007 65%);
-  box-shadow:
-    inset 0 1px rgba(255, 210, 139, 0.2),
-    0 1px 2px rgba(0, 0, 0, 0.66);
-  transform: translateY(-50%);
-}
-
-.tavern-facade-navigation::before {
-  left: 17px;
-}
-
-.tavern-facade-navigation::after {
-  right: 17px;
-}
-
-.tavern-facade-navigation a {
-  position: relative;
-  z-index: 1;
-  color: #ead0a0;
-  font-family: var(--font-tavern-display, Georgia, serif);
-  font-size: clamp(0.62rem, 1.2vw, 0.78rem);
-  font-weight: 400;
-  letter-spacing: 0.06em;
-  line-height: 1;
-  text-align: center;
-  text-decoration: none;
-  text-shadow:
-    0 1px 1px #160703,
-    0 0 10px rgba(0, 0, 0, 0.76);
-  transition:
-    color 150ms ease,
-    filter 150ms ease,
-    transform 150ms ease;
-}
-
-.tavern-facade-navigation a:not(:last-child)::after {
-  position: absolute;
-  top: 50%;
-  right: calc(clamp(13px, 2.7vw, 30px) / -2);
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  content: "";
-  background: #c58b45;
-  box-shadow: 0 0 7px rgba(240, 172, 73, 0.58);
-  transform: translate(50%, -50%);
-}
-
-.tavern-facade-navigation a:hover {
-  color: #fff0bd;
-  filter: drop-shadow(0 0 7px rgba(255, 179, 62, 0.68));
-  transform: translateY(-1px);
-}
-
-.tavern-facade-navigation a:focus-visible {
-  outline: 2px solid #ffe2a0;
-  outline-offset: 5px;
-}
-
-.tavern-facade-navigation-cta {
-  color: #ffd989 !important;
-}
-
-/* Il vecchio header non viene più usato dalla home, ma resta disponibile altrove. */
-.tavern-facade-header + .hero-scene {
-  min-height: min(650px, 82vh);
-}
-
-@media (max-width: 760px) {
-  .tavern-facade-header {
-    min-height: 300px;
-  }
-
-  .tavern-facade-background {
-    background-position: center, center top;
-    background-size: cover;
-  }
-
-  .tavern-facade-content {
-    width: min(100% - 26px, 1100px);
-    min-height: 300px;
-    padding: 17px 0 18px;
-  }
-
-  .tavern-facade-signboard-link {
-    width: min(96vw, 640px);
-    margin-top: 6px;
-  }
-
-  .tavern-facade-navigation {
-    width: min(100%, 610px);
-    min-height: 55px;
-    padding: 9px 20px;
-    gap: clamp(8px, 2vw, 16px);
-  }
-
-  .tavern-facade-navigation a {
-    font-size: clamp(0.53rem, 2vw, 0.68rem);
-    letter-spacing: 0.025em;
-  }
-
-  .tavern-facade-navigation a:not(:last-child)::after {
-    display: none;
-  }
-
-  .tavern-facade-navigation::before {
-    left: 10px;
-  }
-
-  .tavern-facade-navigation::after {
-    right: 10px;
-  }
-}
-
-@media (max-width: 500px) {
-  .tavern-facade-header {
-    min-height: 286px;
-  }
-
-  .tavern-facade-content {
-    min-height: 286px;
-  }
-
-  .tavern-facade-background {
-    background-position: 50% top;
-  }
-
-  .tavern-facade-navigation {
-    width: 100%;
-    min-height: 73px;
-    padding: 12px 24px;
-    gap: 7px 14px;
-    background-size: 100% 100%;
-    flex-wrap: wrap;
-  }
-
-  .tavern-facade-navigation a {
-    flex: 0 0 auto;
-    font-size: 0.57rem;
-  }
-
-  .tavern-facade-navigation-cta {
-    flex-basis: 100% !important;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .tavern-facade-signboard-link,
-  .tavern-facade-navigation a {
-    transition: none;
-  }
-}
-/* =========================================================
-   PORTA DELLA TAVERNA — MOTTO INCISO
-   ========================================================= */
-
-.tavern-door-motto {
-  position: relative;
-  z-index: 4;
-  display: grid;
-  min-height: 285px;
-  overflow: hidden;
-  place-items: center;
-  border-top: 1px solid rgba(243, 182, 79, 0.14);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.75);
-  padding: 48px 24px;
-  isolation: isolate;
-  background:
-    linear-gradient(
-      90deg,
-      rgba(5, 2, 1, 0.71),
-      rgba(14, 6, 3, 0.26) 29%,
-      rgba(14, 6, 3, 0.21) 71%,
-      rgba(5, 2, 1, 0.73)
-    ),
-    linear-gradient(
-      180deg,
-      rgba(255, 164, 62, 0.08),
-      transparent 34%,
-      rgba(0, 0, 0, 0.55)
-    ),
-    url("/images/tavern-dark-oak-texture.webp");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  box-shadow:
-    inset 0 13px 28px rgba(0, 0, 0, 0.55),
-    inset 0 -17px 30px rgba(0, 0, 0, 0.72),
-    0 12px 26px rgba(0, 0, 0, 0.42);
-}
-
-.tavern-door-motto::before {
-  position: absolute;
-  z-index: -1;
-  inset: 15px;
-  border:
-    11px solid
-    rgba(31, 11, 5, 0.76);
-  border-radius: 3px;
-  content: "";
-  box-shadow:
-    inset 0 0 0 1px rgba(213, 149, 60, 0.2),
-    0 4px 8px rgba(0, 0, 0, 0.44);
-  pointer-events: none;
-}
-
-.tavern-door-motto::after {
-  position: absolute;
-  z-index: -1;
-  inset: 31px;
-  content: "";
-  opacity: 0.28;
-  pointer-events: none;
-  background:
-    repeating-linear-gradient(
-      90deg,
-      transparent 0 12.4%,
-      rgba(5, 1, 1, 0.64) 12.4% 13.1%,
-      transparent 13.1% 25%
-    ),
-    repeating-linear-gradient(
-      0deg,
-      rgba(255, 191, 94, 0.025) 0 1px,
-      transparent 1px 8px
-    );
-}
-
-.tavern-door-motto-inner {
-  position: relative;
-  z-index: 1;
-  max-width: 900px;
-  text-align: center;
-}
-
-.tavern-door-motto-kicker {
-  margin: 0 0 15px;
-  color: rgba(240, 183, 96, 0.74);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 0.69rem;
-  font-weight: 700;
-  letter-spacing: 0.19em;
-  text-transform: uppercase;
-  text-shadow: 0 2px 3px rgba(0, 0, 0, 0.85);
-}
-
-/* Testo finto-inciso: scuro e profondo, con bordo del legno illuminato. */
-.tavern-door-motto h1 {
-  margin: 0;
-  color: #f4ca76;
-  font-family: var(--font-tavern-display, Georgia, serif);
-  font-size: clamp(2rem, 5.3vw, 4.8rem);
-  font-weight: 400;
-  letter-spacing: 0.01em;
-  line-height: 1.04;
-  text-shadow:
-    /* Bordo chiaro inciso dal fuoco. */
-    -1px -1px 0 rgba(255, 232, 163, 0.72),
-    /* Scanalatura scura interna. */
-    1px 1px 0 #431405,
-    2px 2px 0 #210904,
-    /* Ombra fisica sulla porta. */
-    4px 5px 7px rgba(0, 0, 0, 0.88),
-    /* Bagliore caldo e molto controllato. */
-    0 0 10px rgba(242, 133, 39, 0.34),
-    0 0 24px rgba(211, 82, 20, 0.16);
-}
-
-.tavern-door-motto h1 span {
-  display: block;
-  margin-top: 8px;
-  color: #e7ad59;
-  font-size: 0.62em;
-  text-shadow:
-    -1px -1px 0 rgba(255, 226, 150, 0.58),
-    1px 1px 0 #431405,
-    2px 2px 0 #210904,
-    3px 4px 6px rgba(0, 0, 0, 0.84),
-    0 0 8px rgba(238, 125, 32, 0.26);
-}
-
-.tavern-door-motto-rule {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 22px auto 0;
-  gap: 10px;
-  color: rgba(231, 163, 73, 0.75);
-}
-
-.tavern-door-motto-rule::before,
-.tavern-door-motto-rule::after {
-  width: 74px;
-  height: 1px;
-  content: "";
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(228, 165, 75, 0.62),
-    transparent
-  );
-}
-
-.tavern-door-motto-rule span {
-  color: #e3a34b;
-  font-size: 0.82rem;
-  text-shadow: 0 0 11px rgba(255, 147, 42, 0.48);
-}
-
-@media (max-width: 720px) {
-  .tavern-door-motto {
-    min-height: 235px;
-    padding: 35px 20px;
-  }
-
-  .tavern-door-motto::before {
-    inset: 11px;
-    border-width: 8px;
-  }
-
-  .tavern-door-motto::after {
-    inset: 24px;
-  }
-
-  .tavern-door-motto-kicker {
-    margin-bottom: 12px;
-    font-size: 0.6rem;
-    letter-spacing: 0.13em;
-  }
-
-  .tavern-door-motto h1 {
-    font-size: clamp(1.85rem, 9vw, 3.3rem);
-    line-height: 1.1;
-  }
-
-  .tavern-door-motto h1 span {
-    margin-top: 10px;
-    font-size: 0.59em;
-  }
-}
-
-@media (max-width: 420px) {
-  .tavern-door-motto {
-    min-height: 208px;
-    padding: 29px 16px;
-  }
-
-  .tavern-door-motto-rule {
-    margin-top: 16px;
-  }
-
-  .tavern-door-motto-rule::before,
-  .tavern-door-motto-rule::after {
-    width: 45px;
-  }
-}
-/* =========================================================
-   SISTEMA BOTTONI UNIFICATO — STILE DEL BARDO
-   Tavola in legno, ottone, ombra fisica e focus accessibile
-   ========================================================= */
-
-:root {
-  --tavern-button-border: rgba(239, 184, 91, 0.6);
-  --tavern-button-text: #eed7a6;
-  --tavern-button-text-hover: #fff1ca;
-  --tavern-button-shadow: #160603;
-  --tavern-button-focus: #ffe3a2;
-}
-
-/*
-  Tutti i tasti reali e tutte le CTA-link principali assumono
-  lo stesso corpo in legno del pulsante Bardo.
-*/
-.button,
-.bard-toggle,
-.bard-button,
-.google-sign-in-button,
-.adventurer-menu button,
-.dashboard-card button,
-.build-editor-page .back-home-link,
-.back-home-link {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 46px;
-  overflow: hidden;
-  border: 1px solid var(--tavern-button-border);
-  border-radius: 6px;
-  padding: 10px 14px;
-  color: var(--tavern-button-text);
-  background-color: #351408;
-  background-image:
-    linear-gradient(
-      180deg,
-      rgba(255, 216, 138, 0.16) 0%,
-      transparent 32%,
-      rgba(0, 0, 0, 0.22) 100%
-    ),
-    url("/images/tavern-dark-oak-texture.webp");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: auto, cover;
-  box-shadow:
-    0 4px 0 var(--tavern-button-shadow),
-    0 10px 21px rgba(0, 0, 0, 0.55),
-    inset 0 1px rgba(255, 230, 164, 0.27),
-    inset 0 -8px 12px rgba(0, 0, 0, 0.28);
-  font-family: var(--font-tavern-display, Georgia, serif);
-  font-size: 0.74rem;
-  font-weight: 400;
-  letter-spacing: 0.025em;
-  line-height: 1.2;
-  text-align: center;
-  text-decoration: none;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.86);
-  cursor: pointer;
-  transition:
-    transform 160ms ease,
-    filter 160ms ease,
-    box-shadow 160ms ease,
-    border-color 160ms ease,
-    color 160ms ease;
-}
-
-/* Riflesso in alto: dà la sensazione di vernice/legno trattato. */
-.button::before,
-.bard-toggle::before,
-.bard-button::before,
-.google-sign-in-button::before,
-.adventurer-menu button::before,
-.dashboard-card button::before,
-.build-editor-page .back-home-link::before,
-.back-home-link::before {
-  position: absolute;
-  inset: 1px 2px auto;
-  height: 38%;
-  border-radius: 4px 4px 50% 50%;
-  content: "";
-  opacity: 0.35;
-  pointer-events: none;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 238, 177, 0.27),
-    transparent
-  );
-}
-
-/* Il contenuto è sempre sopra la luce decorativa. */
-.button > *,
-.bard-toggle > *,
-.bard-button > *,
-.google-sign-in-button > *,
-.adventurer-menu button > *,
-.dashboard-card button > *,
-.build-editor-page .back-home-link > *,
-.back-home-link > * {
-  position: relative;
-  z-index: 1;
-}
-
-/* Hover: la tavola si solleva appena. */
-.button:hover:not(:disabled),
-.bard-toggle:hover:not(:disabled),
-.bard-button:hover:not(:disabled),
-.google-sign-in-button:hover:not(:disabled),
-.adventurer-menu button:hover:not(:disabled),
-.dashboard-card button:hover:not(:disabled),
-.build-editor-page .back-home-link:hover,
-.back-home-link:hover {
-  border-color: #ffd06c;
-  color: var(--tavern-button-text-hover);
-  filter: brightness(1.14);
-  transform: translateY(-2px);
-  box-shadow:
-    0 6px 0 var(--tavern-button-shadow),
-    0 14px 24px rgba(0, 0, 0, 0.58),
-    inset 0 1px rgba(255, 231, 170, 0.38),
-    inset 0 -8px 12px rgba(0, 0, 0, 0.24);
-}
-
-/* Click: effetto meccanico di pressione sulla tavola. */
-.button:active:not(:disabled),
-.bard-toggle:active:not(:disabled),
-.bard-button:active:not(:disabled),
-.google-sign-in-button:active:not(:disabled),
-.adventurer-menu button:active:not(:disabled),
-.dashboard-card button:active:not(:disabled),
-.build-editor-page .back-home-link:active,
-.back-home-link:active {
-  transform: translateY(3px);
-  box-shadow:
-    0 1px 0 var(--tavern-button-shadow),
-    0 4px 9px rgba(0, 0, 0, 0.5),
-    inset 0 3px 8px rgba(0, 0, 0, 0.36);
-}
-
-/*
-  Stato tastiera: visibile e ad alto contrasto.
-  Mantenerlo è fondamentale per chi naviga con Tab.
-*/
-.button:focus-visible,
-.bard-toggle:focus-visible,
-.bard-button:focus-visible,
-.google-sign-in-button:focus-visible,
-.adventurer-menu button:focus-visible,
-.dashboard-card button:focus-visible,
-.build-editor-page .back-home-link:focus-visible,
-.back-home-link:focus-visible {
-  outline: 3px solid var(--tavern-button-focus);
-  outline-offset: 4px;
-}
-
-/* Stati disabilitati, senza simulare interattività. */
-.button:disabled,
-.bard-toggle:disabled,
-.bard-button:disabled,
-.google-sign-in-button:disabled,
-.adventurer-menu button:disabled,
-.dashboard-card button:disabled {
-  cursor: not-allowed;
-  filter: grayscale(0.55) brightness(0.72);
-  opacity: 0.66;
-}
-
-/*
-  CTA dorata: stessa forma e lo stesso rilievo del Bardo,
-  ma con una luce più calda per indicare l'azione principale.
-*/
-.button-gold,
-.bard-button-primary {
-  border-color: #ffd06c;
-  color: #fff1c9;
-  background-image:
-    radial-gradient(
-      circle at 24% 21%,
-      rgba(255, 191, 73, 0.38),
-      transparent 42%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(255, 227, 147, 0.2),
-      transparent 34%,
-      rgba(0, 0, 0, 0.22)
-    ),
-    url("/images/tavern-dark-oak-texture.webp");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: auto, auto, cover;
-  box-shadow:
-    0 4px 0 var(--tavern-button-shadow),
-    0 0 22px rgba(241, 133, 38, 0.29),
-    0 10px 21px rgba(0, 0, 0, 0.55),
-    inset 0 1px rgba(255, 235, 177, 0.38),
-    inset 0 -8px 12px rgba(0, 0, 0, 0.28);
-}
-
-/* CTA secondaria: stessa struttura, meno glow. */
-.button-wood,
-.bard-button-secondary {
-  color: #ead3a2;
-  background-image:
-    linear-gradient(
-      180deg,
-      rgba(255, 205, 114, 0.11),
-      transparent 32%,
-      rgba(0, 0, 0, 0.28)
-    ),
-    url("/images/tavern-dark-oak-texture.webp");
-}
-
-/* L'icona di Google resta bianca e riconoscibile. */
-.google-glyph {
-  position: relative;
-  z-index: 1;
-  flex: 0 0 auto;
-}
-
-/* Rune e frecce già presenti nei bottoni home. */
-.button-rune {
-  position: relative;
-  z-index: 1;
-  border-color: rgba(255, 220, 135, 0.43);
-  color: #ffe09a;
-  background: rgba(43, 14, 5, 0.62);
-  box-shadow: inset 0 1px rgba(255, 227, 159, 0.18);
-}
-
-.button-arrow {
-  position: relative;
-  z-index: 1;
-}
-
-/*
-  Il bottone Bardo mantiene la dimensione originaria,
-  ma eredita tutto il nuovo sistema.
-*/
-.bard-toggle {
-  min-height: 46px;
-}
-
-/* Menu account e pulsanti piccoli non diventano eccessivamente larghi. */
-.adventurer-menu button,
-.dashboard-card button {
-  min-height: 38px;
-  padding: 7px 10px;
-  font-size: 0.64rem;
-}
-
-/* Link di ritorno: conserva compattezza nella barra editor/login. */
-.back-home-link,
-.build-editor-page .back-home-link {
-  min-height: 37px;
-  padding: 8px 12px;
-  font-size: 0.68rem;
-}
-
-/* Mobile: target sufficientemente grandi senza occupare troppo spazio. */
-@media (max-width: 720px) {
+  .build-form { background-size: auto, auto, 360px auto; }
+  .feature-card { background-size: auto, auto, 330px auto; }
   .button,
   .bard-toggle,
   .bard-button,
-  .google-sign-in-button {
-    min-height: 44px;
-    padding: 9px 12px;
-    font-size: 0.7rem;
-    letter-spacing: 0.012em;
-  }
-
-  .adventurer-menu button,
-  .dashboard-card button,
-  .back-home-link,
-  .build-editor-page .back-home-link {
-    min-height: 36px;
-    font-size: 0.62rem;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .button,
-  .bard-toggle,
-  .bard-button,
-  .google-sign-in-button,
-  .adventurer-menu button,
-  .dashboard-card button,
-  .build-editor-page .back-home-link,
-  .back-home-link {
-    transition: none;
-  }
-}
-/* =========================================================
-   INTERNI DELLA TAVERNA — LOGIN E DASHBOARD
-   Camino, luce calda, pannelli coerenti e profondità
-   ========================================================= */
-
-/* ---------------------------------------------------------
-   LOGIN — porta d'ingresso alla taverna
-   --------------------------------------------------------- */
-
-.auth-page {
-  position: relative;
-  min-height: 100vh;
-  isolation: isolate;
-  overflow: hidden;
-  background: #0a0503;
-}
-
-/*
-  La scena esistente tavern-hero.webp diventa il fondale:
-  scuro a sinistra per il testo e più leggibile sulla zona form.
-*/
-.auth-page-background {
-  position: absolute;
-  z-index: -2;
-  inset: 0;
-  opacity: 1;
-  background-image:
-    linear-gradient(
-      90deg,
-      rgba(7, 3, 2, 0.93) 0%,
-      rgba(11, 5, 3, 0.8) 38%,
-      rgba(13, 6, 3, 0.46) 67%,
-      rgba(6, 3, 2, 0.62) 100%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(2, 1, 1, 0.28) 0%,
-      transparent 34%,
-      rgba(3, 1, 1, 0.77) 100%
-    ),
-    url("/images/tavern-hero.webp");
-  background-position: center, center, 60% center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  box-shadow: inset 0 0 145px rgba(0, 0, 0, 0.69);
-}
-
-/* Bagliore del fuoco sopra l'immagine, molto leggero. */
-.auth-page::before {
-  position: fixed;
-  z-index: -1;
-  inset: 0;
-  content: "";
-  pointer-events: none;
-  background:
-    radial-gradient(
-      ellipse at 73% 51%,
-      rgba(247, 139, 45, 0.18),
-      transparent 20rem
-    ),
-    radial-gradient(
-      ellipse at 76% 38%,
-      rgba(255, 189, 85, 0.08),
-      transparent 12rem
-    ),
-    linear-gradient(
-      90deg,
-      rgba(0, 0, 0, 0.25),
-      transparent 23%,
-      transparent 77%,
-      rgba(0, 0, 0, 0.27)
-    );
-}
-
-/* Barra login coerente con facciata e tasti. */
-.auth-topbar {
-  position: relative;
-  z-index: 2;
-  min-height: 82px;
-  border-bottom: 1px solid rgba(240, 181, 83, 0.26);
-  padding: 0 15px;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255, 198, 108, 0.1),
-      transparent 43%,
-      rgba(0, 0, 0, 0.32)
-    ),
-    url("/images/tavern-dark-oak-texture.webp");
-  background-position: center;
-  background-size: cover;
-  box-shadow:
-    0 7px 20px rgba(0, 0, 0, 0.42),
-    inset 0 1px rgba(255, 226, 151, 0.13),
-    inset 0 -1px rgba(0, 0, 0, 0.56);
-}
-
-/* Contenitore login sopra la scena. */
-.auth-layout {
-  position: relative;
-  z-index: 1;
-}
-
-/* Testo introduttivo: aumenta contrasto in zona camino. */
-.auth-story .eyebrow {
-  color: #f0b257;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
-}
-
-.auth-story h2 {
-  color: #fff0cf;
-  text-shadow:
-    0 3px 5px rgba(0, 0, 0, 0.91),
-    0 0 28px rgba(234, 129, 41, 0.15);
-}
-
-.auth-story h2 span {
-  color: #efb35c;
-}
-
-.auth-story > p:last-child {
-  color: #e3cc9f;
-  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.86);
-}
-
-/* Pannello login: pergamena con bordo legno, fisicamente sollevato. */
-.auth-panel {
-  position: relative;
-  overflow: hidden;
-  border: 10px solid #301206;
-  border-radius: 6px;
-  outline: 1px solid rgba(243, 185, 89, 0.46);
-  outline-offset: -17px;
-  box-shadow:
-    0 5px 0 #190702,
-    0 28px 54px rgba(0, 0, 0, 0.7),
-    inset 0 0 42px rgba(80, 35, 8, 0.22);
-}
-
-/* Cornice interna da registro/taverna. */
-.auth-panel::before {
-  position: absolute;
-  inset: 16px;
-  border: 1px dashed rgba(85, 39, 10, 0.3);
-  content: "";
-  pointer-events: none;
-}
-
-/* Tutto il contenuto resta sopra la cornice. */
-.auth-panel > * {
-  position: relative;
-  z-index: 1;
-}
-
-/* ---------------------------------------------------------
-   DASHBOARD — sala interna della gilda
-   --------------------------------------------------------- */
-
-.dashboard-page {
-  position: relative;
-  min-height: 100vh;
-  isolation: isolate;
-  overflow: hidden;
-  color: #f5e2bb;
-  background:
-    linear-gradient(
-      90deg,
-      rgba(7, 3, 2, 0.91) 0%,
-      rgba(13, 6, 3, 0.71) 46%,
-      rgba(7, 3, 2, 0.82) 100%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.17),
-      rgba(0, 0, 0, 0.64)
-    ),
-    url("/images/tavern-hero.webp");
-  background-position: center, center, 60% center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-}
-
-/* Glow del camino e vignettatura. */
-.dashboard-page::before {
-  position: fixed;
-  z-index: 0;
-  inset: 0;
-  content: "";
-  pointer-events: none;
-  background:
-    radial-gradient(
-      ellipse at 74% 40%,
-      rgba(248, 137, 39, 0.21),
-      transparent 22rem
-    ),
-    radial-gradient(
-      ellipse at 47% 10%,
-      rgba(244, 151, 53, 0.08),
-      transparent 25rem
-    ),
-    radial-gradient(
-      ellipse at center,
-      transparent 26%,
-      rgba(0, 0, 0, 0.27) 74%,
-      rgba(0, 0, 0, 0.63) 100%
-    );
-}
-
-/* Tutti i contenuti dashboard sopra sfondo e glow. */
-.dashboard-topbar,
-.dashboard-hero,
-.dashboard-grid {
-  position: relative;
-  z-index: 1;
-}
-
-/* Barra dashboard in legno, coerente con il resto del sito. */
-.dashboard-topbar {
-  min-height: 82px;
-  border-bottom-color: rgba(237, 178, 82, 0.31);
-  padding-top: 0;
-  padding-bottom: 0;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255, 198, 108, 0.11),
-      transparent 42%,
-      rgba(0, 0, 0, 0.32)
-    ),
-    url("/images/tavern-dark-oak-texture.webp");
-  background-position: center;
-  background-size: cover;
-  box-shadow:
-    0 8px 22px rgba(0, 0, 0, 0.47),
-    inset 0 1px rgba(255, 228, 155, 0.14),
-    inset 0 -1px rgba(0, 0, 0, 0.53);
-}
-
-/* Titolo dashboard: leggibile davanti alla luce calda del camino. */
-.dashboard-hero .eyebrow {
-  color: #efb05b;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.86);
-}
-
-.dashboard-hero h1 {
-  color: #fff0cf;
-  text-shadow:
-    0 4px 11px rgba(0, 0, 0, 0.88),
-    0 0 28px rgba(239, 131, 38, 0.14);
-}
-
-.dashboard-hero h1 span {
-  color: #edb05c;
-}
-
-.dashboard-hero > p:last-child {
-  color: #dfc69d;
-  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.82);
-}
-
-/* Card dashboard: tavolette di legno appoggiate al tavolo della gilda. */
-.dashboard-card {
-  position: relative;
-  overflow: hidden;
-  border: 1px solid rgba(229, 171, 78, 0.37);
-  border-radius: 6px;
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 189, 90, 0.11),
-      transparent 34%,
-      rgba(0, 0, 0, 0.28)
-    ),
-    url("/images/tavern-dark-oak-texture.webp");
-  background-position: center;
-  background-size: cover;
-  box-shadow:
-    0 5px 0 rgba(25, 8, 4, 0.93),
-    0 20px 35px rgba(0, 0, 0, 0.54),
-    inset 0 1px rgba(255, 220, 144, 0.17),
-    inset 0 -20px 28px rgba(4, 1, 1, 0.37);
-}
-
-/* Grana sottile sopra le card, senza ridurre la leggibilità. */
-.dashboard-card::after {
-  position: absolute;
-  inset: 0;
-  content: "";
-  opacity: 0.2;
-  pointer-events: none;
-  background-image:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 213, 130, 0.13),
-      transparent
-    ),
-    url("/images/arpg-tavern-ui-textures.png");
-  background-position: center, 45% 10%;
-  background-size: auto, 510px;
-  mix-blend-mode: soft-light;
-}
-
-.dashboard-card > * {
-  position: relative;
-  z-index: 1;
-}
-
-.dashboard-card-primary {
-  border-color: rgba(246, 193, 97, 0.62);
-  background:
-    radial-gradient(
-      circle at 86% 13%,
-      rgba(252, 159, 56, 0.31),
-      transparent 11rem
-    ),
-    linear-gradient(
-      135deg,
-      rgba(255, 197, 98, 0.12),
-      transparent 38%
-    ),
-    url("/images/tavern-dark-oak-texture.webp");
-  background-position: center;
-  background-size: auto, auto, cover;
-  box-shadow:
-    0 5px 0 rgba(25, 8, 4, 0.93),
-    0 0 26px rgba(246, 137, 39, 0.2),
-    0 20px 35px rgba(0, 0, 0, 0.54),
-    inset 0 1px rgba(255, 225, 151, 0.19),
-    inset 0 -20px 28px rgba(4, 1, 1, 0.36);
-}
-
-.dashboard-card-rune {
-  border-color: rgba(250, 199, 105, 0.57);
-  color: #ffe09a;
-  background:
-    radial-gradient(
-      circle at 34% 27%,
-      rgba(255, 191, 85, 0.36),
-      rgba(77, 24, 7, 0.7) 68%
-    ),
-    #421407;
-  box-shadow:
-    0 4px 8px rgba(0, 0, 0, 0.41),
-    inset 0 1px rgba(255, 221, 145, 0.3);
-}
-
-.dashboard-card h2 {
-  color: #f7dfb1;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.77);
-}
-
-.dashboard-card > p:last-of-type {
-  color: #d6b98c;
-}
-
-/* ---------------------------------------------------------
-   RESPONSIVE E ACCESSIBILITÀ
-   --------------------------------------------------------- */
-
-@media (max-width: 820px) {
-  .auth-page-background {
-    background-position: center, center, 58% center;
-  }
-
-  .auth-page::before {
-    background:
-      radial-gradient(
-        ellipse at 62% 33%,
-        rgba(247, 139, 45, 0.13),
-        transparent 18rem
-      ),
-      linear-gradient(
-        180deg,
-        rgba(0, 0, 0, 0.19),
-        rgba(0, 0, 0, 0.41)
-      );
-  }
-
-  .dashboard-page {
-    background-attachment: scroll;
-    background-position: center, center, 58% center;
-  }
+  .google-sign-in-button { min-height: 44px; padding: 9px 12px; font-size: 0.7rem; letter-spacing: 0.012em; }
 }
 
 @media (max-width: 620px) {
-  .auth-topbar {
-    min-height: 70px;
-    padding: 0 10px;
-  }
-
-  .auth-panel {
-    border-width: 7px;
-  }
-
-  .auth-panel::before {
-    inset: 12px;
-  }
-
-  .dashboard-topbar {
-    min-height: 72px;
-  }
-
-  .dashboard-page {
-    background-position: center, center, 62% center;
-  }
+  .auth-topbar,
+  .auth-layout { width: min(100% - 30px, 1120px); }
+  .auth-topbar { min-height: 70px; padding: 0 10px; }
+  .auth-panel { border-width: 7px; padding: 42px 25px 29px; }
+  .auth-panel::before { inset: 12px; }
 }
 
-/* Nessun movimento aggiuntivo; il sito già rispetta reduced motion. */
-@media (prefers-reduced-motion: reduce) {
-  .auth-page-background,
-  .dashboard-page {
-    background-attachment: scroll;
-  }
-}
-/* =========================================================
-   BARDO — PLAYLIST CICLICA
-   Controlli precedente, play/pausa, successivo e volume
-   ========================================================= */
-
-.bard-player {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  max-width: min(470px, calc(100vw - 44px));
-  gap: 7px;
-}
-
-.bard-skip-button {
-  display: grid;
-  width: 38px;
-  height: 46px;
-  flex: 0 0 auto;
-  place-items: center;
-  border: 1px solid rgba(239, 184, 91, 0.6);
-  border-radius: 6px;
-  padding: 0;
-  color: #eed7a6;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255, 216, 138, 0.16),
-      transparent 32%,
-      rgba(0, 0, 0, 0.22)
-    ),
-    url("/images/tavern-dark-oak-texture.webp");
-  background-position: center;
-  background-size: cover;
-  box-shadow:
-    0 4px 0 #160603,
-    0 10px 21px rgba(0, 0, 0, 0.55),
-    inset 0 1px rgba(255, 230, 164, 0.27),
-    inset 0 -8px 12px rgba(0, 0, 0, 0.28);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.7rem;
-  line-height: 1;
-  cursor: pointer;
-  transition:
-    transform 160ms ease,
-    filter 160ms ease,
-    box-shadow 160ms ease;
-}
-
-.bard-skip-button:hover {
-  border-color: #ffd06c;
-  color: #fff1ca;
-  filter: brightness(1.14);
-  transform: translateY(-2px);
-}
-
-.bard-skip-button:active {
-  transform: translateY(3px);
-  box-shadow:
-    0 1px 0 #160603,
-    0 4px 9px rgba(0, 0, 0, 0.5),
-    inset 0 3px 8px rgba(0, 0, 0, 0.36);
-}
-
-.bard-skip-button:focus-visible {
-  outline: 3px solid #ffe3a2;
-  outline-offset: 3px;
-}
-
-.bard-current-track {
-  flex-basis: 100%;
-  order: 5;
-  overflow: hidden;
-  margin: 1px 4px 0;
-  color: #d8b77f;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 0.69rem;
-  font-style: italic;
-  line-height: 1.2;
-  text-align: center;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
+@media (max-width: 500px) {
+  .tavern-facade-header,
+  .tavern-facade-content { min-height: 286px; }
+  .tavern-facade-navigation { width: 100%; min-height: 73px; padding: 12px 24px; gap: 7px 14px; flex-wrap: wrap; }
+  .tavern-facade-navigation a { flex: 0 0 auto; font-size: 0.57rem; }
+  .tavern-facade-navigation-cta { flex-basis: 100% !important; }
+  .bard-volume { display: none; }
+  .bard-player { right: 12px; bottom: 12px; }
+  .bard-status-message { right: 12px; bottom: 65px; width: min(290px, calc(100% - 24px)); }
 }
 
 @media (max-width: 480px) {
-  .bard-skip-button {
-    width: 35px;
-    height: 44px;
-    font-size: 1.55rem;
-  }
+  .tavern-ember { display: none; }
+  .tavern-door-motto { min-height: 208px; padding: 29px 16px; }
+  .tavern-door-motto-rule { margin-top: 16px; }
+  .tavern-door-motto-rule::before,
+  .tavern-door-motto-rule::after { width: 45px; }
+  .bard-skip-button { width: 35px; height: 44px; font-size: 1.55rem; }
+  .bard-current-track { display: none; }
+}
 
-  .bard-current-track {
-    display: none;
-  }
+@media (max-width: 420px) {
+  .tavern-door-motto h1 { font-size: clamp(1.85rem, 9vw, 3.3rem); line-height: 1.1; }
+  .tavern-door-motto h1 span { margin-top: 10px; font-size: 0.59em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  .tavern-ember { display: none; }
+  .auth-page-background,
+  .build-editor-page { background-attachment: scroll; }
 }
