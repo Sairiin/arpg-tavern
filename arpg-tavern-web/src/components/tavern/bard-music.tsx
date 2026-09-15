@@ -138,35 +138,43 @@ export function BardMusic() {
 
     audio.volume = volume;
   }, [volume]);
+  
+useEffect(() => {
+  const audio = audioReference.current;
 
+  if (!audio) {
+    return;
+  }
+
+  audio.volume = volume;
+}, [volume]);
   useEffect(() => {
-    const audio = audioReference.current;
+  const audio = audioReference.current;
 
-    if (!audio || !isReady) {
-      return;
-    }
+  if (!audio || !isReady) {
+    return;
+  }
 
-    audio.volume = volume;
-    audio.load();
+  audio.load();
 
-    if (!isMusicOn) {
-      shouldAutoplayNextTrack.current = false;
-      audio.pause();
-      return;
-    }
+  if (!isMusicOn) {
+    shouldAutoplayNextTrack.current = false;
+    audio.pause();
+    return;
+  }
 
-    shouldAutoplayNextTrack.current = true;
+  shouldAutoplayNextTrack.current = true;
 
-    void audio.play().catch((error) => {
-      console.error("Impossibile avviare la musica del bardo:", error);
-      shouldAutoplayNextTrack.current = false;
-      setIsMusicOn(false);
-      window.localStorage.setItem(BARD_PREFERENCE_KEY, "off");
-      setMessage(
-        "Il bardo non riesce ad avviare il brano. Puoi riprovare dal pulsante musicale."
-      );
-    });
-  }, [isMusicOn, isReady, trackIndex, volume]);
+  void audio.play().catch((error) => {
+    console.error("Impossibile avviare la musica del bardo:", error);
+    shouldAutoplayNextTrack.current = false;
+    setIsMusicOn(false);
+    window.localStorage.setItem(BARD_PREFERENCE_KEY, "off");
+    setMessage(
+      "Il bardo non riesce ad avviare il brano. Puoi riprovare dal pulsante musicale."
+    );
+  });
+}, [isMusicOn, isReady, trackIndex]);
 
   function saveTrackIndex(nextTrackIndex: number) {
     window.localStorage.setItem(BARD_TRACK_KEY, String(nextTrackIndex));
