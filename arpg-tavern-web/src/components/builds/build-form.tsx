@@ -3,6 +3,7 @@
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { CoinFountain } from "@/components/tavern/coin-fountain";
 import { db } from "@/lib/firebase/client";
 import { importPobCode } from "@/lib/builds/pob-import";
 import {
@@ -13,7 +14,9 @@ import {
   type BuildSourceType,
   type BuildVisibility,
   type ImportedBuildData,
-} from "@/lib/builds/types";
+} 
+
+from "@/lib/builds/types";
 
 type BuildFormProps = {
   userId: string;
@@ -751,18 +754,15 @@ patch: cleanPatch,
         >
           Annulla
         </button>
-
-        <button
-          className="button button-gold"
-          type="submit"
-          disabled={isSaving || isAnalyzingPob}
-        >
-          <span className="button-rune" aria-hidden="true">
-            ✦
-          </span>
-
-          {isSaving ? "Il grimorio si sta chiudendo..." : "Salva la build"}
-        </button>
+        <CoinFountain>
+  <button
+    type="submit"
+    className="button button-gold"
+    disabled={isSaving}
+  >
+    {isSaving ? "Il grimorio si sta chiudendo..." : "Salva la build"}
+  </button>
+</CoinFountain>
       </div>
     </form>
   );
