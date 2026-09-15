@@ -621,3 +621,336 @@
     white-space: normal;
   }
 }
+/* =========================================================
+   DASHBOARD — INTERNO DELLA TAVERNA
+   Da aggiungere in fondo al CSS specifico dashboard
+   ========================================================= */
+
+.dashboard-page {
+  position: relative;
+  min-height: 100vh;
+  isolation: isolate;
+  overflow-x: hidden;
+  color: #f8e7c4;
+  background-color: #0a0503;
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(7, 3, 2, 0.93) 0%,
+      rgba(13, 6, 3, 0.72) 46%,
+      rgba(7, 3, 2, 0.85) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.12),
+      rgba(0, 0, 0, 0.67)
+    ),
+    url("/images/tavern-hero.webp");
+  background-position: center, center, 60% center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+/* Luce calda del camino e vignettatura, senza coprire i contenuti. */
+.dashboard-page::before {
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse at 74% 42%,
+      rgba(249, 138, 39, 0.23),
+      transparent 22rem
+    ),
+    radial-gradient(
+      ellipse at 45% 7%,
+      rgba(245, 145, 46, 0.08),
+      transparent 25rem
+    ),
+    radial-gradient(
+      ellipse at center,
+      transparent 25%,
+      rgba(0, 0, 0, 0.27) 75%,
+      rgba(0, 0, 0, 0.64) 100%
+    );
+}
+
+/* Mantiene tutti gli elementi funzionali davanti allo sfondo. */
+.dashboard-page > *,
+.dashboard-topbar,
+.dashboard-hero,
+.dashboard-summary,
+.builds-section {
+  position: relative;
+  z-index: 1;
+}
+
+/* Barra alta: una mensola/tavola di legno della taverna. */
+.dashboard-topbar {
+  min-height: 82px;
+  border-bottom-color: rgba(239, 180, 84, 0.34);
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: #2b1007;
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(255, 199, 108, 0.11),
+      transparent 42%,
+      rgba(0, 0, 0, 0.34)
+    ),
+    url("/images/tavern-dark-oak-texture.webp");
+  background-position: center;
+  background-size: cover;
+  box-shadow:
+    0 8px 22px rgba(0, 0, 0, 0.5),
+    inset 0 1px rgba(255, 229, 156, 0.14),
+    inset 0 -1px rgba(0, 0, 0, 0.58);
+}
+
+/* Testi su immagine: contrasto alto davanti al camino. */
+.dashboard-hero .eyebrow,
+.builds-section-heading .eyebrow {
+  color: #efb25b;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+}
+
+.dashboard-hero h1 {
+  color: #fff0cf;
+  font-family: var(--font-tavern-display, Georgia, serif);
+  text-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.89),
+    0 0 28px rgba(239, 131, 38, 0.15);
+}
+
+.dashboard-hero h1 span {
+  color: #edb05c;
+}
+
+.dashboard-hero > div:first-child > p:last-child {
+  color: #dfc69d;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.84);
+}
+
+/* CTA “Crea una build”: stesso stile del Bardo. */
+.dashboard-create-button,
+.builds-empty-state .button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  overflow: hidden;
+  border: 1px solid rgba(239, 184, 91, 0.67);
+  border-radius: 6px;
+  padding: 11px 15px;
+  color: #fff1c9;
+  background-color: #351408;
+  background-image:
+    radial-gradient(
+      circle at 24% 21%,
+      rgba(255, 191, 73, 0.36),
+      transparent 42%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 223, 147, 0.18),
+      transparent 33%,
+      rgba(0, 0, 0, 0.23)
+    ),
+    url("/images/tavern-dark-oak-texture.webp");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto, auto, cover;
+  box-shadow:
+    0 4px 0 #160603,
+    0 0 20px rgba(242, 132, 37, 0.25),
+    0 10px 21px rgba(0, 0, 0, 0.55),
+    inset 0 1px rgba(255, 234, 172, 0.36),
+    inset 0 -8px 12px rgba(0, 0, 0, 0.28);
+  font-family: var(--font-tavern-display, Georgia, serif);
+  font-weight: 400;
+  letter-spacing: 0.025em;
+}
+
+.dashboard-create-button:hover,
+.builds-empty-state .button:hover {
+  border-color: #ffd06c;
+  color: #fff5d6;
+  filter: brightness(1.14);
+  transform: translateY(-2px);
+}
+
+.dashboard-create-button:active,
+.builds-empty-state .button:active {
+  transform: translateY(3px);
+  box-shadow:
+    0 1px 0 #160603,
+    0 4px 9px rgba(0, 0, 0, 0.5),
+    inset 0 3px 8px rgba(0, 0, 0, 0.36);
+}
+
+/* Riepiloghi: tavolette in legno incastonate nella sala. */
+.dashboard-summary article,
+.saved-build-card,
+.builds-empty-state {
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(229, 171, 78, 0.4);
+  background-color: #2c1008;
+  background-image:
+    linear-gradient(
+      135deg,
+      rgba(255, 188, 88, 0.11),
+      transparent 34%,
+      rgba(0, 0, 0, 0.3)
+    ),
+    url("/images/tavern-dark-oak-texture.webp");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow:
+    0 5px 0 rgba(22, 6, 3, 0.91),
+    0 18px 31px rgba(0, 0, 0, 0.5),
+    inset 0 1px rgba(255, 220, 144, 0.16),
+    inset 0 -17px 25px rgba(4, 1, 1, 0.36);
+}
+
+/* Riflesso/grana sulle tavolette, separato dai contenuti. */
+.dashboard-summary article::after,
+.saved-build-card::after,
+.builds-empty-state::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  opacity: 0.17;
+  pointer-events: none;
+  background-image:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 214, 132, 0.15),
+      transparent
+    ),
+    url("/images/arpg-tavern-ui-textures.png");
+  background-position: center, 46% 12%;
+  background-size: auto, 510px;
+  mix-blend-mode: soft-light;
+}
+
+.dashboard-summary article > *,
+.saved-build-card > *,
+.builds-empty-state > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Card primaria: riceve più calore dal camino. */
+.dashboard-summary article:first-child {
+  border-color: rgba(246, 193, 97, 0.57);
+  background-image:
+    radial-gradient(
+      circle at 85% 16%,
+      rgba(251, 158, 53, 0.26),
+      transparent 10rem
+    ),
+    linear-gradient(
+      135deg,
+      rgba(255, 195, 95, 0.12),
+      transparent 40%
+    ),
+    url("/images/tavern-dark-oak-texture.webp");
+  background-size: auto, auto, cover;
+}
+
+/* Titoli e testi nelle tavolette. */
+.dashboard-summary strong,
+.saved-build-content h3,
+.builds-empty-state h3,
+.builds-section-heading h2 {
+  color: #f4dbab;
+  font-family: var(--font-tavern-display, Georgia, serif);
+  font-weight: 400;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.dashboard-summary small,
+.saved-build-topline span {
+  color: #c8a878;
+}
+
+.saved-build-content p,
+.saved-build-content small,
+.builds-empty-state p {
+  color: #d2b78d;
+}
+
+/* Icone illuminate dal fuoco. */
+.dashboard-summary article > span,
+.saved-build-icon,
+.builds-empty-state > span {
+  border-color: rgba(246, 191, 94, 0.56);
+  color: #ffdc8b;
+  background:
+    radial-gradient(
+      circle at 35% 28%,
+      rgba(255, 188, 81, 0.39),
+      rgba(81, 24, 7, 0.73) 68%
+    ),
+    #421407;
+  box-shadow:
+    0 4px 9px rgba(0, 0, 0, 0.44),
+    inset 0 1px rgba(255, 225, 149, 0.27);
+}
+
+.saved-build-card:hover {
+  border-color: rgba(250, 195, 101, 0.73);
+  transform: translateX(4px);
+}
+
+/* Link “Vedi tutte” come incisione dorata, non bottone pieno. */
+.builds-section-heading > a {
+  border-bottom-color: rgba(247, 191, 93, 0.62);
+  color: #f1b75d;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.87);
+}
+
+.builds-section-heading > a:hover {
+  color: #ffe2a2;
+}
+
+/* Il bottone logout viene gestito anche dal sistema globale in globals.css. */
+.adventurer-menu button {
+  font-family: var(--font-tavern-display, Georgia, serif);
+}
+
+/* Focus tastiera visibile. */
+.dashboard-create-button:focus-visible,
+.builds-empty-state .button:focus-visible,
+.adventurer-menu button:focus-visible,
+.builds-section-heading > a:focus-visible,
+.saved-build-card:focus-visible {
+  outline: 3px solid #ffe3a2;
+  outline-offset: 4px;
+}
+
+@media (max-width: 800px) {
+  .dashboard-page {
+    background-attachment: scroll;
+    background-position: center, center, 59% center;
+  }
+}
+
+@media (max-width: 560px) {
+  .dashboard-page {
+    background-position: center, center, 63% center;
+  }
+
+  .dashboard-topbar {
+    min-height: 74px;
+  }
+}

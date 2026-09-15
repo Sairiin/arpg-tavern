@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
+import { MedievalSharp } from "next/font/google";
 import { BardMusic } from "@/components/tavern/bard-music";
 import "./globals.css";
+
+const medievalSharp = MedievalSharp({
+  variable: "--font-medieval-sharp",
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "ARPG Tavern",
@@ -14,18 +22,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="it">
-      <body>
-        <div className="tavern-global-atmosphere" aria-hidden="true">
-          <span className="tavern-ember tavern-ember-one" />
-          <span className="tavern-ember tavern-ember-two" />
-          <span className="tavern-ember tavern-ember-three" />
-          <span className="tavern-ember tavern-ember-four" />
-          <span className="tavern-ember tavern-ember-five" />
-          <span className="tavern-ember tavern-ember-six" />
-        </div>
-
+      <body className={medievalSharp.variable}>
         {children}
-
         <BardMusic />
       </body>
     </html>

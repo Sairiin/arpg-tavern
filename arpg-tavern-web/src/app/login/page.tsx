@@ -8,11 +8,7 @@ export default function LoginPage() {
 
       <div className="auth-topbar">
         <Link className="brand" href="/">
-          <span className="brand-mark">✦</span>
-          <span className="brand-text">
-            <small>La casa dei theorycrafter</small>
-            ARPG Tavern
-          </span>
+
         </Link>
 
         <Link className="back-home-link" href="/">
