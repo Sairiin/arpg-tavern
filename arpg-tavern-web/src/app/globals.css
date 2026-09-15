@@ -459,6 +459,340 @@ button { cursor: pointer; }
   .button, .bard-toggle, .bard-button, .google-sign-in-button { min-height: 44px; padding: 9px 12px; font-size: 0.7rem; letter-spacing: 0.012em; }
 }
 
+/* Feature cards — scene vive della taverna */
+.feature-card {
+  color: #f4ddb0;
+  border-color: rgba(237, 177, 80, 0.38);
+  background-color: #1b0905;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow:
+    0 5px 0 rgba(20, 6, 2, 0.9),
+    0 17px 29px rgba(0, 0, 0, 0.48),
+    inset 0 0 34px rgba(0, 0, 0, 0.62);
+}
+
+.feature-card::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(11, 4, 2, 0.95) 0%,
+      rgba(15, 5, 2, 0.78) 38%,
+      rgba(15, 5, 2, 0.27) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 165, 54, 0.07),
+      rgba(0, 0, 0, 0.68)
+    );
+}
+
+.feature-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.feature-card h3 {
+  color: #fff0ca;
+  text-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.9),
+    0 0 15px rgba(245, 132, 35, 0.15);
+}
+
+.feature-card p {
+  color: #e0c39a;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.87);
+}
+
+.feature-card .card-mark {
+  color: rgba(255, 209, 121, 0.78);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+.feature-card:nth-child(1) {
+  background-image: url("/images/tavern-forge-build.webp");
+}
+
+.feature-card:nth-child(1) .feature-icon {
+  border-color: rgba(255, 202, 104, 0.76);
+  color: #fff1af;
+  background:
+    radial-gradient(
+      circle at 35% 28%,
+      #ffb148,
+      #9a2b10 60%,
+      #3e0b04
+    );
+  box-shadow:
+    0 0 18px rgba(255, 115, 23, 0.52),
+    0 4px 8px rgba(0, 0, 0, 0.52),
+    inset 2px 2px 6px rgba(255, 222, 141, 0.32);
+}
+/* Ricorda le stagioni — archivio, clessidra e pergamene */
+.feature-card:nth-child(2) {
+  background-image: url("/images/tavern-seasons-archive.webp");
+  background-position: 59% center;
+}
+
+.feature-card:nth-child(2) .feature-icon {
+  border-color: rgba(249, 210, 121, 0.76);
+  color: #fff2bb;
+  background:
+    radial-gradient(
+      circle at 35% 28%,
+      #e8b34f,
+      #8f5b19 61%,
+      #3c1b05
+    );
+  box-shadow:
+    0 0 17px rgba(240, 177, 59, 0.43),
+    0 4px 8px rgba(0, 0, 0, 0.52),
+    inset 2px 2px 6px rgba(255, 238, 159, 0.32);
+}
+/* Confronta le varianti — tavolo strategico e rune */
+.feature-card:nth-child(3) {
+  background-image: url("/images/tavern-build-variants.webp");
+  background-position: 59% center;
+}
+
+.feature-card:nth-child(3)::before {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(5, 7, 15, 0.96) 0%,
+      rgba(7, 10, 20, 0.77) 40%,
+      rgba(9, 14, 29, 0.25) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(78, 144, 217, 0.11),
+      rgba(0, 0, 0, 0.7)
+    );
+}
+
+.feature-card:nth-child(3) .feature-icon {
+  border-color: rgba(131, 188, 245, 0.76);
+  color: #d9f2ff;
+  background:
+    radial-gradient(
+      circle at 35% 28%,
+      #78c4f4,
+      #24639a 61%,
+      #0b203c
+    );
+  box-shadow:
+    0 0 18px rgba(67, 158, 239, 0.53),
+    0 4px 8px rgba(0, 0, 0, 0.52),
+    inset 2px 2px 6px rgba(196, 235, 255, 0.34);
+}
+
+.feature-card:nth-child(3) h3 {
+  text-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.94),
+    0 0 15px rgba(79, 164, 240, 0.27);
+}
+/* Consulta il saggio — studio arcano e rune */
+.feature-card:nth-child(4) {
+  background-image: url("/images/tavern-wise-sage.webp");
+  background-position: 60% center;
+}
+
+.feature-card:nth-child(4)::before {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(14, 5, 25, 0.96) 0%,
+      rgba(21, 8, 39, 0.79) 40%,
+      rgba(27, 12, 48, 0.26) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(177, 93, 255, 0.13),
+      rgba(0, 0, 0, 0.71)
+    );
+}
+
+.feature-card:nth-child(4) .feature-icon {
+  border-color: rgba(214, 152, 255, 0.78);
+  color: #f3dcff;
+  background:
+    radial-gradient(
+      circle at 35% 28%,
+      #d497ff,
+      #69319b 61%,
+      #210b3d
+    );
+  box-shadow:
+    0 0 19px rgba(182, 85, 255, 0.57),
+    0 4px 8px rgba(0, 0, 0, 0.54),
+    inset 2px 2px 6px rgba(240, 206, 255, 0.35);
+}
+
+.feature-card:nth-child(4) h3 {
+  text-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.94),
+    0 0 16px rgba(202, 111, 255, 0.3);
+}
+/* Mappe e portali — tavolo del cartografo */
+.map-card {
+  color: #f5dfb1;
+  background-color: #120804;
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(9, 4, 2, 0.93) 0%,
+      rgba(14, 6, 3, 0.84) 41%,
+      rgba(14, 6, 3, 0.38) 73%,
+      rgba(8, 3, 2, 0.61) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 177, 69, 0.08),
+      rgba(0, 0, 0, 0.56)
+    ),
+    url("/images/tavern-cartographer-map.webp");
+  background-position: center, center, 65% center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow:
+    0 5px 0 rgba(20, 6, 2, 0.94),
+    0 24px 42px rgba(0, 0, 0, 0.58),
+    inset 0 0 47px rgba(0, 0, 0, 0.63);
+}
+
+.map-card::before {
+  border-color: rgba(246, 187, 87, 0.2);
+}
+
+.map-card .eyebrow {
+  color: #efb25c;
+}
+
+.map-card h2 {
+  color: #fff0c9;
+  text-shadow:
+    0 3px 7px rgba(0, 0, 0, 0.9),
+    0 0 18px rgba(244, 139, 40, 0.2);
+}
+
+.map-card-content > p:last-child {
+  color: #e0c49a;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.83);
+}
+
+.game-pill {
+  border-color: rgba(245, 189, 91, 0.38);
+  color: #f0d7a8;
+  background: rgba(25, 8, 3, 0.68);
+  box-shadow:
+    inset 0 1px rgba(255, 221, 145, 0.16),
+    0 4px 9px rgba(0, 0, 0, 0.28);
+}
+
+.game-pill b {
+  color: #f0ad4d;
+}
+/* Illustrazione della bacheca dietro il Registro dell'avventuriero */
+.quest-board {
+  min-height: 520px;
+  background-color: #1b0905;
+  background-image:
+    radial-gradient(
+      ellipse at 50% 48%,
+      rgba(20, 7, 3, 0.28) 0%,
+      rgba(14, 5, 2, 0.73) 70%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(9, 3, 2, 0.79) 0%,
+      rgba(26, 8, 3, 0.39) 29%,
+      rgba(27, 9, 3, 0.38) 71%,
+      rgba(9, 3, 2, 0.79) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 166, 58, 0.08),
+      rgba(0, 0, 0, 0.52)
+    ),
+    url("/images/tavern-bounty-board.webp");
+  background-position: center, center, center, center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow:
+    0 5px 0 rgba(22, 6, 3, 0.95),
+    0 25px 44px rgba(0, 0, 0, 0.58),
+    inset 0 0 52px rgba(0, 0, 0, 0.68);
+}
+
+.quest-board::before {
+  border-color: rgba(247, 187, 85, 0.22);
+}
+
+.quest-board-title {
+  color: #ffe0a0;
+  text-shadow:
+    0 3px 8px rgba(0, 0, 0, 0.93),
+    0 0 18px rgba(244, 139, 40, 0.22);
+}
+
+.quest-board-title::before {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(250, 195, 98, 0.7)
+  );
+}
+
+.quest-board-title::after {
+  background: linear-gradient(
+    90deg,
+    rgba(250, 195, 98, 0.7),
+    transparent
+  );
+}
+
+.quest-board-title span {
+  border-color: rgba(255, 206, 106, 0.65);
+  color: #ffe29e;
+  background: rgba(87, 25, 7, 0.72);
+  box-shadow:
+    0 0 13px rgba(255, 142, 37, 0.38),
+    inset 0 1px rgba(255, 233, 166, 0.3);
+}
+
+.quest-list article {
+  border-color: rgba(242, 184, 85, 0.32);
+  color: #f2d7a7;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(43, 13, 5, 0.86),
+      rgba(18, 5, 3, 0.8)
+    );
+  box-shadow:
+    0 8px 15px rgba(0, 0, 0, 0.42),
+    inset 0 1px rgba(255, 218, 139, 0.12);
+}
+
+.quest-list b {
+  color: #f0b052;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.88);
+}
+
+.quest-list h3 {
+  color: #f6dcb0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.84);
+}
+
+.quest-list p {
+  color: #d6b98e;
+}
 @media (max-width: 620px) {
   .auth-topbar, .auth-layout { width: min(100% - 30px, 1120px); }
   .auth-topbar { min-height: 70px; padding: 0 10px; }
@@ -571,6 +905,72 @@ button { cursor: pointer; }
   }
 }
 
+/* Angolo del Bardo — scena illustrata nella modale musicale */
+.bard-welcome-modal {
+  background-color: #2a1008;
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(33, 11, 5, 0.95) 0%,
+      rgba(42, 15, 7, 0.88) 45%,
+      rgba(42, 15, 7, 0.52) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 173, 75, 0.08),
+      rgba(0, 0, 0, 0.53)
+    ),
+    url("/images/tavern-bard-corner.webp");
+  background-position: center, center, 66% center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow:
+    0 34px 80px rgba(0, 0, 0, 0.78),
+    0 0 48px rgba(243, 126, 35, 0.2),
+    inset 0 1px rgba(255, 225, 148, 0.13);
+}
+
+.bard-welcome-modal::before {
+  border-color: rgba(246, 186, 88, 0.22);
+}
+
+.bard-welcome-eyebrow {
+  color: #f0b960;
+}
+
+.bard-welcome-modal h2 {
+  color: #fff0c9;
+  text-shadow:
+    0 3px 7px rgba(0, 0, 0, 0.9),
+    0 0 20px rgba(242, 137, 43, 0.25);
+}
+
+.bard-welcome-modal > p:not(.bard-welcome-eyebrow) {
+  color: #ead0a1;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.86);
+}
+
+.bard-welcome-symbol {
+  border-color: rgba(255, 207, 105, 0.78);
+  color: #fff1ad;
+  background:
+    radial-gradient(
+      circle at 36% 28%,
+      #ffb34b,
+      #9a2d12 61%,
+      #3c0c05
+    );
+  box-shadow:
+    0 0 25px rgba(255, 149, 40, 0.49),
+    0 5px 8px rgba(0, 0, 0, 0.53),
+    inset 2px 2px 6px rgba(255, 216, 128, 0.35);
+}
+
+@media (max-width: 620px) {
+  .bard-welcome-modal {
+    background-position: center, center, 61% center;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .coin-fountain-particles {
     display: none;
