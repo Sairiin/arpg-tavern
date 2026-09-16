@@ -93,19 +93,29 @@ export function CharacterSheet({
         </aside>
 
         <section className="character-sheet__portrait-panel">
+          <div
+            className="character-sheet__portrait"
+            aria-label="Ritratto del personaggio"
+          >
             <img
-  className="character-sheet__portrait-image"
-  src="/assets/character-sheet/generated/character-portrait.png"
-  alt="Ritratto del personaggio"
-  loading="lazy"
-/>
-          <div className="character-sheet__portrait" aria-label="Ritratto decorativo del personaggio">
-           
-            <strong>{character?.className || characterClass || "Avventuriero"}</strong>
-            <small>{character?.ascendancy || ascendancy || "Percorso da definire"}</small>
+              className="character-sheet__portrait-image"
+              src="/assets/character-sheet/generated/character-portrait.png"
+              alt="Ritratto del personaggio"
+              loading="lazy"
+            />
           </div>
-          <div className="character-sheet__ribbon">{title || "Build senza nome"}</div>
-          <button className="sheet-action sheet-action--primary" type="button" onClick={onEdit}>Modifica scheda</button>
+
+          <div className="character-sheet__ribbon">
+            {title || "Build senza nome"}
+          </div>
+
+          <button
+            className="sheet-action sheet-action--primary"
+            type="button"
+            onClick={onEdit}
+          >
+            Modifica scheda
+          </button>
         </section>
 
         <aside className="character-sheet__column">

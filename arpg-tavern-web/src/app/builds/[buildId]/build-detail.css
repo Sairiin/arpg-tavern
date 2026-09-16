@@ -1619,9 +1619,9 @@ textarea[aria-label="Codice Path of Building"] {
 
 .character-sheet__portrait-panel {
   display: grid;
-  align-content: center;
+  align-content: start;
   justify-items: center;
-  min-height: 24rem;
+  min-height: 0;
   padding: 1rem;
   border: 1px solid var(--sheet-border);
   border-radius: 0.65rem;
@@ -1631,7 +1631,7 @@ textarea[aria-label="Codice Path of Building"] {
 .character-sheet__portrait {
   display: grid;
   width: min(17rem, 100%);
-  min-height: 18rem;
+  aspect-ratio: 1 / 1;
   place-items: center;
   overflow: hidden;
   border: 1px solid var(--sheet-gold);
@@ -1643,7 +1643,6 @@ textarea[aria-label="Codice Path of Building"] {
   display: block;
   width: 100%;
   height: 100%;
-  min-height: 18rem;
   object-fit: cover;
 }
 
