@@ -1,4 +1,24 @@
 import type { ImportedBuildData, ImportedItem } from "@/lib/builds/types";
+const equipmentSlotIcons: Record<string, string> = {
+  helmet: "/assets/character-sheet/slot-helmet.svg",
+  helm: "/assets/character-sheet/slot-helmet.svg",
+  weapon: "/assets/character-sheet/slot-weapon.svg",
+  body: "/assets/character-sheet/slot-body.svg",
+  armour: "/assets/character-sheet/slot-body.svg",
+  armor: "/assets/character-sheet/slot-body.svg",
+  gloves: "/assets/character-sheet/slot-gloves.svg",
+  boots: "/assets/character-sheet/slot-boots.svg",
+  ring: "/assets/character-sheet/slot-ring.svg",
+  amulet: "/assets/character-sheet/slot-amulet.svg",
+};
+
+function getEquipmentIcon(slot?: string) {
+  const normalizedSlot = slot?.trim().toLowerCase() || "";
+  return (
+    equipmentSlotIcons[normalizedSlot] ||
+    "/assets/character-sheet/slot-default.svg"
+  );
+}
 
 type CharacterSheetProps = {
   title: string;
@@ -106,7 +126,18 @@ export function CharacterSheet({
           {items.map((item, index) => (
             <article className={`sheet-item sheet-item--${item.rarity || "unknown"}`} key={`${item.slot}-${item.name}-${index}`}>
               <span className="sheet-item__icon" aria-hidden="true">{rarityIcon(item.rarity)}</span>
-              <div><small>{item.slot || "Slot"}</small><h3>{item.name || "Oggetto senza nome"}</h3><p>{item.baseType || "Base non rilevata"}</p></div>
+              <img
+  className="sheet-item__icon"
+  src={getEquipmentIcon(item.slot)}
+  alt=""
+  aria-hidden="true"
+/>
+
+<div>
+  <small>{item.slot || "Slot"}</small>
+  <h3>{item.name || "Oggetto senza nome"}</h3>
+  <p>{item.baseType || "Base non rilevata"}</p>
+</div>
               {item.rawText && <details className="sheet-item__details"><summary>Mod e dettagli</summary><pre>{item.rawText}</pre></details>}
             </article>
           ))}
@@ -120,7 +151,28 @@ export function CharacterSheet({
             <section className="sheet-skill-group" key={`${group.label}-${groupIndex}`}>
               <h3>{group.label}</h3>
               <div className="sheet-gem-row">
-                {group.gems.map((gem, gemIndex) => <span className={`sheet-gem ${group.isMainSkill && gemIndex === 0 ? "sheet-gem--main" : ""}`} title={`${gem.name} · Livello ${gem.level || "—"}`} key={`${gem.name}-${gemIndex}`}>{gem.name}</span>)}
+                {group.gems.map((gem, gemIndex) => (
+  <span
+    className={`sheet-gem ${
+      group.isMainSkill && gemIndex === 0
+        ? "sheet-gem--main"
+        : ""
+    }`}
+    title={`${gem.name} · Livello ${gem.level || "—"}`}
+    key={`${gem.name}-${gemIndex}`}
+  >
+    <img
+      src={`/assets/character-sheet/${
+        group.isMainSkill && gemIndex === 0
+          ? "gem-active.svg"
+          : "gem-support.svg"
+      }`}
+      alt=""
+      aria-hidden="true"
+    />
+    <span>{gem.name}</span>
+  </span>
+))}
               </div>
             </section>
           ))}
@@ -130,7 +182,24 @@ export function CharacterSheet({
           <summary>Albero dei passivi <small>{passiveCount} nodi</small></summary>
           <div className="sheet-passive-tree">
             <div className="sheet-passive-tree__line" />
-            {Array.from({ length: Math.min(Math.max(passiveCount, 5), 18) }).map((_, index) => <span className={`sheet-passive-node ${index === 8 ? "sheet-passive-node--major" : ""}`} key={index}>{index + 1}</span>)}
+            {Array.from({
+  length: Math.min(Math.max(passiveCount, 5), 18),
+}).map((_, index) => (
+  <span
+    className={`sheet-passive-node ${
+      index === 8 ? "sheet-passive-node--major" : ""
+    }`}
+    key={index}
+    title={`Nodo passivo ${index + 1}`}
+  >
+    <img
+      src="/assets/character-sheet/passive-node.svg"
+      alt=""
+      aria-hidden="true"
+    />
+    <span>{index + 1}</span>
+  </span>
+))}
           </div>
         </details>
       </div>
