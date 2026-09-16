@@ -2590,3 +2590,37 @@ textarea[aria-label="Codice Path of Building"] {
   font-weight: 700;
   text-shadow: 0 1px 2px #1a0d05;
 }
+.character-sheet {
+  background-image:
+    linear-gradient(
+      rgba(35, 17, 8, 0.2),
+      rgba(35, 17, 8, 0.2)
+    ),
+    url("/assets/character-sheet/generated/parchment-dark-fantasy.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.character-sheet__portrait-image {
+  display: block;
+  width: min(100%, 18rem);
+  aspect-ratio: 1;
+  margin: 0 auto;
+  object-fit: cover;
+  border: 0.35rem solid #a8752e;
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 0.25rem rgba(34, 17, 8, 0.8),
+    0 0.7rem 1.4rem rgba(35, 17, 8, 0.5);
+}
+
+.sheet-item__icon {
+  background: rgba(29, 17, 10, 0.55);
+  border-radius: 0.45rem;
+}
+
+.sheet-gem img,
+.sheet-passive-node img {
+  mix-blend-mode: normal;
+}

@@ -1,22 +1,22 @@
 import type { ImportedBuildData, ImportedItem } from "@/lib/builds/types";
 const equipmentSlotIcons: Record<string, string> = {
-  helmet: "/assets/character-sheet/slot-helmet.svg",
-  helm: "/assets/character-sheet/slot-helmet.svg",
-  weapon: "/assets/character-sheet/slot-weapon.svg",
-  body: "/assets/character-sheet/slot-body.svg",
-  armour: "/assets/character-sheet/slot-body.svg",
-  armor: "/assets/character-sheet/slot-body.svg",
-  gloves: "/assets/character-sheet/slot-gloves.svg",
-  boots: "/assets/character-sheet/slot-boots.svg",
-  ring: "/assets/character-sheet/slot-ring.svg",
-  amulet: "/assets/character-sheet/slot-amulet.svg",
+  helmet: "/assets/character-sheet/generated/equipment-helmet.png",
+  helm: "/assets/character-sheet/generated/equipment-helmet.png",
+  weapon: "/assets/character-sheet/generated/equipment-weapon.png",
+  body: "/assets/character-sheet/generated/equipment-body.png",
+  armour: "/assets/character-sheet/generated/equipment-body.png",
+  armor: "/assets/character-sheet/generated/equipment-body.png",
+  gloves: "/assets/character-sheet/generated/equipment-gloves.png",
+  boots: "/assets/character-sheet/generated/equipment-boots.png",
+  ring: "/assets/character-sheet/generated/equipment-ring.png",
+  amulet: "/assets/character-sheet/generated/equipment-amulet.png",
 };
 
 function getEquipmentIcon(slot?: string) {
   const normalizedSlot = slot?.trim().toLowerCase() || "";
   return (
     equipmentSlotIcons[normalizedSlot] ||
-    "/assets/character-sheet/slot-default.svg"
+    "/assets/character-sheet/generated/equipment-body.png"
   );
 }
 
@@ -93,8 +93,14 @@ export function CharacterSheet({
         </aside>
 
         <section className="character-sheet__portrait-panel">
+            <img
+  className="character-sheet__portrait-image"
+  src="/assets/character-sheet/generated/character-portrait.png"
+  alt="Ritratto del personaggio"
+  loading="lazy"
+/>
           <div className="character-sheet__portrait" aria-label="Ritratto decorativo del personaggio">
-            <span aria-hidden="true">✦</span>
+           
             <strong>{character?.className || characterClass || "Avventuriero"}</strong>
             <small>{character?.ascendancy || ascendancy || "Percorso da definire"}</small>
           </div>
@@ -164,8 +170,8 @@ export function CharacterSheet({
     <img
       src={`/assets/character-sheet/${
         group.isMainSkill && gemIndex === 0
-          ? "gem-active.svg"
-          : "gem-support.svg"
+          ? "gem-active.png"
+          : "gem-support.png"
       }`}
       alt=""
       aria-hidden="true"
@@ -193,7 +199,7 @@ export function CharacterSheet({
     title={`Nodo passivo ${index + 1}`}
   >
     <img
-      src="/assets/character-sheet/passive-node.svg"
+      src="/assets/character-sheet/generated/passive-node.png"
       alt=""
       aria-hidden="true"
     />
