@@ -162,21 +162,22 @@ export function BuildVariants({
   }
 
   return (
-    <section className="variants-panel">
-      <div className="variants-heading">
-        <div>
-          <p className="eyebrow">Rami del grimorio</p>
-          <h2>Varianti della build</h2>
-          <p>
-            Crea una copia concettuale della build per un obiettivo preciso:
-            mapping, bossing, SSF, hardcore o budget.
-          </p>
-        </div>
+    <details className="character-sheet-variants" open>
+  <summary className="variants-heading">
+    <div>
+      <p className="eyebrow">Rami del grimorio</p>
+      <h2>Varianti della build</h2>
+      <p>
+        Crea una copia concettuale della build per un obiettivo preciso:
+        mapping, bossing, SSF, hardcore o budget.
+      </p>
+    </div>
 
-        <span className="variants-count">
-          {variants.length} {variants.length === 1 ? "variante" : "varianti"}
-        </span>
-      </div>
+    <span className="variants-count">
+      {variants.length}{" "}
+      {variants.length === 1 ? "variante" : "varianti"}
+    </span>
+  </summary>
 
       <form className="variant-form" onSubmit={createVariant}>
         <label className="detail-field detail-field-wide">
@@ -286,6 +287,6 @@ export function BuildVariants({
           ))
         )}
       </div>
-    </section>
+    </details>
   );
 }

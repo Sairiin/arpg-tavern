@@ -18,6 +18,7 @@ import { onAuthStateChanged, type User } from "firebase/auth";
 import { FormEvent, useEffect, useState } from "react";
 import { auth, db } from "@/lib/firebase/client";
 import { BuildVariants } from "@/components/builds/build-variants";
+import { CharacterSheet } from "@/components/builds/character-sheet";
 import {
   arpgGames,
   buildCategories,
@@ -153,7 +154,7 @@ function getMainSkillGroup(
   }
 
   return (
-    importedData.skills.find((group) => group.isMainSkill) ||
+        importedData.skills.find((group) => group.isMainSkill) ||
     importedData.skills[0]
   );
 }
@@ -443,575 +444,285 @@ export default function BuildDetailPage() {
     build.sourceType === "poe2-build-file";
 
   return (
-    <main className="build-detail-page">
-      <header className="build-detail-topbar">
-        <Link className="brand" href="/dashboard">
-          <span className="brand-mark">✦</span>
+  <main className="character-sheet-page">
+    <header className="character-sheet-toolbar">
+      <Link href="/dashboard" className="character-sheet-back">
+        ← Tutte le build
+      </Link>
 
-          <span className="brand-text">
-            <small>La casa dei theorycrafter</small>
-            ARPG Tavern
-          </span>
+      <span className="character-sheet-brand">
+        ARPG Tavern · Scheda dell’avventuriero
+      </span>
+
+      <div className="character-sheet-toolbar-actions">
+        <Link
+          className="character-sheet-action"
+          href={`/builds/${buildId}/compare`}
+        >
+          Confronta
         </Link>
 
-        <Link className="build-back-link" href="/dashboard">
-          ← Tutte le build
-        </Link>
-      </header>
+        <button
+          className="character-sheet-action character-sheet-danger"
+          type="button"
+          onClick={removeBuild}
+        >
+          Elimina
+        </button>
+      </div>
+    </header>
 
-      <section className="build-detail-hero">
-        <div>
-          <p className="eyebrow">Grimorio personale</p>
-          <h1>{build.title || "Build senza nome"}</h1>
-          <p>
-            {build.game} · {build.characterClass}
-            {build.ascendancy ? ` · ${build.ascendancy}` : ""} · Patch/Stagione{" "}
-            {build.patch}
-            {importedData?.character.level
-              ? ` · Livello ${importedData.character.level}`
-              : ""}
-          </p>
-        </div>
+    <CharacterSheet
+      title={build.title}
+      game={build.game}
+      characterClass={build.characterClass}
+      ascendancy={build.ascendancy}
+      patch={build.patch}
+      category={build.category}
+      notes={build.notes}
+      importedData={build.importedData}
+      onEdit={() => {
+        document
+          .querySelector(".character-sheet-edit-form")
+          ?.scrollIntoView({ behavior: "smooth" });
+      }}
+    />
 
-        <div className="build-detail-hero-actions">
-          <Link
-            className="compare-build-link"
-            href={`/builds/${buildId}/compare`}
+    <details className="character-sheet-section character-sheet-edit-form">
+      <summary>Modifica dati della build</summary>
+
+      <form className="detail-form" onSubmit={saveBuild}>
+        <label className="detail-field detail-field-wide">
+          <span>Nome della build</span>
+          <input
+            value={build.title}
+            onChange={(event) =>
+              setBuild((current) => ({
+                ...current,
+                title: event.target.value,
+              }))
+            }
+            maxLength={90}
+          />
+        </label>
+
+        <label className="detail-field">
+          <span>Gioco</span>
+          <select
+            value={build.game}
+            onChange={(event) =>
+              setBuild((current) => ({
+                ...current,
+                game: event.target.value as ArpgGame,
+              }))
+            }
           >
-            Confronta build
-          </Link>
+            {arpgGames.map((gameName) => (
+              <option key={gameName} value={gameName}>
+                {gameName}
+              </option>
+            ))}
+          </select>
+        </label>
 
+        <label className="detail-field">
+          <span>Classe</span>
+          <input
+            value={build.characterClass}
+            onChange={(event) =>
+              setBuild((current) => ({
+                ...current,
+                characterClass: event.target.value,
+              }))
+            }
+            maxLength={70}
+          />
+        </label>
+
+        <label className="detail-field">
+          <span>Ascendancy</span>
+          <input
+            value={build.ascendancy}
+            onChange={(event) =>
+              setBuild((current) => ({
+                ...current,
+                ascendancy: event.target.value,
+              }))
+            }
+            maxLength={70}
+          />
+        </label>
+
+        <label className="detail-field">
+          <span>Patch / stagione</span>
+          <input
+            value={build.patch}
+            onChange={(event) =>
+              setBuild((current) => ({
+                ...current,
+                patch: event.target.value,
+              }))
+            }
+            maxLength={50}
+          />
+        </label>
+
+        <label className="detail-field">
+          <span>Tipo di build</span>
+          <select
+            value={build.category}
+            onChange={(event) =>
+              setBuild((current) => ({
+                ...current,
+                category: event.target.value as BuildCategory,
+              }))
+            }
+          >
+            {buildCategories.map((categoryName) => (
+              <option key={categoryName} value={categoryName}>
+                {categoryName}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label className="detail-field">
+          <span>Visibilità</span>
+          <select
+            value={build.visibility}
+            onChange={(event) =>
+              setBuild((current) => ({
+                ...current,
+                visibility: event.target.value as BuildVisibility,
+              }))
+            }
+          >
+            <option value="private">Privata — solo io</option>
+            <option value="unlisted">Non in elenco</option>
+          </select>
+        </label>
+
+        <label className="detail-field detail-field-wide">
+          <span>Note e obiettivi</span>
+          <textarea
+            value={build.notes}
+            onChange={(event) =>
+              setBuild((current) => ({
+                ...current,
+                notes: event.target.value,
+              }))
+            }
+            rows={7}
+            maxLength={1500}
+          />
+        </label>
+
+        <div className="detail-form-actions">
           <button
-            className="delete-build-button"
-            type="button"
-            onClick={removeBuild}
+            className="save-build-button"
+            type="submit"
+            disabled={isSaving}
           >
-            Elimina build
+            {isSaving ? "Salvataggio..." : "Salva modifiche"}
           </button>
         </div>
-      </section>
+      </form>
+    </details>
 
-      {importedData && (
-        <section className="build-detail-card build-imported-data-card">
-          <div className="detail-card-title">
-            <span aria-hidden="true">✦</span>
+    <details className="character-sheet-section character-sheet-archive">
+      <summary>Cronache e versioni</summary>
 
-            <div>
-              <p className="eyebrow">Build decifrata</p>
-              <h2>Il cuore dell’avventuriero</h2>
-            </div>
-          </div>
+      <form className="version-form" onSubmit={createVersion}>
+        <label className="detail-field">
+          <span>Nome versione</span>
+          <input
+            value={versionLabel}
+            onChange={(event) => setVersionLabel(event.target.value)}
+            maxLength={90}
+          />
+        </label>
 
-          <div className="build-import-summary">
-            <article className="build-import-stat">
-              <span>Classe</span>
-              <strong>{importedData.character.className || build.characterClass}</strong>
-            </article>
+        <label className="detail-field">
+          <span>Patch / stagione</span>
+          <input
+            value={versionPatch}
+            onChange={(event) => setVersionPatch(event.target.value)}
+            maxLength={50}
+          />
+        </label>
 
-            <article className="build-import-stat">
-              <span>Ascendancy</span>
-              <strong>{importedData.character.ascendancy || "Non rilevata"}</strong>
-            </article>
+        <label className="detail-field">
+          <span>Tipo versione</span>
+          <select
+            value={versionCategory}
+            onChange={(event) =>
+              setVersionCategory(event.target.value as BuildCategory)
+            }
+          >
+            {buildCategories.map((categoryName) => (
+              <option key={categoryName} value={categoryName}>
+                {categoryName}
+              </option>
+            ))}
+          </select>
+        </label>
 
-            <article className="build-import-stat">
-              <span>Livello</span>
-              <strong>
-                {importedData.character.level
-                  ? `Livello ${importedData.character.level}`
-                  : "Non rilevato"}
-              </strong>
-            </article>
+        <label className="detail-field">
+          <span>Nota versione</span>
+          <textarea
+            value={versionNotes}
+            onChange={(event) => setVersionNotes(event.target.value)}
+            rows={4}
+            maxLength={1000}
+          />
+        </label>
 
-            <article className="build-import-stat">
-              <span>Passivi</span>
-              <strong>{importedData.summary.passiveCount} nodi</strong>
-            </article>
-
-            <article className="build-import-stat">
-              <span>Skill</span>
-              <strong>{importedData.summary.skillGroupCount} gruppi</strong>
-            </article>
-
-            <article className="build-import-stat">
-              <span>Equipaggiamento</span>
-              <strong>{importedData.summary.itemCount} oggetti</strong>
-            </article>
-          </div>
-
-          {mainSkillGroup && (
-            <section className="build-import-content">
-              <p>Configurazione skill principale</p>
-
-              <div className="imported-skill-main">
-                <div>
-                  <span>Gruppo</span>
-                  <strong>{mainSkillGroup.label}</strong>
-                </div>
-
-                <div className="imported-gem-list">
-                  {mainSkillGroup.gems.map((gem, index) => (
-                    <span
-                      className={index === 0 ? "imported-gem-active" : ""}
-                      key={`${gem.name}-${index}`}
-                    >
-                      {gem.name}
-                      {gem.level ? ` · Lv ${gem.level}` : ""}
-                      {gem.quality ? ` · Q ${gem.quality}%` : ""}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </section>
-          )}
-
-          {importedData.skills.length > 0 && (
-            <details className="build-import-content">
-              <summary>
-                Mostra tutte le skill e gemme ({importedData.summary.skillGroupCount} gruppi)
-              </summary>
-
-              <div className="imported-skill-groups">
-                {importedData.skills.map((group, groupIndex) => (
-                  <article
-                    className="imported-skill-group"
-                    key={`${group.label}-${groupIndex}`}
-                  >
-                    <div>
-                      <span>{group.isMainSkill ? "Skill principale" : "Gruppo skill"}</span>
-                      <h3>{group.label}</h3>
-                    </div>
-
-                    <div className="imported-gem-list">
-                      {group.gems.map((gem, gemIndex) => (
-                        <span
-                          className={
-                            group.isMainSkill && gemIndex === 0
-                              ? "imported-gem-active"
-                              : ""
-                          }
-                          key={`${gem.name}-${gemIndex}`}
-                        >
-                          {gem.name}
-                          {gem.level ? ` · Lv ${gem.level}` : ""}
-                          {gem.quality ? ` · Q ${gem.quality}%` : ""}
-                          {!gem.enabled ? " · Disattivata" : ""}
-                        </span>
-                      ))}
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </details>
-          )}
-
-          {importedData.items.length > 0 && (
-            <details className="build-import-content">
-              <summary>
-                Mostra equipaggiamento ({importedData.summary.itemCount} oggetti)
-              </summary>
-
-              <div className="imported-item-list">
-                {importedData.items.map((item, itemIndex) => (
-                  <article
-                    className={`imported-item imported-item-${item.rarity || "unknown"}`}
-                    key={`${item.slot}-${item.name}-${itemIndex}`}
-                  >
-                    <span className="imported-item-rune" aria-hidden="true">
-                      {getItemIcon(item.rarity)}
-                    </span>
-
-                    <div>
-                      <span>{item.slot}</span>
-                      <h3>{item.name}</h3>
-                      <p>
-                        {item.baseType || "Base non rilevata"} ·{" "}
-                        {getItemRarityLabel(item.rarity)}
-                      </p>
-                    </div>
-
-                    {item.rawText && (
-                      <details className="imported-item-raw">
-                        <summary>Dettagli</summary>
-                        <pre>{item.rawText}</pre>
-                      </details>
-                    )}
-                  </article>
-                ))}
-              </div>
-            </details>
-          )}
-
-          <div className="build-passive-tree-placeholder">
-            <div>
-              <p className="eyebrow">Passivi importati</p>
-              <h3>{importedData.summary.passiveCount} nodi allocati</h3>
-              <p>
-                Il codice PoB ha fornito gli ID dei nodi. Il prossimo
-                aggiornamento collegherà questi ID al dataset dell’albero per
-                disegnare il percorso con zoom, nodi e tooltip.
-              </p>
-            </div>
-
-            <div className="passive-tree-runes" aria-hidden="true">
-              <span>◌</span>
-              <span>◉</span>
-              <span>◆</span>
-              <span>◉</span>
-              <span>◌</span>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {hasImportedSource && !importedData && (
-        <section className="build-detail-card build-imported-data-card">
-          <div className="detail-card-title">
-            <span aria-hidden="true">✦</span>
-
-            <div>
-              <p className="eyebrow">Archivio di importazione</p>
-              <h2>Dati della build importata</h2>
-            </div>
-          </div>
-
-          <div className="build-import-summary">
-            <article className="build-import-stat">
-              <span>Metodo</span>
-              <strong>{sourceLabel}</strong>
-            </article>
-
-            <article className="build-import-stat">
-              <span>Gioco</span>
-              <strong>{build.game}</strong>
-            </article>
-
-            <article className="build-import-stat">
-              <span>Stato</span>
-              <strong>
-                {build.sourceType === "poe2-build-file"
-                  ? "JSON caricato"
-                  : "Riferimento salvato"}
-              </strong>
-            </article>
-          </div>
-
-          {build.sourceType === "pob-link" && build.pobUrl && (
-            <div className="build-import-content">
-              <p>Link Path of Building</p>
-              <a
-                className="build-import-external-link"
-                href={build.pobUrl}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Apri build in Path of Building ↗
-              </a>
-            </div>
-          )}
-
-          {build.sourceType === "pob-code" && build.pobCode && (
-            <details className="build-import-content">
-              <summary>Mostra il codice Path of Building</summary>
-              <textarea
-                aria-label="Codice Path of Building"
-                value={build.pobCode}
-                readOnly
-                rows={8}
-              />
-            </details>
-          )}
-
-          {build.sourceType === "poe2-build-file" && build.poe2BuildJson && (
-            <div className="build-import-content">
-              <div className="build-file-import-heading">
-                <div>
-                  <p>File .build di Path of Exile 2</p>
-                  <strong>
-                    {build.poe2BuildFileName || "File .build senza nome"}
-                  </strong>
-                </div>
-
-                <span>
-                  {formatJsonCharacterCount(build.poe2BuildJson)} caratteri JSON
-                </span>
-              </div>
-
-              <details>
-                <summary>Mostra JSON originale</summary>
-                <pre className="build-json-preview">{build.poe2BuildJson}</pre>
-              </details>
-            </div>
-          )}
-        </section>
-      )}
-
-      <div className="build-detail-layout">
-        <section className="build-detail-card">
-          <div className="detail-card-title">
-            <span aria-hidden="true">⚔</span>
-
-            <div>
-              <p className="eyebrow">Pagina principale</p>
-              <h2>Informazioni della build</h2>
-            </div>
-          </div>
-
-          <form className="detail-form" onSubmit={saveBuild}>
-            <label className="detail-field detail-field-wide">
-              <span>Nome della build</span>
-              <input
-                value={build.title}
-                onChange={(event) =>
-                  setBuild((current) => ({
-                    ...current,
-                    title: event.target.value,
-                  }))
-                }
-                maxLength={90}
-              />
-            </label>
-
-            <label className="detail-field">
-              <span>Gioco</span>
-              <select
-                value={build.game}
-                onChange={(event) =>
-                  setBuild((current) => ({
-                    ...current,
-                    game: event.target.value as ArpgGame,
-                  }))
-                }
-              >
-                {arpgGames.map((gameName) => (
-                  <option key={gameName} value={gameName}>
-                    {gameName}
-                  </option>
-                ))}
-              </select>
-            </label>
-
-            <label className="detail-field">
-              <span>Classe</span>
-              <input
-                value={build.characterClass}
-                onChange={(event) =>
-                  setBuild((current) => ({
-                    ...current,
-                    characterClass: event.target.value,
-                  }))
-                }
-                maxLength={70}
-              />
-            </label>
-
-            <label className="detail-field">
-              <span>Ascendancy</span>
-              <input
-                value={build.ascendancy}
-                onChange={(event) =>
-                  setBuild((current) => ({
-                    ...current,
-                    ascendancy: event.target.value,
-                  }))
-                }
-                placeholder="Es. Slayer, Deadeye, Stormweaver..."
-                maxLength={70}
-              />
-            </label>
-
-            <label className="detail-field">
-              <span>Patch / stagione</span>
-              <input
-                value={build.patch}
-                onChange={(event) =>
-                  setBuild((current) => ({
-                    ...current,
-                    patch: event.target.value,
-                  }))
-                }
-                maxLength={50}
-              />
-            </label>
-
-            <label className="detail-field">
-              <span>Tipo di build</span>
-              <select
-                value={build.category}
-                onChange={(event) =>
-                  setBuild((current) => ({
-                    ...current,
-                    category: event.target.value as BuildCategory,
-                  }))
-                }
-              >
-                {buildCategories.map((categoryName) => (
-                  <option key={categoryName} value={categoryName}>
-                    {categoryName}
-                  </option>
-                ))}
-              </select>
-            </label>
-
-            <label className="detail-field">
-              <span>Visibilità</span>
-              <select
-                value={build.visibility}
-                onChange={(event) =>
-                  setBuild((current) => ({
-                    ...current,
-                    visibility: event.target.value as BuildVisibility,
-                  }))
-                }
-              >
-                <option value="private">Privata — solo io</option>
-                <option value="unlisted">Non in elenco</option>
-              </select>
-            </label>
-
-            <label className="detail-field detail-field-wide">
-              <span>Note e obiettivi</span>
-              <textarea
-                value={build.notes}
-                onChange={(event) =>
-                  setBuild((current) => ({
-                    ...current,
-                    notes: event.target.value,
-                  }))
-                }
-                rows={7}
-                maxLength={1500}
-                placeholder="Obiettivo della build, budget, priorità e note personali..."
-              />
-            </label>
-
-            <div className="detail-form-actions">
-              <button
-                className="save-build-button"
-                type="submit"
-                disabled={isSaving}
-              >
-                {isSaving ? "Salvataggio..." : "Salva modifiche"}
-              </button>
-            </div>
-          </form>
-        </section>
-
-        <aside className="versions-panel">
-          <div className="versions-panel-heading">
-            <p className="eyebrow">Cronache della build</p>
-            <h2>Versioni salvate</h2>
-            <p>
-              Salva una fotografia della build prima di cambiare patch,
-              obiettivo o configurazione.
-            </p>
-          </div>
-
-          <form className="version-form" onSubmit={createVersion}>
-            <label className="detail-field">
-              <span>Nome versione</span>
-              <input
-                value={versionLabel}
-                onChange={(event) => setVersionLabel(event.target.value)}
-                placeholder="Es. Bossing v1"
-                maxLength={90}
-              />
-            </label>
-
-            <label className="detail-field">
-              <span>Patch / stagione</span>
-              <input
-                value={versionPatch}
-                onChange={(event) => setVersionPatch(event.target.value)}
-                placeholder="Es. 3.29"
-                maxLength={50}
-              />
-            </label>
-
-            <label className="detail-field">
-              <span>Tipo versione</span>
-              <select
-                value={versionCategory}
-                onChange={(event) =>
-                  setVersionCategory(event.target.value as BuildCategory)
-                }
-              >
-                {buildCategories.map((categoryName) => (
-                  <option key={categoryName} value={categoryName}>
-                    {categoryName}
-                  </option>
-                ))}
-              </select>
-            </label>
-
-            <label className="detail-field">
-              <span>Nota versione</span>
-              <textarea
-                value={versionNotes}
-                onChange={(event) => setVersionNotes(event.target.value)}
-                placeholder="Cosa cambia in questa versione?"
-                rows={4}
-                maxLength={1000}
-              />
-            </label>
-
-            <button
-              className="save-version-button"
-              type="submit"
-              disabled={isCreatingVersion}
-            >
-              {isCreatingVersion
-                ? "Sigillo la versione..."
-                : "Salva snapshot"}
-            </button>
-          </form>
-
-          <div className="version-list">
-            {versions.length === 0 ? (
-              <p className="version-empty">
-                Nessuna versione salvata. Crea il primo snapshot prima di
-                modificare la build.
-              </p>
-            ) : (
-              versions.map((version) => (
-                <article className="version-item" key={version.id}>
-                  <div>
-                    <span>{version.category}</span>
-                    <h3>{version.label}</h3>
-                    <p>Patch/Stagione {version.patch}</p>
-                    {version.notes && <small>{version.notes}</small>}
-                  </div>
-
-                  <span className="version-rune" aria-hidden="true">
-                    ✦
-                  </span>
-                </article>
-              ))
-            )}
-          </div>
-        </aside>
-      </div>
-
-      <div className="build-variants-container">
-        <BuildVariants
-          userId={user.uid}
-          buildId={buildId}
-          buildTitle={build.title}
-          buildPatch={build.patch}
-          buildCategory={build.category}
-          buildVisibility={build.visibility}
-          buildNotes={build.notes}
-        />
-      </div>
-
-      {(errorMessage || successMessage) && (
-        <div
-          className={`build-detail-message ${
-            errorMessage ? "build-detail-message-error" : ""
-          }`}
+        <button
+          className="save-version-button"
+          type="submit"
+          disabled={isCreatingVersion}
         >
-          {errorMessage || successMessage}
-        </div>
-      )}
-    </main>
-  );
+          {isCreatingVersion ? "Sigillo la versione..." : "Salva snapshot"}
+        </button>
+      </form>
+
+      <div className="version-list">
+        {versions.length === 0 ? (
+          <p className="version-empty">Nessuna versione salvata.</p>
+        ) : (
+          versions.map((version) => (
+            <article className="version-item" key={version.id}>
+              <span>{version.category}</span>
+              <h3>{version.label}</h3>
+              <p>Patch/Stagione {version.patch}</p>
+              {version.notes && <small>{version.notes}</small>}
+            </article>
+          ))
+        )}
+      </div>
+    </details>
+
+        <section className="character-sheet-section character-sheet-variants-wrapper">
+      <BuildVariants
+        userId={user.uid}
+        buildId={buildId}
+        buildTitle={build.title}
+        buildPatch={build.patch}
+        buildCategory={build.category}
+        buildVisibility={build.visibility}
+        buildNotes={build.notes}
+      />
+    </section>
+
+    {(errorMessage || successMessage) && (
+      <div
+        className={`build-detail-message ${
+          errorMessage ? "build-detail-message-error" : ""
+        }`}
+      >
+        {errorMessage || successMessage}
+      </div>
+    )}
+  </main>
+);
 }

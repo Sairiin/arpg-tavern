@@ -1,5 +1,7 @@
 "use client";
 import "./dashboard.css";
+import Image from "next/image";
+
 
 import Link from "next/link";
 import {
@@ -31,7 +33,71 @@ function mapBuild(document: QueryDocumentSnapshot): BuildRecord {
     updatedAt: data.updatedAt || null
   };
 }
+function getClassMedallion(
+  characterClass: string,
+  ascendancy?: string
+): { src: string; alt: string } {
+  const identity = `${characterClass} ${ascendancy ?? ""}`.toLowerCase();
 
+  if (
+    /ranger|deadeye|pathfinder|mercenary|huntress/.test(identity)
+  ) {
+    return {
+      src: "/images/medallions/bow.webp",
+      alt: "Medaglione dell'arco",
+    };
+  }
+
+  if (
+    /witch|sorceress|stormweaver|elementalist|occultist|invoker/.test(
+      identity
+    )
+  ) {
+    return {
+      src: "/images/medallions/staff.webp",
+      alt: "Medaglione del bastone",
+    };
+  }
+
+  if (
+    /warrior|marauder|juggernaut|berserker|chieftain/.test(identity)
+  ) {
+    return {
+      src: "/images/medallions/hammer.webp",
+      alt: "Medaglione del martello",
+    };
+  }
+
+  if (
+    /duelist|slayer|gladiator|champion|templar/.test(identity)
+  ) {
+    return {
+      src: "/images/medallions/sword.webp",
+      alt: "Medaglione della spada",
+    };
+  }
+
+  if (
+    /shadow|assassin|trickster|saboteur|monk/.test(identity)
+  ) {
+    return {
+      src: "/images/medallions/daggers.webp",
+      alt: "Medaglione dei pugnali",
+    };
+  }
+
+  if (/guardian|paladin|knight|defender/.test(identity)) {
+    return {
+      src: "/images/medallions/shield.webp",
+      alt: "Medaglione dello scudo",
+    };
+  }
+
+  return {
+    src: "/images/medallions/shield.webp",
+    alt: "Medaglione dell'avventuriero",
+  };
+}
 export default function DashboardPage() {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
@@ -236,9 +302,13 @@ export default function DashboardPage() {
           <div className="build-list">
             {builds.map((build) => (
               <Link className="saved-build-card" href={`/builds/${build.id}`} key={build.id}>
-                <div className="saved-build-icon" aria-hidden="true">
-                  ⚔
-                </div>
+                <Image
+  className="saved-build-icon"
+  src={getClassMedallion(build.characterClass, build.ascendancy).src}
+  alt={getClassMedallion(build.characterClass, build.ascendancy).alt}
+  width={52}
+  height={52}
+/>
 
                 <div className="saved-build-content">
                   <div className="saved-build-topline">

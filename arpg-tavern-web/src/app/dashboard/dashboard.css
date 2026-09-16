@@ -1,6 +1,7 @@
 /* =========================================================
    ARPG TAVERN — DASHBOARD
-   Sala interna della gilda: sfondo camino, legno e ottone.
+   Sala interna della gilda: sfondo camino, legno, ottone e
+   Registro dell'avventuriero su pergamena.
    Importato solo da src/app/dashboard/page.tsx.
    ========================================================= */
 
@@ -12,17 +13,8 @@
   color: #f8e7c4;
   background-color: #0a0503;
   background-image:
-    linear-gradient(
-      90deg,
-      rgba(7, 3, 2, 0.93) 0%,
-      rgba(13, 6, 3, 0.72) 46%,
-      rgba(7, 3, 2, 0.85) 100%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.12),
-      rgba(0, 0, 0, 0.67)
-    ),
+    linear-gradient(90deg, rgba(7, 3, 2, 0.93) 0%, rgba(13, 6, 3, 0.72) 46%, rgba(7, 3, 2, 0.85) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.67)),
     url("/images/tavern-hero.webp");
   background-position: center, center, 60% center;
   background-repeat: no-repeat;
@@ -37,7 +29,6 @@
   box-sizing: border-box;
 }
 
-/* Luce camino e vignettatura. */
 .dashboard-page::before {
   position: fixed;
   z-index: 0;
@@ -45,22 +36,9 @@
   content: "";
   pointer-events: none;
   background:
-    radial-gradient(
-      ellipse at 74% 42%,
-      rgba(249, 138, 39, 0.23),
-      transparent 22rem
-    ),
-    radial-gradient(
-      ellipse at 45% 7%,
-      rgba(245, 145, 46, 0.08),
-      transparent 25rem
-    ),
-    radial-gradient(
-      ellipse at center,
-      transparent 25%,
-      rgba(0, 0, 0, 0.27) 75%,
-      rgba(0, 0, 0, 0.64) 100%
-    );
+    radial-gradient(ellipse at 74% 42%, rgba(249, 138, 39, 0.23), transparent 22rem),
+    radial-gradient(ellipse at 45% 7%, rgba(245, 145, 46, 0.08), transparent 25rem),
+    radial-gradient(ellipse at center, transparent 25%, rgba(0, 0, 0, 0.27) 75%, rgba(0, 0, 0, 0.64) 100%);
 }
 
 .dashboard-page > *,
@@ -85,12 +63,7 @@
   gap: 20px;
   background-color: #2b1007;
   background-image:
-    linear-gradient(
-      180deg,
-      rgba(255, 199, 108, 0.11),
-      transparent 42%,
-      rgba(0, 0, 0, 0.34)
-    ),
+    linear-gradient(180deg, rgba(255, 199, 108, 0.11), transparent 42%, rgba(0, 0, 0, 0.34)),
     url("/images/tavern-dark-oak-texture.webp");
   background-position: center;
   background-size: cover;
@@ -121,9 +94,7 @@
   border-radius: 50%;
   color: #fff1b7;
   background: radial-gradient(circle, #d37528, #481807 70%);
-  box-shadow:
-    0 0 20px rgba(239, 132, 40, 0.31),
-    inset 0 0 11px rgba(255, 232, 156, 0.32);
+  box-shadow: 0 0 20px rgba(239, 132, 40, 0.31), inset 0 0 11px rgba(255, 232, 156, 0.32);
 }
 
 .dashboard-topbar .brand-text small {
@@ -191,7 +162,7 @@
   font-size: 0.64rem;
 }
 
-/* Intestazione dashboard. */
+/* Intestazione della sala. */
 .dashboard-hero {
   display: flex;
   align-items: flex-end;
@@ -225,9 +196,7 @@
   font-weight: 400;
   letter-spacing: -0.02em;
   line-height: 1.06;
-  text-shadow:
-    0 4px 12px rgba(0, 0, 0, 0.89),
-    0 0 28px rgba(239, 131, 38, 0.15);
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.89), 0 0 28px rgba(239, 131, 38, 0.15);
 }
 
 .dashboard-hero h1 span {
@@ -288,7 +257,7 @@
   font-size: 1rem;
 }
 
-/* Riepiloghi e contenuti. */
+/* Riepiloghi. */
 .dashboard-summary {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -400,6 +369,7 @@
   white-space: nowrap;
 }
 
+/* Registro dell'avventuriero: pergamena incorniciata. */
 .builds-section {
   width: min(1120px, calc(100% - 48px));
   margin: 0 auto;
@@ -407,39 +377,118 @@
 }
 
 .builds-section-heading {
+  position: relative;
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  margin-bottom: 23px;
-  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  min-height: 126px;
+  overflow: hidden;
+  margin: 0 0 25px;
+  border: 7px solid #351408;
+  border-radius: 4px;
+  outline: 1px solid rgba(246, 190, 93, 0.48);
+  outline-offset: -14px;
+  padding: 28px 34px 25px;
+  color: #41200d;
+  text-align: center;
+  isolation: isolate;
+  background-color: #dfbd78;
+  background-image:
+    radial-gradient(ellipse at 50% 0%, rgba(255, 253, 216, 0.57), transparent 14rem),
+    linear-gradient(135deg, rgba(103, 52, 14, 0.09), transparent 45%, rgba(70, 29, 8, 0.14)),
+    var(--tavern-parchment-image);
+  background-position: center;
+  background-repeat: no-repeat, no-repeat, repeat;
+  background-size: auto, auto, 460px auto;
+  background-blend-mode: screen, multiply, normal;
+  box-shadow:
+    0 5px 0 rgba(22, 6, 3, 0.94),
+    0 17px 30px rgba(0, 0, 0, 0.52),
+    inset 0 0 38px rgba(77, 34, 7, 0.24);
+}
+
+.builds-section-heading::before {
+  position: absolute;
+  z-index: 0;
+  inset: 13px;
+  border: 1px dashed rgba(91, 44, 10, 0.31);
+  content: "";
+  pointer-events: none;
+}
+
+.builds-section-heading::after {
+  position: absolute;
+  z-index: 0;
+  right: 20px;
+  bottom: -12px;
+  left: 20px;
+  height: 25px;
+  content: "";
+  opacity: 0.48;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(71, 29, 7, 0.36));
+  filter: blur(7px);
+}
+
+.builds-section-heading > * {
+  position: relative;
+  z-index: 1;
 }
 
 .builds-section-heading .eyebrow {
-  margin-bottom: 8px;
-  color: #efb25b;
+  display: none;
 }
 
 .builds-section-heading h2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
   margin: 0;
-  color: #f4dbab;
+  color: #3a1a09;
   font-family: var(--font-tavern-display, Georgia, serif);
-  font-size: clamp(1.8rem, 3.5vw, 2.55rem);
+  font-size: clamp(1.55rem, 3.4vw, 2.4rem);
   font-weight: 400;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  letter-spacing: 0.015em;
+  line-height: 1.18;
+  text-shadow: 0 1px rgba(255, 244, 194, 0.62), 0 2px 3px rgba(83, 39, 10, 0.23);
+}
+
+.builds-section-heading h2::before,
+.builds-section-heading h2::after {
+  flex: 1 1 auto;
+  max-width: 105px;
+  height: 1px;
+  margin: 0 15px;
+  content: "";
+}
+
+.builds-section-heading h2::before {
+  background: linear-gradient(90deg, transparent, rgba(115, 59, 16, 0.61));
+}
+
+.builds-section-heading h2::after {
+  background: linear-gradient(90deg, rgba(115, 59, 16, 0.61), transparent);
 }
 
 .builds-section-heading > a {
-  flex: 0 0 auto;
-  border-bottom: 1px solid rgba(247, 191, 93, 0.62);
-  padding-bottom: 4px;
-  color: #f1b75d;
-  font-size: 0.78rem;
+  position: absolute;
+  z-index: 2;
+  right: 22px;
+  bottom: 17px;
+  border-bottom: 1px solid rgba(102, 48, 12, 0.57);
+  padding-bottom: 3px;
+  color: #6f3511;
+  font-family: var(--font-tavern-display, Georgia, serif);
+  font-size: 0.66rem;
+  letter-spacing: 0.02em;
   text-decoration: none;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.87);
+  text-shadow: 0 1px rgba(255, 246, 204, 0.44);
 }
 
 .builds-section-heading > a:hover {
-  color: #ffe2a2;
+  border-bottom-color: #8e4214;
+  color: #3c1807;
 }
 
 .builds-section-heading > a:focus-visible,
@@ -514,9 +563,19 @@
 }
 
 .saved-build-icon {
-  width: 47px;
-  height: 47px;
-  font-size: 1.2rem;
+  display: block;
+  width: 52px;
+  height: 52px;
+  flex: 0 0 52px;
+  overflow: hidden;
+  border: 1px solid rgba(246, 191, 94, 0.7);
+  border-radius: 50%;
+  object-fit: cover;
+  background: #2a0e06;
+  box-shadow:
+    0 0 15px rgba(242, 139, 40, 0.31),
+    0 4px 9px rgba(0, 0, 0, 0.48),
+    inset 0 1px rgba(255, 231, 157, 0.24);
 }
 
 .saved-build-content {
@@ -648,9 +707,25 @@
   }
 
   .builds-section-heading {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 12px;
+    min-height: 109px;
+    border-width: 6px;
+    padding: 24px 19px 21px;
+  }
+
+  .builds-section-heading h2 {
+    font-size: clamp(1.28rem, 6.4vw, 1.75rem);
+  }
+
+  .builds-section-heading h2::before,
+  .builds-section-heading h2::after {
+    max-width: 38px;
+    margin: 0 8px;
+  }
+
+  .builds-section-heading > a {
+    right: 16px;
+    bottom: 13px;
+    font-size: 0.59rem;
   }
 
   .saved-build-card {

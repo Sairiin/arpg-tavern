@@ -178,7 +178,74 @@ export function BuildForm({ userId }: BuildFormProps) {
     setPobCode(event.target.value);
     resetPobAnalysis();
   }
+const [isResolvingPobLink, setIsResolvingPobLink] = useState(false);
+async function analyzePobLink() {
+  setErrorMessage("");
+  setPobAnalysisMessage("");
 
+  const cleanPobUrl = pobUrl.trim();
+
+  if (!cleanPobUrl) {
+    setErrorMessage("Incolla un link Path of Building prima di analizzarlo.");
+    return;
+  }
+
+  setIsResolvingPobLink(true);
+
+  try {
+    const response = await fetch("/api/pob/resolve", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ url: cleanPobUrl }),
+    });
+
+    const result = (await response.json()) as {
+      pobCode?: string;
+      error?: string;
+    };
+
+    if (!response.ok || !result.pobCode) {
+      throw new Error(
+        result.error || "Non è stato possibile recuperare il codice PoB dal link."
+      );
+    }
+
+    const parsedBuild = importPobCode(result.pobCode);
+
+    setPobCode(result.pobCode);
+    setImportedData(parsedBuild);
+
+    if (!title.trim()) {
+      setTitle(getImportedBuildTitle(parsedBuild));
+    }
+
+    if (!characterClass.trim() && parsedBuild.character.className) {
+      setCharacterClass(parsedBuild.character.className);
+    }
+
+    if (!ascendancy.trim() && parsedBuild.character.ascendancy) {
+      setAscendancy(parsedBuild.character.ascendancy);
+    }
+
+    setPobAnalysisMessage(
+      "Link PoB analizzato. I dati estratti saranno salvati insieme alla build."
+    );
+  } catch (error) {
+    console.error("Errore analisi link PoB:", error);
+
+    setImportedData(null);
+
+    setErrorMessage(
+      error instanceof Error
+        ? error.message
+        : "Non è stato possibile analizzare il link Path of Building."
+    );
+  } finally {
+    setIsResolvingPobLink(false);
+  }
+}
   function analyzePobCode() {
     setErrorMessage("");
     setPobAnalysisMessage("");
@@ -313,12 +380,19 @@ if (!ascendancy.trim() && parsedBuild.character.ascendancy) {
       return;
     }
 
-    if (sourceType === "pob-link" && !cleanPobUrl) {
-      setErrorMessage(
-        "Inserisci il link di Path of Building prima di salvare la build."
-      );
-      return;
-    }
+if (sourceType === "pob-link" && !cleanPobUrl) {
+  setErrorMessage(
+    "Inserisci il link di Path of Building prima di salvare la build."
+  );
+  return;
+}
+
+if (sourceType === "pob-link" && !importedData) {
+  setErrorMessage(
+    "Analizza il link Path of Building prima di salvare, così ARPG Tavern può conservare passivi, gemme e oggetti."
+  );
+  return;
+}
 
     if (sourceType === "pob-code" && !cleanPobCode) {
       setErrorMessage(
@@ -361,7 +435,12 @@ patch: cleanPatch,
           ? { externalAuthor: cleanExternalAuthor }
           : {}),
 
-        ...(sourceType === "pob-link" ? { pobUrl: cleanPobUrl } : {}),
+        ...(sourceType === "pob-link"
+  ? {
+      pobUrl: cleanPobUrl,
+      ...(importedData ? { importedData } : {}),
+    }
+  : {}),
         ...(sourceType === "pob-code"
           ? {
               pobCode: cleanPobCode,
@@ -503,11 +582,11 @@ patch: cleanPatch,
           <select value={sourceType} onChange={handleSourceTypeChange}>
             <option value="manual">Compila manualmente</option>
 
-            <option value="pob-link">
-              {isPoe2
-                ? "Incolla un link di Path of Building 2"
-                : "Incolla un link di Path of Building"}
-            </option>
+<option value="pob-link">
+  {game === "Path of Exile 2"
+    ? "Salva un link di Path of Building 2 (senza analisi)"
+    : "Salva un link di Path of Building (senza analisi)"}
+</option>
 
             <option value="pob-code">
               {isPoe2
@@ -526,8 +605,8 @@ patch: cleanPatch,
             {sourceType === "manual" &&
               "Inserisci i dati essenziali direttamente nel grimorio."}
 
-            {sourceType === "pob-link" &&
-              "Il link viene salvato come riferimento. Il caricamento automatico dal link verrà aggiunto in seguito."}
+{sourceType === "pob-link" &&
+  "Il link viene conservato nella build e può essere aperto in una nuova scheda. Per estrarre automaticamente passivi, gemme e oggetti, scegli “Codice Path of Building” e incolla il codice di condivisione esportato da PoB."}
 
             {sourceType === "pob-code" &&
               "Incolla il codice esportato da PoB e analizzalo per estrarre passivi, skill, gemme e oggetti."}
@@ -537,24 +616,61 @@ patch: cleanPatch,
           </small>
         </label>
 
-        {sourceType === "pob-link" && (
-          <label className="form-field form-field-wide">
-            <span>
-              {isPoe2
-                ? "Link Path of Building 2"
-                : "Link Path of Building"}
-            </span>
+{sourceType === "pob-link" && (
+  <label className="form-field form-field-wide">
+    <span>
+      {isPoe2
+        ? "Link Path of Building 2"
+        : "Link Path of Building"}
+    </span>
 
-            <input
-              type="url"
-              value={pobUrl}
-              onChange={(event) => setPobUrl(event.target.value)}
-              placeholder="Es. https://pobb.in/..."
-              maxLength={1000}
-              required
-            />
-          </label>
-        )}
+    <input
+      type="url"
+      value={pobUrl}
+      onChange={(event) => {
+        setPobUrl(event.target.value);
+        resetPobAnalysis();
+      }}
+      placeholder="Es. https://pobb.in/..."
+      maxLength={1000}
+      required
+    />
+
+    <div className="pob-analysis-actions">
+      <button
+        className="button button-wood"
+        type="button"
+        onClick={analyzePobLink}
+        disabled={isResolvingPobLink || !pobUrl.trim()}
+      >
+        {isResolvingPobLink
+          ? "Recupero build dal link..."
+          : "Analizza link PoB"}
+      </button>
+    </div>
+
+    {pobAnalysisMessage && (
+      <p className="pob-analysis-success">{pobAnalysisMessage}</p>
+    )}
+
+    {importedData && (
+      <section className="pob-analysis-preview">
+        <div className="pob-analysis-preview-heading">
+          <div>
+            <p className="eyebrow">Build rilevata</p>
+            <h2>{getImportedBuildTitle(importedData)}</h2>
+          </div>
+        </div>
+
+        <div className="pob-analysis-stats">
+          <span>{importedData.summary.passiveCount} passivi</span>
+          <span>{importedData.summary.skillGroupCount} gruppi skill</span>
+          <span>{importedData.summary.itemCount} oggetti</span>
+        </div>
+      </section>
+    )}
+  </label>
+)}
 
         {sourceType === "pob-code" && (
           <div className="form-field form-field-wide">
