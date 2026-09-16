@@ -2624,3 +2624,28 @@ textarea[aria-label="Codice Path of Building"] {
 .sheet-passive-node img {
   mix-blend-mode: normal;
 }
+.sheet-item__icon {
+  display: block;
+  width: 3.2rem;
+  height: 3.2rem;
+  flex: 0 0 3.2rem;
+  object-fit: contain;
+  border: 2px solid var(--sheet-gold);
+  border-radius: 0.5rem;
+  background: rgba(29, 17, 10, 0.55);
+  filter: drop-shadow(0 2px 3px rgba(35, 17, 8, 0.5));
+}
+
+.sheet-gem img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.sheet-passive-node img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

@@ -16,7 +16,7 @@ function getEquipmentIcon(slot?: string) {
   const normalizedSlot = slot?.trim().toLowerCase() || "";
   return (
     equipmentSlotIcons[normalizedSlot] ||
-    "/assets/character-sheet/generated/equipment-body.png"
+    "/assets/character-sheet/generated/equipment-helmet.png"
   );
 }
 
@@ -131,7 +131,6 @@ export function CharacterSheet({
         <div className="sheet-equipment-grid">
           {items.map((item, index) => (
             <article className={`sheet-item sheet-item--${item.rarity || "unknown"}`} key={`${item.slot}-${item.name}-${index}`}>
-              <span className="sheet-item__icon" aria-hidden="true">{rarityIcon(item.rarity)}</span>
               <img
   className="sheet-item__icon"
   src={getEquipmentIcon(item.slot)}
@@ -168,11 +167,11 @@ export function CharacterSheet({
     key={`${gem.name}-${gemIndex}`}
   >
     <img
-      src={`/assets/character-sheet/${
-        group.isMainSkill && gemIndex === 0
-          ? "gem-active.png"
-          : "gem-support.png"
-      }`}
+src={`/assets/character-sheet/generated/${
+  group.isMainSkill && gemIndex === 0
+    ? "gem-active.png"
+    : "gem-support.png"
+}`}
       alt=""
       aria-hidden="true"
     />
