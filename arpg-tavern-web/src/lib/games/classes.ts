@@ -1,0 +1,57 @@
+export const GAME_CLASSES = {
+  poe1: [
+    "Marauder",
+    "Ranger",
+    "Witch",
+    "Duelist",
+    "Templar",
+    "Shadow",
+    "Scion",
+  ],
+  poe2: [
+    "Warrior",
+    "Ranger",
+    "Witch",
+    "Mercenary",
+    "Sorceress",
+    "Monk",
+    "Huntress",
+  ],
+  "diablo-2": [
+    "Amazon",
+    "Assassin",
+    "Barbarian",
+    "Druid",
+    "Necromancer",
+    "Paladin",
+    "Sorceress",
+  ],
+  "diablo-4": [
+    "Barbarian",
+    "Druid",
+    "Necromancer",
+    "Rogue",
+    "Sorcerer",
+    "Spiritborn",
+  ],
+  "last-epoch": [
+    "Acolyte",
+    "Mage",
+    "Primalist",
+    "Rogue",
+    "Sentinel",
+  ],
+  "grim-dawn": [
+    "Soldier",
+    "Demolitionist",
+    "Occultist",
+    "Nightblade",
+    "Arcanist",
+    "Shaman",
+    "Inquisitor",
+    "Necromancer",
+    "Oathkeeper",
+  ],
+} as const;
+
+export type GameSlug = keyof typeof GAME_CLASSES;

@@ -25,7 +25,7 @@ import {
   type BuildCategory,
   type BuildSourceType,
   type BuildVisibility,
-  type ImportedBuildData,
+  
   type ImportedItem,
   type ImportedSkillGroup,
 } from "@/lib/builds/types";

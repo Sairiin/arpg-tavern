@@ -137,6 +137,7 @@ if (!pobCode) {
     { status: 422 }
   );
 }
+
     if (!pobCode) {
       return NextResponse.json(
         { error: "Il link non contiene un codice PoB utilizzabile." },

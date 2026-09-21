@@ -976,3 +976,510 @@ button { cursor: pointer; }
     display: none;
   }
 }
+/* Ingresso home: pollo allo spiedo */
+.tavern-chicken-entry {
+  display: inline-flex;
+  width: min(15rem, 100%);
+  margin-top: 1.35rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #f9df9c;
+  text-decoration: none;
+  text-align: center;
+  transform: translateZ(0);
+  transition: transform 220ms ease, filter 220ms ease;
+}
+
+.tavern-chicken-entry-image {
+  display: block;
+  width: 10.5rem;
+  height: 10.5rem;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 10px 12px rgba(0, 0, 0, 0.68))
+    drop-shadow(0 0 14px rgba(245, 150, 42, 0.25));
+  transition: transform 250ms ease, filter 250ms ease;
+}
+
+.tavern-chicken-entry-label {
+  margin-top: -0.45rem;
+  color: #ffe6a8;
+  font-family: var(--font-display, Georgia, serif);
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  line-height: 1;
+  text-shadow:
+    0 2px 0 #251208,
+    0 0 12px rgba(244, 166, 52, 0.45);
+  text-transform: uppercase;
+}
+
+.tavern-chicken-entry-subtitle {
+  max-width: 16rem;
+  margin-top: 0.55rem;
+  color: rgba(229, 205, 157, 0.9);
+  font-size: 0.76rem;
+  line-height: 1.35;
+}
+
+.tavern-chicken-entry:hover,
+.tavern-chicken-entry:focus-visible {
+  filter: brightness(1.08);
+  transform: translateY(-4px);
+}
+
+.tavern-chicken-entry:hover .tavern-chicken-entry-image,
+.tavern-chicken-entry:focus-visible .tavern-chicken-entry-image {
+  filter:
+    drop-shadow(0 13px 15px rgba(0, 0, 0, 0.72))
+    drop-shadow(0 0 23px rgba(255, 176, 47, 0.58));
+  transform: rotate(-2deg) scale(1.055);
+}
+
+.tavern-chicken-entry:focus-visible {
+  outline: 2px solid #f6ca70;
+  outline-offset: 0.45rem;
+  border-radius: 0.5rem;
+}
+
+@media (max-width: 640px) {
+  .tavern-chicken-entry {
+    width: min(13.5rem, 100%);
+    margin-top: 1rem;
+  }
+
+  .tavern-chicken-entry-image {
+    width: 8.8rem;
+    height: 8.8rem;
+  }
+}
+
+/* Login diretto dalla home: pollo più grande e bottone senza stile browser */
+button.tavern-chicken-entry {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+}
+
+button.tavern-chicken-entry:disabled {
+  cursor: wait;
+  opacity: 0.78;
+}
+
+.tavern-chicken-entry {
+  width: min(19rem, 100%);
+  margin-top: 0.6rem;
+}
+
+.tavern-chicken-entry-image {
+  width: 15.5rem;
+  height: 15.5rem;
+}
+
+.tavern-chicken-entry-label {
+  margin-top: -1.05rem;
+  font-size: 1.6rem;
+}
+
+.tavern-chicken-entry-subtitle {
+  max-width: 19rem;
+  margin-top: 0.65rem;
+  font-size: 0.82rem;
+}
+
+@media (max-width: 640px) {
+  .tavern-chicken-entry {
+    width: min(16rem, 100%);
+  }
+
+  .tavern-chicken-entry-image {
+    width: 12.25rem;
+    height: 12.25rem;
+  }
+
+  .tavern-chicken-entry-label {
+    font-size: 1.4rem;
+  }
+}
+
+/* Hero home: ingresso pollo centrato e più prominente */
+.hero-copy {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-copy > .eyebrow,
+.hero-copy > p:not(.hero-note) {
+  width: min(42rem, 100%);
+}
+
+.hero-copy .tavern-chicken-entry {
+  width: min(23rem, 100%);
+  margin-top: 1.15rem;
+  align-self: center;
+}
+
+.hero-copy .tavern-chicken-entry-image {
+  width: 18.5rem;
+  height: 18.5rem;
+}
+
+.hero-copy .tavern-chicken-entry-label {
+  margin-top: -1.4rem;
+  font-size: 1.85rem;
+}
+
+.hero-copy .tavern-chicken-entry-subtitle {
+  max-width: 22rem;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 760px) {
+  .hero-copy {
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero-copy .tavern-chicken-entry {
+    width: min(19rem, 100%);
+  }
+
+  .hero-copy .tavern-chicken-entry-image {
+    width: 15rem;
+    height: 15rem;
+  }
+
+  .hero-copy .tavern-chicken-entry-label {
+    margin-top: -1.1rem;
+    font-size: 1.65rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-copy .tavern-chicken-entry-image {
+    width: 12.5rem;
+    height: 12.5rem;
+  }
+
+  .hero-copy .tavern-chicken-entry-label {
+    font-size: 1.45rem;
+  }
+
+  .hero-copy .tavern-chicken-entry-subtitle {
+    font-size: 0.8rem;
+  }
+}
+
+/* Hero desktop: invito di accesso centrato nella schermata, non nella colonna */
+.hero-section {
+  position: relative;
+}
+
+.hero-copy .tavern-chicken-entry {
+  position: absolute;
+  z-index: 3;
+  top: 52%;
+  left: 50%;
+  width: min(25rem, 42vw);
+  margin: 0;
+  transform: translate(-50%, -50%);
+}
+
+.hero-copy .tavern-chicken-entry-image {
+  width: 20rem;
+  height: 20rem;
+}
+
+.hero-copy .tavern-chicken-entry:hover,
+.hero-copy .tavern-chicken-entry:focus-visible {
+  transform: translate(-50%, calc(-50% - 4px));
+}
+
+@media (max-width: 960px) {
+  .hero-copy .tavern-chicken-entry {
+    position: static;
+    width: min(20rem, 100%);
+    margin-top: 1.1rem;
+    transform: none;
+  }
+
+  .hero-copy .tavern-chicken-entry-image {
+    width: 16rem;
+    height: 16rem;
+  }
+
+  .hero-copy .tavern-chicken-entry:hover,
+  .hero-copy .tavern-chicken-entry:focus-visible {
+    transform: translateY(-4px);
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-copy .tavern-chicken-entry-image {
+    width: 13rem;
+    height: 13rem;
+  }
+}
+
+/* Home reale: pollo centrato nella hero-scene */
+.hero-scene {
+  position: relative;
+}
+
+.hero-content .tavern-chicken-entry {
+  position: absolute;
+  z-index: 4;
+  top: 56%;
+  left: 50%;
+  width: min(26rem, 44vw);
+  margin: 0;
+  transform: translate(-50%, -50%);
+}
+
+.hero-content .tavern-chicken-entry-image {
+  width: 21rem;
+  height: 21rem;
+}
+
+.hero-content .tavern-chicken-entry-label {
+  margin-top: -1.5rem;
+  font-size: 1.95rem;
+}
+
+.hero-content .tavern-chicken-entry-subtitle {
+  max-width: 23rem;
+  font-size: 0.92rem;
+}
+
+.hero-content .tavern-chicken-entry:hover,
+.hero-content .tavern-chicken-entry:focus-visible {
+  transform: translate(-50%, calc(-50% - 4px));
+}
+
+@media (max-width: 960px) {
+  .hero-content .tavern-chicken-entry {
+    position: static;
+    width: min(20rem, 100%);
+    margin-top: 1.25rem;
+    transform: none;
+  }
+
+  .hero-content .tavern-chicken-entry-image {
+    width: 16rem;
+    height: 16rem;
+  }
+
+  .hero-content .tavern-chicken-entry:hover,
+  .hero-content .tavern-chicken-entry:focus-visible {
+    transform: translateY(-4px);
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-content .tavern-chicken-entry-image {
+    width: 13rem;
+    height: 13rem;
+  }
+
+  .hero-content .tavern-chicken-entry-label {
+    font-size: 1.55rem;
+  }
+
+  .hero-content .tavern-chicken-entry-subtitle {
+    font-size: 0.8rem;
+  }
+}
+
+/* Hero home: descrizione compatta sopra l'invito centrale */
+.hero-content .hero-chicken-heading {
+  position: absolute;
+  z-index: 5;
+  top: 15%;
+  left: 50%;
+  width: min(38rem, 72vw);
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.hero-content .hero-chicken-heading .eyebrow {
+  margin: 0;
+  text-align: center;
+}
+
+.hero-content .hero-chicken-heading .hero-description {
+  max-width: 35rem;
+  margin: 0.9rem auto 0;
+  text-align: center;
+}
+
+@media (max-width: 960px) {
+  .hero-content .hero-chicken-heading {
+    position: static;
+    width: min(42rem, 100%);
+    margin: 0 auto;
+    transform: none;
+  }
+
+  .hero-content .hero-chicken-heading .hero-description {
+    margin-top: 0.8rem;
+  }
+}
+
+/* Placchetta D&D fisica per le azioni principali dell'app */
+.button,
+.bard-button,
+.google-sign-in-button,
+.save-build-button,
+.save-version-button,
+.compare-gold-button,
+.build-library__button:not(.build-library__button--danger) {
+  position: relative;
+  overflow: hidden;
+  border: 0 !important;
+  border-radius: 0 !important;
+  color: #fff0c4 !important;
+  font-family: var(--font-tavern-display, Georgia, serif);
+  font-weight: 700;
+  text-shadow: 0 2px 3px rgba(0, 0, 0, 0.92);
+  background-color: #221108 !important;
+  background-image: url("/images/new-build-plaque.png") !important;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  box-shadow:
+    0 7px 14px rgba(0, 0, 0, 0.5),
+    0 0 14px rgba(232, 166, 57, 0.13) !important;
+  transition:
+    transform 180ms ease,
+    filter 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.button::before,
+.button::after,
+.bard-button::before,
+.bard-button::after,
+.google-sign-in-button::before,
+.google-sign-in-button::after,
+.save-build-button::before,
+.save-build-button::after,
+.save-version-button::before,
+.save-version-button::after,
+.compare-gold-button::before,
+.compare-gold-button::after,
+.build-library__button:not(.build-library__button--danger)::before,
+.build-library__button:not(.build-library__button--danger)::after {
+  display: none !important;
+  content: none !important;
+}
+
+.button:hover:not(:disabled),
+.bard-button:hover:not(:disabled),
+.google-sign-in-button:hover:not(:disabled),
+.save-build-button:hover:not(:disabled),
+.save-version-button:hover:not(:disabled),
+.compare-gold-button:hover:not(:disabled),
+.build-library__button:not(.build-library__button--danger):hover:not(:disabled) {
+  filter: brightness(1.15) saturate(1.08);
+  box-shadow:
+    0 10px 18px rgba(0, 0, 0, 0.58),
+    0 0 23px rgba(248, 184, 65, 0.32) !important;
+  transform: translateY(-2px);
+}
+
+.button:active:not(:disabled),
+.bard-button:active:not(:disabled),
+.google-sign-in-button:active:not(:disabled),
+.save-build-button:active:not(:disabled),
+.save-version-button:active:not(:disabled),
+.compare-gold-button:active:not(:disabled),
+.build-library__button:not(.build-library__button--danger):active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.button:disabled,
+.bard-button:disabled,
+.google-sign-in-button:disabled,
+.save-build-button:disabled,
+.save-version-button:disabled,
+.compare-gold-button:disabled,
+.build-library__button:not(.build-library__button--danger):disabled {
+  filter: grayscale(0.62) brightness(0.66);
+  opacity: 0.64;
+}
+
+/* Icone/testo sopra l'asset illustrato */
+.button > *,
+.bard-button > *,
+.google-sign-in-button > *,
+.save-build-button > *,
+.save-version-button > *,
+.compare-gold-button > *,
+.build-library__button:not(.build-library__button--danger) > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Roadmap home: una funzione attiva, le altre in arrivo */
+.feature-card {
+  position: relative;
+}
+
+.feature-card-available {
+  cursor: pointer;
+}
+
+.feature-card-coming-soon {
+  cursor: default;
+  filter: saturate(0.78) brightness(0.84);
+  transition: none !important;
+}
+
+.feature-card-coming-soon:hover {
+  filter: saturate(0.78) brightness(0.84);
+  transform: none !important;
+  box-shadow: none;
+}
+
+.feature-card-coming-soon .feature-icon {
+  opacity: 0.82;
+}
+
+.feature-coming-soon {
+  position: absolute;
+  z-index: 3;
+  top: 0.85rem;
+  right: 0.85rem;
+  border: 1px solid rgba(244, 196, 103, 0.58);
+  border-radius: 2px;
+  padding: 0.28rem 0.45rem;
+  color: #f9d98e;
+  font-family: var(--font-tavern-display, Georgia, serif);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  line-height: 1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85);
+  text-transform: uppercase;
+  background:
+    linear-gradient(145deg, rgba(124, 75, 28, 0.94), rgba(40, 22, 12, 0.96)),
+    url("/images/new-build-plaque.png") center / 100% 100% no-repeat;
+  box-shadow:
+    inset 0 1px rgba(255, 232, 164, 0.18),
+    0 3px 8px rgba(0, 0, 0, 0.38);
+}
+
+@media (max-width: 640px) {
+  .feature-coming-soon {
+    top: 0.7rem;
+    right: 0.7rem;
+    font-size: 0.53rem;
+  }
+}

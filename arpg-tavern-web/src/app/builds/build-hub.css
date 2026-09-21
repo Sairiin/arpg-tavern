@@ -1,0 +1,89 @@
+.build-hub {
+  width: min(1180px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 3rem 0 5rem;
+  color: var(--foreground, #f5ead2);
+}
+
+.build-hub__hero {
+  max-width: 54rem;
+  margin-bottom: 2rem;
+}
+
+.build-hub__hero > p {
+  color: #e4ab5c;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.build-hub__hero h1 {
+  margin: 0.5rem 0 1rem;
+  font-family: var(--font-heading, Georgia, serif);
+  font-size: clamp(2.2rem, 7vw, 5rem);
+  line-height: 0.98;
+}
+
+.build-hub__hero span {
+  color: rgb(245 234 210 / 75%);
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+.build-hub__games {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.build-hub__game {
+  min-height: 17rem;
+  border: 1px solid rgb(231 185 103 / 28%);
+  border-radius: 1rem;
+  background: linear-gradient(145deg, rgb(38 26 16 / 92%), rgb(15 12 10 / 97%));
+  color: inherit;
+  padding: clamp(1.25rem, 4vw, 2rem);
+  text-decoration: none;
+}
+
+.build-hub__game--active:hover {
+  border-color: #e4ab5c;
+  transform: translateY(-3px);
+  transition: transform 160ms ease, border-color 160ms ease;
+}
+
+.build-hub__game span {
+  color: #e4ab5c;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.build-hub__game h2 {
+  margin: 1rem 0 0.65rem;
+  font-family: var(--font-heading, Georgia, serif);
+  font-size: 2rem;
+}
+
+.build-hub__game p {
+  color: rgb(245 234 210 / 70%);
+  line-height: 1.55;
+}
+
+.build-hub__game strong {
+  display: inline-block;
+  margin-top: 1.2rem;
+  color: #f1c77f;
+}
+
+.build-hub__game--future {
+  opacity: 0.58;
+}
+
+@media (max-width: 700px) {
+  .build-hub__games {
+    grid-template-columns: 1fr;
+  }
+}

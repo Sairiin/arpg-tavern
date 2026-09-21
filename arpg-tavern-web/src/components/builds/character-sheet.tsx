@@ -53,15 +53,39 @@ export function CharacterSheet({
   const character = importedData?.character;
   const summary = importedData?.summary;
   const items = importedData?.items || [];
+
+
+  const groupedItems = items.reduce<Record<string, ImportedItem[]>>(
+    (groups, item) => {
+      const groupName = item.slot?.trim() || "Oggetti importati";
+
+      if (!groups[groupName]) {
+        groups[groupName] = [];
+      }
+
+      groups[groupName].push(item);
+      return groups;
+    },
+    {},
+  );
+
+  const itemGroups = Object.entries(groupedItems);
+
   const skills = importedData?.skills || [];
   const passiveCount = summary?.passiveCount || 0;
 
   return (
     <section className="character-sheet">
       <header className="character-sheet__header">
-        <div className="character-sheet__seal" aria-hidden="true">✦</div>
+        <div className="character-sheet__seal" aria-hidden="true">
+          <img
+            className="character-sheet__seal-image"
+            src="/assets/character-sheet/generated/character-portrait.png"
+            alt=""
+          />
+        </div>
         <div className="character-sheet__title">
-          <span className="character-sheet__eyebrow">Scheda dell'avventuriero</span>
+          <span className="character-sheet__eyebrow">Scheda dell&apos;avventuriero</span>
           <h1>{title || "Build senza nome"}</h1>
           <p>{game} · {character?.className || characterClass || "Classe non indicata"} · {character?.ascendancy || ascendancy || "Ascendancy non indicata"}</p>
         </div>
@@ -137,24 +161,48 @@ export function CharacterSheet({
       </div>
 
       <details className="sheet-card sheet-card--equipment" open>
-        <summary>Equipaggiamento <small>{items.length} oggetti</small></summary>
-        <div className="sheet-equipment-grid">
-          {items.map((item, index) => (
-            <article className={`sheet-item sheet-item--${item.rarity || "unknown"}`} key={`${item.slot}-${item.name}-${index}`}>
-              <img
-  className="sheet-item__icon"
-  src={getEquipmentIcon(item.slot)}
-  alt=""
-  aria-hidden="true"
-/>
+        <summary>
+          Equipaggiamento
+          <small>{items.length} oggetti · {itemGroups.length} gruppi</small>
+        </summary>
 
-<div>
-  <small>{item.slot || "Slot"}</small>
-  <h3>{item.name || "Oggetto senza nome"}</h3>
-  <p>{item.baseType || "Base non rilevata"}</p>
-</div>
-              {item.rawText && <details className="sheet-item__details"><summary>Mod e dettagli</summary><pre>{item.rawText}</pre></details>}
-            </article>
+        <div className="sheet-equipment-groups">
+          {itemGroups.map(([groupName, groupItems]) => (
+            <details className="sheet-item-group" key={groupName}>
+              <summary>
+                <span>{groupName}</span>
+                <small>{groupItems.length}</small>
+              </summary>
+
+              <div className="sheet-equipment-grid">
+                {groupItems.map((item, index) => (
+                  <article
+                    className={`sheet-item sheet-item--${item.rarity || "unknown"}`}
+                    key={`${groupName}-${item.name}-${index}`}
+                  >
+                    <img
+                      className="sheet-item__icon"
+                      src={getEquipmentIcon(item.slot)}
+                      alt=""
+                      aria-hidden="true"
+                    />
+
+                    <div>
+                      <small>{item.slot || "Slot"}</small>
+                      <h3>{item.name || "Oggetto senza nome"}</h3>
+                      <p>{item.baseType || "Base non rilevata"}</p>
+                    </div>
+
+                    {item.rawText && (
+                      <details className="sheet-item__details">
+                        <summary>Mod e dettagli</summary>
+                        <pre>{item.rawText}</pre>
+                      </details>
+                    )}
+                  </article>
+                ))}
+              </div>
+            </details>
           ))}
         </div>
       </details>

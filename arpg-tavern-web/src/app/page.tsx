@@ -1,25 +1,36 @@
+"use client";
+
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { auth } from "@/lib/firebase/client";
+
 const features = [
   {
     icon: "⚔",
     title: "Forgia la tua build",
+    available: true,
     description:
       "Raccogli skill, equipaggiamento, obiettivi e note nel tuo grimorio personale.",
   },
   {
     icon: "⌛",
     title: "Ricorda le stagioni",
+    available: false,
     description:
       "Ogni patch, league e ciclo resta collegato alla versione corretta della build.",
   },
   {
     icon: "↔",
     title: "Confronta le varianti",
+    available: false,
     description:
       "Metti a confronto setup, snapshot e alternative prima di investire risorse.",
   },
   {
     icon: "✦",
     title: "Consulta il saggio",
+    available: false,
     description:
       "L'assistente AI analizzerà priorità, difese, obiettivi e prossimi upgrade.",
   },
@@ -34,6 +45,33 @@ const gameNames = [
 ];
 
 export default function HomePage() {
+  const router = useRouter();
+  const [isEntering, setIsEntering] = useState(false);
+
+  async function enterTavern() {
+    if (isEntering) return;
+
+    setIsEntering(true);
+
+    try {
+      if (auth.currentUser) {
+        router.push("/dashboard");
+        return;
+      }
+
+      const provider = new GoogleAuthProvider();
+      await signInWithPopup(auth, provider);
+      router.push("/dashboard");
+    } catch (error) {
+      console.error("Firebase Google Sign-In error:", error);
+      alert(
+        "Non è stato possibile completare l'accesso con Google. Riprova tra poco."
+      );
+    } finally {
+      setIsEntering(false);
+    }
+  }
+
   return (
     <main className="site-shell">
       <header className="tavern-facade-header">
@@ -82,41 +120,39 @@ export default function HomePage() {
         <div className="hero-overlay" />
 
         <div className="hero-content">
-          <p className="eyebrow">
-            Il rifugio dei viandanti delle stagioni
-          </p>
+          <div className="hero-chicken-heading">
+            <p className="eyebrow">
+              Il rifugio dei viandanti delle stagioni
+            </p>
 
-          
-
-          <p className="hero-description">
-            Un luogo caldo tra una spedizione e l&apos;altra. Conserva le tue
-            build, le loro versioni, le varianti e il cammino attraverso ogni
-            stagione del tuo ARPG preferito.
-          </p>
-
-          <div className="hero-actions">
-            <a className="button button-gold" href="/login">
-              <span className="button-rune" aria-hidden="true">
-                ✦
-              </span>
-              Entra nella taverna
-              <span className="button-arrow" aria-hidden="true">
-                →
-              </span>
-            </a>
-
-            <a className="button button-wood" href="#journey">
-              <span className="button-rune" aria-hidden="true">
-                ◆
-              </span>
-              Scopri il registro
-            </a>
+            <p className="hero-description">
+              Un luogo caldo tra una spedizione e l&apos;altra. Conserva le tue
+              build, le loro versioni e le varianti.
+            </p>
           </div>
 
-          <div className="hero-note">
-            <span aria-hidden="true">✦</span>
-            La prima stagione della taverna sta per iniziare
-          </div>
+
+          <button
+            type="button"
+            className="tavern-chicken-entry"
+            onClick={enterTavern}
+            disabled={isEntering}
+            aria-label="Entra nella taverna con Google"
+          >
+            <img
+              className="tavern-chicken-entry-image"
+              src="/images/tavern-roast-chicken.png"
+              alt=""
+            />
+            <span className="tavern-chicken-entry-label">
+              {isEntering ? "Accesso..." : "Entra"}
+            </span>
+            <span className="tavern-chicken-entry-subtitle">
+              {isEntering
+                ? "Apertura del registro..."
+                : "Accedi con Google e raggiungi le tue build"}
+            </span>
+          </button>
         </div>
 
         <div className="hero-bottom-fade" />
@@ -134,7 +170,21 @@ export default function HomePage() {
 
         <div className="feature-grid">
           {features.map((feature) => (
-            <article className="feature-card" key={feature.title}>
+            <article
+              className={`feature-card${feature.available ? " feature-card-available" : " feature-card-coming-soon"}`}
+              key={feature.title}
+              aria-label={
+                feature.available
+                  ? feature.title
+                  : `${feature.title} — in arrivo`
+              }
+            >
+              {!feature.available && (
+                <span className="feature-coming-soon" aria-label="In arrivo">
+                  In arrivo
+                </span>
+              )}
+
               <div className="feature-icon" aria-hidden="true">
                 {feature.icon}
               </div>

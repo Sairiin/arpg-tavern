@@ -314,14 +314,35 @@ function parseItems(items: Record<string, unknown>): ImportedItem[] {
 
   const result: ImportedItem[] = [];
   const usedIds = new Set<string>();
-  const slots = asArray(getCaseInsensitiveValue(items, "Slot"));
+  const itemSets = [
+    ...asArray(getCaseInsensitiveValue(items, "ItemSet")),
+    ...asArray(getCaseInsensitiveValue(items, "itemSet")),
+  ];
+
+  const activeItemSetId =
+    getString(items, "activeItemSet", "activeItemset") || "1";
+
+  const activeItemSet =
+    itemSets.find(
+      (value) =>
+        getString(asRecord(value), "id") === activeItemSetId,
+    ) || itemSets[0];
+
+  const slots = activeItemSet
+    ? asArray(getCaseInsensitiveValue(asRecord(activeItemSet), "Slot"))
+    : [];
 
   for (const value of slots) {
     const slot = asRecord(value);
-    const itemId = getString(slot, "itemId", "id", "ItemID", "item");
-    if (!itemId) continue;
-    const rawText = definitions.get(itemId) || "";
+    const itemId = getString(slot, "itemId", "ItemID", "item", "id");
+
+    if (!itemId || itemId === "0") continue;
+
+    const rawText = definitions.get(itemId);
+    if (!rawText) continue;
+
     usedIds.add(itemId);
+
     result.push({
       slot: getString(slot, "name", "slot") || "Equipaggiamento",
       name: getItemName(rawText),
@@ -333,6 +354,7 @@ function parseItems(items: Record<string, unknown>): ImportedItem[] {
 
   for (const [itemId, rawText] of definitions) {
     if (usedIds.has(itemId)) continue;
+
     result.push({
       slot: "Inventario / non equipaggiato",
       name: getItemName(rawText),

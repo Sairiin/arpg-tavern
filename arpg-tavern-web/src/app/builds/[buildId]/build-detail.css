@@ -1960,9 +1960,23 @@ textarea[aria-label="Codice Path of Building"] {
     grid-template-columns: 1fr;
   }
 
-  .character-sheet__seal {
-    display: none;
-  }
+.character-sheet__seal {
+  display: grid;
+  width: 4.5rem;
+  height: 4.5rem;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid var(--sheet-gold);
+  border-radius: 50%;
+  background: #17110d;
+}
+
+.character-sheet__seal-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
   .character-sheet__level {
     width: 100%;

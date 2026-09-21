@@ -20,11 +20,7 @@ export function AuthPanel({ compact = false }: AuthPanelProps) {
 
     try {
       const provider = new GoogleAuthProvider();
-      provider.setCustomParameters({
-        prompt: "select_account"
-      });
-
-      await signInWithPopup(auth, provider);
+await signInWithPopup(auth, provider);
       router.push("/dashboard");
     } catch (error) {
       console.error("Firebase Google Sign-In error:", error);

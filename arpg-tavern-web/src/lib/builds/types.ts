@@ -143,6 +143,12 @@ export type BuildRecord = {
    * È opzionale: le build manuali e le build già salvate restano compatibili.
    */
   importedData?: ImportedBuildData;
+
+  /**
+   * Se true, la build resta conservata ma viene esclusa dalla vista attiva.
+   */
+  archived?: boolean;
+
   createdAt?: {
     seconds: number;
     nanoseconds: number;

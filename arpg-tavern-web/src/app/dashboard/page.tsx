@@ -1,110 +1,61 @@
 "use client";
+
 import "./dashboard.css";
-import Image from "next/image";
-
-
 import Link from "next/link";
-import {
-  collection,
-  onSnapshot,
-  orderBy,
-  query,
-  type QueryDocumentSnapshot
-} from "firebase/firestore";
 import { onAuthStateChanged, signOut, type User } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { auth, db } from "@/lib/firebase/client";
-import type { BuildRecord } from "@/lib/builds/types";
+import { auth } from "@/lib/firebase/client";
 
-function mapBuild(document: QueryDocumentSnapshot): BuildRecord {
-  const data = document.data();
+const games = [
+  {
+    name: "Path of Exile 1",
+    slug: "poe1",
+    description:
+      "Custodisci le tue build dell'esilio originale, con link, note e varianti.",
+    status: "Archivio disponibile",
+  },
+  {
+    name: "Path of Exile 2",
+    slug: "poe2",
+    description:
+      "Salva, organizza e consulta i link alle tue build PoE 2.",
+    status: "Archivio disponibile",
+  },
+  {
+    name: "Diablo II",
+    slug: "diablo-2",
+    description:
+      "Raccogli le tue configurazioni classiche, farm route e link utili.",
+    status: "Archivio disponibile",
+  },
+  {
+    name: "Diablo IV",
+    slug: "diablo-4",
+    description:
+      "Organizza build, paragon board, equipaggiamento e risorse della stagione.",
+    status: "Archivio disponibile",
+  },
+  {
+    name: "Last Epoch",
+    slug: "last-epoch",
+    description:
+      "Tieni insieme build planner, monoliti, benedizioni e note di crafting.",
+    status: "Archivio disponibile",
+  },
+  {
+    name: "Grim Dawn",
+    slug: "grim-dawn",
+    description:
+      "Conserva le build del Cairn, le devozioni e i link ai planner.",
+    status: "Archivio disponibile",
+  },
+] as const;
 
-  return {
-    id: document.id,
-    title: data.title,
-    game: data.game,
-    characterClass: data.characterClass,
-    patch: data.patch,
-    category: data.category,
-    visibility: data.visibility,
-    notes: data.notes || "",
-    createdAt: data.createdAt || null,
-    updatedAt: data.updatedAt || null
-  };
-}
-function getClassMedallion(
-  characterClass: string,
-  ascendancy?: string
-): { src: string; alt: string } {
-  const identity = `${characterClass} ${ascendancy ?? ""}`.toLowerCase();
-
-  if (
-    /ranger|deadeye|pathfinder|mercenary|huntress/.test(identity)
-  ) {
-    return {
-      src: "/images/medallions/bow.webp",
-      alt: "Medaglione dell'arco",
-    };
-  }
-
-  if (
-    /witch|sorceress|stormweaver|elementalist|occultist|invoker/.test(
-      identity
-    )
-  ) {
-    return {
-      src: "/images/medallions/staff.webp",
-      alt: "Medaglione del bastone",
-    };
-  }
-
-  if (
-    /warrior|marauder|juggernaut|berserker|chieftain/.test(identity)
-  ) {
-    return {
-      src: "/images/medallions/hammer.webp",
-      alt: "Medaglione del martello",
-    };
-  }
-
-  if (
-    /duelist|slayer|gladiator|champion|templar/.test(identity)
-  ) {
-    return {
-      src: "/images/medallions/sword.webp",
-      alt: "Medaglione della spada",
-    };
-  }
-
-  if (
-    /shadow|assassin|trickster|saboteur|monk/.test(identity)
-  ) {
-    return {
-      src: "/images/medallions/daggers.webp",
-      alt: "Medaglione dei pugnali",
-    };
-  }
-
-  if (/guardian|paladin|knight|defender/.test(identity)) {
-    return {
-      src: "/images/medallions/shield.webp",
-      alt: "Medaglione dello scudo",
-    };
-  }
-
-  return {
-    src: "/images/medallions/shield.webp",
-    alt: "Medaglione dell'avventuriero",
-  };
-}
 export default function DashboardPage() {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
-  const [builds, setBuilds] = useState<BuildRecord[]>([]);
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
-  const [isLoadingBuilds, setIsLoadingBuilds] = useState(false);
-  const [buildError, setBuildError] = useState("");
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -119,38 +70,6 @@ export default function DashboardPage() {
     return () => unsubscribe();
   }, [router]);
 
-  useEffect(() => {
-    if (!user) {
-      setBuilds([]);
-      return;
-    }
-
-    setIsLoadingBuilds(true);
-    setBuildError("");
-
-    const buildsQuery = query(
-      collection(db, "users", user.uid, "builds"),
-      orderBy("updatedAt", "desc")
-    );
-
-    const unsubscribe = onSnapshot(
-      buildsQuery,
-      (snapshot) => {
-        setBuilds(snapshot.docs.map(mapBuild));
-        setIsLoadingBuilds(false);
-      },
-      (error) => {
-        console.error("Errore lettura build:", error);
-        setBuildError(
-          "Non è stato possibile leggere l'archivio. Verifica le regole Firestore."
-        );
-        setIsLoadingBuilds(false);
-      }
-    );
-
-    return () => unsubscribe();
-  }, [user]);
-
   async function handleSignOut() {
     await signOut(auth);
     router.push("/");
@@ -159,7 +78,7 @@ export default function DashboardPage() {
   if (isCheckingAuth) {
     return (
       <main className="dashboard-page dashboard-loading">
-        <p>Il locandiere sta cercando il tuo registro...</p>
+        <p>Il locandiere sta preparando il tavolo...</p>
       </main>
     );
   }
@@ -174,12 +93,18 @@ export default function DashboardPage() {
   return (
     <main className="dashboard-page">
       <header className="dashboard-topbar">
-        <Link className="brand" href="/">
-          <span className="brand-mark">✦</span>
+        <Link className="brand brand-build-library" href="/">
+          <span className="brand-mark brand-build-book" aria-hidden="true">
+            <img
+              src="/images/build-grimoire.png"
+              alt=""
+              className="brand-build-book-image"
+            />
+          </span>
 
           <span className="brand-text">
             <small>La casa dei theorycrafter</small>
-            ARPG Tavern
+            Le mie build
           </span>
         </Link>
 
@@ -204,139 +129,46 @@ export default function DashboardPage() {
         </div>
       </header>
 
-      <section className="dashboard-hero dashboard-hero-compact">
-        <div>
-          <p className="eyebrow">Il tuo tavolo è pronto</p>
-          <h1>
-            Bentornato,
-            <span>{adventurerName}.</span>
-          </h1>
+      <section
+        className="game-selector dashboard-game-selector"
+        aria-labelledby="game-selector-title"
+      >
+        <div className="game-selector-heading">
+          <p className="eyebrow">Scegli il tuo grimorio</p>
+          <h1 id="game-selector-title">Quale mondo vuoi esplorare?</h1>
           <p>
-            Il tuo grimorio è pronto: crea una build e inizieremo a custodire
-            ogni versione della tua avventura.
+            Seleziona un gioco per entrare nel suo archivio personale di build.
           </p>
         </div>
 
-        <Link
-          className="button button-gold dashboard-create-button"
-          href="/builds/new"
-        >
-          <span className="button-rune" aria-hidden="true">
-            ✦
-          </span>
-          Nuova build
-          <span className="button-arrow" aria-hidden="true">
-            →
-          </span>
-        </Link>
-      </section>
-
-      <section className="dashboard-summary">
-        <article>
-          <span aria-hidden="true">⚔</span>
-          <div>
-            <small>Build nel grimorio</small>
-            <strong>{builds.length}</strong>
-          </div>
-        </article>
-
-        <article>
-          <span aria-hidden="true">⌛</span>
-          <div>
-            <small>Ultima stagione</small>
-            <strong>In preparazione</strong>
-          </div>
-        </article>
-
-        <article>
-          <span aria-hidden="true">✦</span>
-          <div>
-            <small>Assistente del saggio</small>
-            <strong>In arrivo</strong>
-          </div>
-        </article>
-      </section>
-
-      <section className="builds-section">
-        <div className="builds-section-heading">
-          <div>
-            <p className="eyebrow">Archivio personale</p>
-            <h2>Le tue build</h2>
-          </div>
-
-          <Link href="/builds/new">+ Aggiungi build</Link>
-        </div>
-
-        {isLoadingBuilds && (
-          <div className="builds-empty-state">
-            <span aria-hidden="true">⌛</span>
-            <p>Il locandiere sta sfogliando il tuo grimorio...</p>
-          </div>
-        )}
-
-        {buildError && (
-          <div className="builds-empty-state builds-error-state">
-            <span aria-hidden="true">!</span>
-            <p>{buildError}</p>
-          </div>
-        )}
-
-        {!isLoadingBuilds && !buildError && builds.length === 0 && (
-          <div className="builds-empty-state">
-            <span aria-hidden="true">📜</span>
-            <h3>Il grimorio è ancora vuoto</h3>
-            <p>
-              Crea la tua prima build per iniziare a salvare idee, patch,
-              varianti e obiettivi.
-            </p>
-            <Link className="button button-gold" href="/builds/new">
-              <span className="button-rune" aria-hidden="true">
-                ✦
+        <div className="game-selector-grid">
+          {games.map((game) => (
+            <Link
+              key={game.slug}
+              className={`game-card game-card-${game.slug}`}
+              href={`/library/${game.slug}`}
+            >
+              <img
+                className="game-card-background"
+                src={`/images/game-backgrounds/${game.slug}.jpg`}
+                alt=""
+                aria-hidden="true"
+              />
+              <img
+                className="game-card-crest"
+                src={`/images/crests/${game.slug}.png`}
+                alt=""
+                aria-hidden="true"
+              />
+              <span className="game-card-kicker">{game.status}</span>
+              <h2>{game.name}</h2>
+              <p>{game.description}</p>
+              <span className="game-card-action">
+                Apri archivio <span aria-hidden="true">→</span>
               </span>
-              Crea la prima build
             </Link>
-          </div>
-        )}
-
-        {!isLoadingBuilds && !buildError && builds.length > 0 && (
-          <div className="build-list">
-            {builds.map((build) => (
-              <Link className="saved-build-card" href={`/builds/${build.id}`} key={build.id}>
-                <Image
-  className="saved-build-icon"
-  src={getClassMedallion(build.characterClass, build.ascendancy).src}
-  alt={getClassMedallion(build.characterClass, build.ascendancy).alt}
-  width={52}
-  height={52}
-/>
-
-                <div className="saved-build-content">
-                  <div className="saved-build-topline">
-                    <span>{build.game}</span>
-                    <span>
-                      {build.visibility === "private"
-                        ? "Privata"
-                        : "Non in elenco"}
-                    </span>
-                  </div>
-
-                  <h3>{build.title}</h3>
-
-                  <p>
-                    {build.characterClass} · {build.category} · Patch/Stagione{" "}
-                    {build.patch}
-                  </p>
-
-                  {build.notes && <small>{build.notes}</small>}
-                </div>
-
-                <span className="saved-build-chevron" aria-hidden="true">
-                  →
-                </span>
-              </Link>
-            ))}
-          </div>
-        )}
+          ))}
+        </div>
       </section>
     </main>
   );
