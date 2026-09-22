@@ -1522,3 +1522,65 @@ button.tavern-chicken-entry:disabled {
   background:
     linear-gradient(180deg, rgba(184, 121, 54, 0.98), rgba(117, 66, 31, 0.98)) !important;
 }
+
+/* Tema comune per tutti i pulsanti delle build */
+.build-detail-page button,
+.build-detail-page a.button,
+.build-detail-page a.build-action-button,
+.build-detail-page a.build-footer-button,
+.build-detail-page a.pobb-open-link,
+.build-detail-page a.build-planner-link,
+.build-detail-page a.build-showcase-text-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  min-height: 44px !important;
+  padding: 0.75rem 1.25rem !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  color: #f5dfaa !important;
+  background-image: url("/assets/new-build-plaque.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 100% 100% !important;
+  box-shadow: none !important;
+  font: inherit !important;
+  font-weight: 700 !important;
+  line-height: 1.1 !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+}
+
+.build-detail-page button:hover,
+.build-detail-page a.button:hover,
+.build-detail-page a.build-action-button:hover,
+.build-detail-page a.build-footer-button:hover,
+.build-detail-page a.pobb-open-link:hover,
+.build-detail-page a.build-planner-link:hover,
+.build-detail-page a.build-showcase-text-link:hover {
+  color: #fff1c9 !important;
+  filter: brightness(1.15) !important;
+}
+
+.build-detail-page a[href*="maxroll.gg"] {
+  background-image: url("/assets/new-build-plaque.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 100% 100% !important;
+  color: #f5dfaa !important;
+  text-decoration: none !important;
+}
+
+@media (max-width: 700px) {
+  .build-detail-page button,
+  .build-detail-page a.button,
+  .build-detail-page a.build-action-button,
+  .build-detail-page a.build-footer-button,
+  .build-detail-page a.pobb-open-link,
+  .build-detail-page a.build-planner-link,
+  .build-detail-page a.build-showcase-text-link,
+  .build-detail-page a[href*="maxroll.gg"] {
+    width: 100% !important;
+  }
+}
