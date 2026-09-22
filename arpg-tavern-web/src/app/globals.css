@@ -1707,3 +1707,47 @@ button.tavern-chicken-entry:disabled {
     text-align: center;
   }
 }
+
+
+.bard-mobile-trigger {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .bard-mobile-trigger {
+    position: fixed;
+    right: 0.85rem;
+    bottom: 0.85rem;
+    z-index: 100;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.9rem;
+    height: 2.9rem;
+    border: 1px solid rgba(255, 215, 131, 0.8);
+    border-radius: 999px;
+    color: #ffe097;
+    background: linear-gradient(145deg, #6f3618, #2d1007);
+    box-shadow: 0 0.35rem 1rem rgba(0, 0, 0, 0.45);
+    font-size: 1.25rem;
+    cursor: pointer;
+  }
+
+  .bard-player {
+    position: fixed;
+    right: 0.85rem;
+    bottom: 4.25rem;
+    z-index: 99;
+    display: none !important;
+    width: min(18rem, calc(100vw - 1.7rem));
+    padding: 0.7rem;
+    border: 1px solid rgba(255, 215, 131, 0.55);
+    border-radius: 0.65rem;
+    background: rgba(25, 8, 4, 0.97);
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.5);
+  }
+
+  .bard-player.bard-player-mobile-open {
+    display: grid !important;
+  }
+}
