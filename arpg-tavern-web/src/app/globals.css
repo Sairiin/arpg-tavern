@@ -1539,3 +1539,70 @@ button.tavern-chicken-entry:disabled {
     height: 1.5rem;
   }
 }
+
+/* Bard player desktop alignment */
+.bard-player {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 0.55rem;
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+.bard-player .bard-skip-button {
+  flex: 0 0 auto;
+}
+
+.bard-player .bard-toggle {
+  flex: 0 0 auto;
+  min-width: 8.5rem;
+}
+
+.bard-player .bard-volume {
+  display: flex !important;
+  align-items: center;
+  flex: 0 1 9rem;
+  width: 9rem;
+  min-width: 7rem;
+  max-width: 9rem;
+}
+
+.bard-player .bard-volume input[type="range"] {
+  width: 100%;
+  min-width: 0;
+}
+
+.bard-player .bard-current-track {
+  flex: 0 1 auto;
+  max-width: 13rem;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .bard-player {
+    display: grid !important;
+    grid-template-columns: auto 1fr auto;
+    width: 100%;
+    max-width: none;
+    gap: 0.5rem;
+  }
+
+  .bard-player .bard-volume {
+    grid-column: 1 / -1;
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+  }
+
+  .bard-player .bard-current-track {
+    grid-column: 1 / -1;
+    max-width: none;
+    text-align: center;
+  }
+}
