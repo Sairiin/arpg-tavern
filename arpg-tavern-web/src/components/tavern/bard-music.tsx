@@ -343,7 +343,11 @@ useEffect(() => {
         aria-expanded={isMobileExpanded}
         aria-label={isMobileExpanded ? "Chiudi controlli del bardo" : "Apri controlli del bardo"}
       >
-        <span aria-hidden="true">♫</span>
+        <img
+          src="/images/bard-lute-icon.png"
+          alt=""
+          className="bard-mobile-trigger-image"
+        />
       </button>
 
       <section
