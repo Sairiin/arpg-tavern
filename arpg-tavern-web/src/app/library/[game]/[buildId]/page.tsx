@@ -615,7 +615,7 @@ export default function BuildDetailPage() {
               
         
 
-<Link className="build-action-button" href={`/library/${gameSlug}`}>
+<Link className="button button-secondary" href={`/library/${gameSlug}`}>
                 ← Torna alle mie build
               
               <a
@@ -630,7 +630,7 @@ export default function BuildDetailPage() {
 
               {buildSourceUrl ? (
                 <a
-                  className="build-action-button"
+                  className="button button-secondary"
                   href={buildSourceUrl}
                   target="_blank"
                   rel="noreferrer"

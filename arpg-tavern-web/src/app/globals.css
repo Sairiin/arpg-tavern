@@ -2143,3 +2143,45 @@ button.tavern-chicken-entry:disabled {
     margin-left: 0 !important;
   }
 }
+
+.build-library-footer {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 1rem !important;
+  flex-wrap: wrap !important;
+  margin-top: 1.25rem !important;
+}
+
+.build-library-footer > a {
+  flex: 0 0 auto !important;
+  margin: 0 !important;
+  white-space: nowrap !important;
+}
+
+.build-library-footer > a.button,
+.build-library-footer > a.build-action-button {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 170px !important;
+  min-height: 44px !important;
+  box-sizing: border-box !important;
+  padding: 0.75rem 1rem !important;
+}
+
+.build-library-footer > a:last-child {
+  margin-left: auto !important;
+}
+
+@media (max-width: 700px) {
+  .build-library-footer {
+    align-items: stretch !important;
+    flex-direction: column !important;
+  }
+
+  .build-library-footer > a {
+    width: 100% !important;
+    margin-left: 0 !important;
+  }
+}
