@@ -122,7 +122,7 @@ export function BardMusic() {
     const savedVolume = getBardVolume();
     const savedTrackIndex = getInitialTrackIndex();
 
-    setVolume(savedVolume);
+    setVolume(savedVolume > 0 ? savedVolume : 0.2);
     setTrackIndex(savedTrackIndex);
     setIsMusicOn(savedPreference === "on");
     setShowWelcome(savedPreference === null);
@@ -181,10 +181,30 @@ useEffect(() => {
   }
 
   function enableMusic() {
+    const audio = audioReference.current;
+    const safeVolume = volume > 0 ? volume : 0.2;
+
+    setVolume(safeVolume);
     setShowWelcome(false);
     setMessage("");
     setIsMusicOn(true);
+
+    window.localStorage.setItem(BARD_VOLUME_KEY, String(safeVolume));
     window.localStorage.setItem(BARD_PREFERENCE_KEY, "on");
+
+    if (audio) {
+      audio.volume = safeVolume;
+      audio.muted = false;
+
+      void audio.play().catch((error) => {
+        console.error("Impossibile avviare la musica del bardo:", error);
+        setIsMusicOn(false);
+        window.localStorage.setItem(BARD_PREFERENCE_KEY, "off");
+        setMessage(
+          "Il bardo non riesce ad avviare il brano. Puoi riprovare dal pulsante musicale.",
+        );
+      });
+    }
   }
 
   function declineMusic() {
@@ -350,21 +370,23 @@ useEffect(() => {
           <span aria-hidden="true">›</span>
         </button>
 
-        {isMusicOn && (
-          <label className="bard-volume">
-            <span className="sr-only">Volume della musica</span>
+        <label className="bard-volume">
+          <span className="bard-volume-icon" aria-hidden="true">
+            🔊
+          </span>
+          <span className="sr-only">Volume della musica</span>
 
-            <input
-              type="range"
-              min="0"
-              max="100"
-              value={Math.round(volume * 100)}
-              onChange={(event) =>
-                handleVolumeChange(Number(event.target.value) / 100)
-              }
-            />
-          </label>
-        )}
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value={Math.round(volume * 100)}
+            onChange={(event) =>
+              handleVolumeChange(Number(event.target.value) / 100)
+            }
+            aria-label="Volume della musica"
+          />
+        </label>
 
         {isMusicOn && (
           <p className="bard-current-track" aria-live="polite">
