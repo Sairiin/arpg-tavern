@@ -113,6 +113,7 @@ export function BardMusic() {
   const [isMusicOn, setIsMusicOn] = useState(false);
   const [volume, setVolume] = useState(0.2);
   const [trackIndex, setTrackIndex] = useState(0);
+  const [isMobileExpanded, setIsMobileExpanded] = useState(false);
   const [message, setMessage] = useState("");
 
   const currentTrack = PLAYLIST[trackIndex];
@@ -335,7 +336,20 @@ useEffect(() => {
         </div>
       )}
 
-      <section className="bard-player" aria-label="Musica della taverna">
+      <button
+        className="bard-mobile-trigger"
+        type="button"
+        onClick={() => setIsMobileExpanded((current) => !current)}
+        aria-expanded={isMobileExpanded}
+        aria-label={isMobileExpanded ? "Chiudi controlli del bardo" : "Apri controlli del bardo"}
+      >
+        <span aria-hidden="true">♫</span>
+      </button>
+
+      <section
+        className={`bard-player ${isMobileExpanded ? "bard-player-mobile-open" : ""}`}
+        aria-label="Musica della taverna"
+      >
         <button
           className="bard-skip-button"
           type="button"
