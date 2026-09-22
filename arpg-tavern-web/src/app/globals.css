@@ -1483,3 +1483,42 @@ button.tavern-chicken-entry:disabled {
     font-size: 0.53rem;
   }
 }
+
+/* Build page: unified wood-button theme */
+.build-detail-page button,
+.build-detail-page a.button,
+.build-detail-page a.build-action-button,
+.build-detail-page a.build-footer-button,
+.build-detail-page a.pobb-open-link,
+.build-detail-page a.build-planner-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  min-height: 42px !important;
+  padding: 0.7rem 1rem !important;
+  border: 1px solid rgba(216, 168, 86, 0.75) !important;
+  border-radius: 4px !important;
+  color: #f1d79a !important;
+  background:
+    linear-gradient(180deg, rgba(143, 89, 40, 0.96), rgba(95, 53, 27, 0.96)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 235, 181, 0.35),
+    0 3px 10px rgba(0, 0, 0, 0.3) !important;
+  font: inherit !important;
+  font-weight: 700 !important;
+  line-height: 1.1 !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+}
+
+.build-detail-page button:hover,
+.build-detail-page a.button:hover,
+.build-detail-page a.build-action-button:hover,
+.build-detail-page a.build-footer-button:hover,
+.build-detail-page a.pobb-open-link:hover,
+.build-detail-page a.build-planner-link:hover {
+  color: #fff1c9 !important;
+  background:
+    linear-gradient(180deg, rgba(184, 121, 54, 0.98), rgba(117, 66, 31, 0.98)) !important;
+}
