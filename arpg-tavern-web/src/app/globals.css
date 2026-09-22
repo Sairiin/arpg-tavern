@@ -2037,3 +2037,51 @@ button.tavern-chicken-entry:disabled {
     width: 100%;
   }
 }
+
+.build-library-footer {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 0.75rem !important;
+  flex-wrap: wrap !important;
+  margin-top: 1.25rem !important;
+}
+
+.build-library-footer > a.build-action-button {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: auto !important;
+  min-width: 170px !important;
+  min-height: 44px !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  padding: 0.75rem 1rem !important;
+  border: 1px solid rgba(216, 168, 86, 0.75) !important;
+  border-radius: 4px !important;
+  color: #f1d79a !important;
+  background: linear-gradient(180deg, #8f5928, #5f351b) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 235, 181, 0.35),
+    0 3px 10px rgba(0, 0, 0, 0.3) !important;
+  font-weight: 700 !important;
+  line-height: 1.1 !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+}
+
+.build-library-footer > a.build-action-button:hover {
+  color: #fff1c9 !important;
+  background: linear-gradient(180deg, #b87936, #75421f) !important;
+}
+
+@media (max-width: 700px) {
+  .build-library-footer {
+    align-items: stretch !important;
+    flex-direction: column !important;
+  }
+
+  .build-library-footer > a.build-action-button {
+    width: 100% !important;
+  }
+}
