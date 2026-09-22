@@ -2133,3 +2133,13 @@ button.tavern-chicken-entry:disabled {
     width: 100% !important;
   }
 }
+
+.build-library-footer > a.build-action-button:last-child {
+  margin-left: auto !important;
+}
+
+@media (max-width: 700px) {
+  .build-library-footer > a.build-action-button:last-child {
+    margin-left: 0 !important;
+  }
+}
