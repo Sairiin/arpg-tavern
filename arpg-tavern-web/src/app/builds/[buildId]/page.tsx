@@ -702,7 +702,7 @@ export default function BuildDetailPage() {
       </div>
     </details>
 
-        {build.game === "Path of Exile" && (
+        {["Path of Exile", "Path of Exile 1"].includes(build.game) && (
       <section className="pobb-preview-card">
         <div className="pobb-preview-header">
           <div>
