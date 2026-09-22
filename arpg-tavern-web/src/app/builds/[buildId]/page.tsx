@@ -702,12 +702,12 @@ export default function BuildDetailPage() {
       </div>
     </details>
 
-        {["Path of Exile", "Path of Exile 1"].includes(build.game) && (
+        build.game && (
       <section className="pobb-preview-card">
         <div className="pobb-preview-header">
           <div>
             <p className="eyebrow">Planner esterno</p>
-            <h2>Path of Building</h2>
+            <h2>Path of Building — PoE 1</h2>
             <p>
               Visualizza statistiche, equipaggiamento, skill e albero passivo
               della build.
@@ -733,7 +733,6 @@ export default function BuildDetailPage() {
           />
         </div>
       </section>
-    )}
 
     <section className="character-sheet-section character-sheet-variants-wrapper">
       <BuildVariants

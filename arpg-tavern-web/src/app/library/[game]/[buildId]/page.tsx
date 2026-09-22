@@ -612,9 +612,46 @@ export default function BuildDetailPage() {
             />
 
             <footer className="build-showcase-footer">
-              <Link className="button button-secondary" href={`/library/${gameSlug}`}>
+              
+        {true && (
+          <section className="pobb-preview-card">
+            <div className="pobb-preview-header">
+              <div>
+                <p className="eyebrow">Planner esterno</p>
+                <h2>Path of Building — PoE 1</h2>
+                <p>Visualizza questa build nel planner PoB.</p>
+              </div>
+
+              <a
+                className="pobb-open-link"
+                href="https://pobb.in/_YmEjejyB97N"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Apri planner
+              </a>
+            </div>
+          </section>
+        )}
+
+<Link className="button button-secondary" href={`/library/${gameSlug}`}>
                 ← Torna alle mie build
-              </Link>
+              
+              <a
+                className="pobb-open-link"
+                href="https://pobb.in/_YmEjejyB97N"
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  display: "inline-block",
+                  marginLeft: "1rem",
+                  color: "#e8c878",
+                  fontWeight: 700,
+                }}
+              >
+                Apri planner PoE 1 ↗
+              </a>
+</Link>
 
               {buildSourceUrl ? (
                 <a
