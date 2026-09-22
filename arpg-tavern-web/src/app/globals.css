@@ -1584,3 +1584,59 @@ button.tavern-chicken-entry:disabled {
     width: 100% !important;
   }
 }
+
+/* Bard mobile player: keep volume visible and usable */
+.bard-player {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.bard-volume {
+  display: flex !important;
+  align-items: center;
+  gap: 0.4rem;
+  flex: 1 1 8rem;
+  min-width: 8rem;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.bard-volume input[type="range"] {
+  display: block !important;
+  width: 100%;
+  min-width: 6rem;
+  height: 1.25rem;
+  visibility: visible !important;
+  opacity: 1 !important;
+  accent-color: var(--tavern-gold, #e7b45d);
+}
+
+.bard-volume-icon {
+  display: inline-flex !important;
+  flex: 0 0 auto;
+  visibility: visible !important;
+}
+
+@media (max-width: 640px) {
+  .bard-player {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .bard-volume {
+    grid-column: 1 / -1;
+    width: 100%;
+    min-width: 0;
+    padding: 0.2rem 0;
+  }
+
+  .bard-volume input[type="range"] {
+    width: 100%;
+    min-width: 0;
+    height: 1.5rem;
+  }
+}
