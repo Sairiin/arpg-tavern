@@ -1540,7 +1540,7 @@ button.tavern-chicken-entry:disabled {
   border: 0 !important;
   border-radius: 0 !important;
   color: #f5dfaa !important;
-  background-image: url("/assets/new-build-plaque.png") !important;
+  background-image: url("/images/new-build-plaque.png") !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
   background-size: 100% 100% !important;
@@ -1564,7 +1564,7 @@ button.tavern-chicken-entry:disabled {
 }
 
 .build-detail-page a[href*="maxroll.gg"] {
-  background-image: url("/assets/new-build-plaque.png") !important;
+  background-image: url("/images/new-build-plaque.png") !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
   background-size: 100% 100% !important;
