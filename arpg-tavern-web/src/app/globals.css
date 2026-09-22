@@ -1703,3 +1703,45 @@ button.tavern-chicken-entry:disabled {
     height: 1.65rem;
   }
 }
+
+/* Bard trigger: transparent instrument-only style */
+.bard-mobile-trigger {
+  width: 3.4rem !important;
+  height: 3.4rem !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.bard-mobile-trigger:hover,
+.bard-mobile-trigger:focus-visible,
+.bard-mobile-trigger:active {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.bard-mobile-trigger-image {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain;
+  filter: drop-shadow(0 0 0.45rem rgba(255, 190, 72, 0.65));
+  transition: transform 160ms ease, filter 160ms ease;
+}
+
+.bard-mobile-trigger:hover .bard-mobile-trigger-image,
+.bard-mobile-trigger:focus-visible .bard-mobile-trigger-image {
+  transform: scale(1.08);
+  filter: drop-shadow(0 0 0.7rem rgba(255, 210, 105, 0.9));
+}
+
+@media (max-width: 640px) {
+  .bard-mobile-trigger {
+    right: 0.65rem !important;
+    bottom: 0.65rem !important;
+    width: 3.2rem !important;
+    height: 3.2rem !important;
+  }
+}
