@@ -98,9 +98,6 @@ export default function HomePage() {
             <a href="#features">La taverna</a>
             <a href="#games">Mondi</a>
             <a href="#journey">Il viaggio</a>
-            <a className="tavern-facade-navigation-cta" href="/login">
-              Entra
-            </a>
           </nav>
         </div>
       </header>
