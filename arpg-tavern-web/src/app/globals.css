@@ -1846,3 +1846,85 @@ button.tavern-chicken-entry:disabled {
     height: 3.2rem !important;
   }
 }
+
+/* Bard trigger: transparent instrument-only style */
+.bard-mobile-trigger {
+  width: 3.4rem !important;
+  height: 3.4rem !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.bard-mobile-trigger:hover,
+.bard-mobile-trigger:focus-visible,
+.bard-mobile-trigger:active {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.bard-mobile-trigger-image {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain;
+  filter: drop-shadow(0 0 0.45rem rgba(255, 190, 72, 0.65));
+  transition: transform 160ms ease, filter 160ms ease;
+}
+
+.bard-mobile-trigger:hover .bard-mobile-trigger-image,
+.bard-mobile-trigger:focus-visible .bard-mobile-trigger-image {
+  transform: scale(1.08);
+  filter: drop-shadow(0 0 0.7rem rgba(255, 210, 105, 0.9));
+}
+
+@media (max-width: 640px) {
+  .bard-mobile-trigger {
+    right: 0.65rem !important;
+    bottom: 0.65rem !important;
+    width: 3.2rem !important;
+    height: 3.2rem !important;
+  }
+}
+
+/* Bard lute: warm magical glow */
+.bard-mobile-trigger-image {
+  filter:
+    drop-shadow(0 0 0.18rem rgba(255, 228, 145, 0.95))
+    drop-shadow(0 0 0.55rem rgba(255, 174, 55, 0.8))
+    drop-shadow(0 0 1rem rgba(255, 126, 28, 0.42));
+  animation: bard-lute-glow 2.8s ease-in-out infinite;
+}
+
+.bard-mobile-trigger:hover .bard-mobile-trigger-image,
+.bard-mobile-trigger:focus-visible .bard-mobile-trigger-image {
+  filter:
+    drop-shadow(0 0 0.25rem rgba(255, 242, 180, 1))
+    drop-shadow(0 0 0.75rem rgba(255, 195, 75, 0.95))
+    drop-shadow(0 0 1.2rem rgba(255, 139, 34, 0.65));
+}
+
+@keyframes bard-lute-glow {
+  0%,
+  100% {
+    filter:
+      drop-shadow(0 0 0.16rem rgba(255, 224, 139, 0.75))
+      drop-shadow(0 0 0.45rem rgba(255, 170, 52, 0.55))
+      drop-shadow(0 0 0.85rem rgba(255, 118, 25, 0.28));
+  }
+
+  50% {
+    filter:
+      drop-shadow(0 0 0.28rem rgba(255, 242, 174, 1))
+      drop-shadow(0 0 0.75rem rgba(255, 192, 70, 0.88))
+      drop-shadow(0 0 1.25rem rgba(255, 132, 27, 0.52));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bard-mobile-trigger-image {
+    animation: none;
+  }
+}
