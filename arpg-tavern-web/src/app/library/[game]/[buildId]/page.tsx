@@ -497,7 +497,7 @@ export default function BuildDetailPage() {
 
             <section className="build-showcase-toolbar" aria-label="Azioni build">
               <button
-                className="button button-secondary"
+                className="build-footer-button"
                 type="button"
                 onClick={openEditModal}
                 disabled={isBusy}
@@ -506,7 +506,7 @@ export default function BuildDetailPage() {
               </button>
 
               <button
-                className="button button-secondary"
+                className="build-footer-button"
                 type="button"
                 onClick={() => void handleDuplicate()}
                 disabled={isBusy}
@@ -515,7 +515,7 @@ export default function BuildDetailPage() {
               </button>
 
               <button
-                className="button button-secondary"
+                className="build-footer-button"
                 type="button"
                 onClick={() => void handleArchiveToggle()}
                 disabled={isBusy}
@@ -615,7 +615,7 @@ export default function BuildDetailPage() {
               
         
 
-<Link className="button button-secondary" href={`/library/${gameSlug}`}>
+<Link className="build-footer-button" href={`/library/${gameSlug}`}>
                 ← Torna alle mie build
               
               <a
@@ -630,7 +630,7 @@ export default function BuildDetailPage() {
 
               {buildSourceUrl ? (
                 <a
-                  className="button button-secondary"
+                  className="build-footer-button"
                   href={buildSourceUrl}
                   target="_blank"
                   rel="noreferrer"
@@ -765,7 +765,7 @@ export default function BuildDetailPage() {
 
               <div className="build-modal-actions">
                 <button
-                  className="button button-secondary"
+                  className="build-footer-button"
                   type="button"
                   onClick={closeEditModal}
                   disabled={isSaving}

@@ -2185,3 +2185,49 @@ button.tavern-chicken-entry:disabled {
     margin-left: 0 !important;
   }
 }
+
+.build-library-footer {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  align-items: center !important;
+  gap: 1rem !important;
+  width: 100% !important;
+  margin-top: 1.25rem !important;
+}
+
+.build-library-footer > a.build-footer-button {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  min-height: 46px !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  padding: 0.75rem 1rem !important;
+  border: 1px solid rgba(216, 168, 86, 0.75) !important;
+  border-radius: 4px !important;
+  color: #f1d79a !important;
+  background:
+    linear-gradient(rgba(37, 19, 10, 0.18), rgba(37, 19, 10, 0.18)),
+    url("/assets/button-wood.png") center / 100% 100% no-repeat,
+    linear-gradient(180deg, #8f5928, #5f351b) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 235, 181, 0.35),
+    0 3px 10px rgba(0, 0, 0, 0.3) !important;
+  font-weight: 700 !important;
+  line-height: 1.1 !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+}
+
+.build-library-footer > a.build-footer-button:hover {
+  color: #fff1c9 !important;
+  filter: brightness(1.15) !important;
+}
+
+@media (max-width: 700px) {
+  .build-library-footer {
+    grid-template-columns: 1fr !important;
+  }
+}
