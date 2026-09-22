@@ -702,7 +702,40 @@ export default function BuildDetailPage() {
       </div>
     </details>
 
-        <section className="character-sheet-section character-sheet-variants-wrapper">
+        {build.game === "Path of Exile" && (
+      <section className="pobb-preview-card">
+        <div className="pobb-preview-header">
+          <div>
+            <p className="eyebrow">Planner esterno</p>
+            <h2>Path of Building</h2>
+            <p>
+              Visualizza statistiche, equipaggiamento, skill e albero passivo
+              della build.
+            </p>
+          </div>
+
+          <a
+            className="pobb-open-link"
+            href="https://pobb.in/_YmEjejyB97N"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Apri planner
+          </a>
+        </div>
+
+        <div className="pobb-iframe-container">
+          <iframe
+            src="https://pobb.in/_YmEjejyB97N"
+            title="Planner Path of Building"
+            loading="lazy"
+            allowFullScreen
+          />
+        </div>
+      </section>
+    )}
+
+    <section className="character-sheet-section character-sheet-variants-wrapper">
       <BuildVariants
         userId={user.uid}
         buildId={buildId}

@@ -1827,3 +1827,79 @@ button.tavern-chicken-entry:disabled {
     animation: none;
   }
 }
+
+
+/* External PoE 1 planner */
+.pobb-preview-card {
+  width: min(1160px, calc(100% - 2rem));
+  margin: 2rem auto;
+  padding: 1.25rem;
+  border: 1px solid rgba(231, 180, 93, 0.35);
+  border-radius: 0.75rem;
+  background: linear-gradient(145deg, rgba(48, 22, 10, 0.96), rgba(12, 7, 5, 0.98));
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.28);
+}
+
+.pobb-preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.pobb-preview-header h2 {
+  margin: 0.25rem 0;
+  color: #ffe0a0;
+}
+
+.pobb-preview-header p:last-child {
+  margin: 0;
+  color: #c9af88;
+}
+
+.pobb-open-link {
+  flex: 0 0 auto;
+  padding: 0.65rem 0.9rem;
+  border: 1px solid rgba(255, 215, 131, 0.65);
+  border-radius: 0.4rem;
+  color: #3d1c05;
+  background: linear-gradient(135deg, #ffe097, #bd6c25);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.pobb-iframe-container {
+  width: 100%;
+  height: 700px;
+  overflow: hidden;
+  border: 1px solid rgba(163, 112, 39, 0.7);
+  border-radius: 0.4rem;
+  background: #0b0e14;
+}
+
+.pobb-iframe-container iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+@media (max-width: 640px) {
+  .pobb-preview-card {
+    width: calc(100% - 1rem);
+    padding: 0.75rem;
+  }
+
+  .pobb-preview-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .pobb-open-link {
+    text-align: center;
+  }
+
+  .pobb-iframe-container {
+    height: 720px;
+  }
+}
