@@ -1903,3 +1903,47 @@ button.tavern-chicken-entry:disabled {
     height: 720px;
   }
 }
+
+.build-library-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1.25rem;
+}
+
+.build-library-footer > * {
+  flex: 0 0 auto;
+}
+
+.pobb-preview-card {
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 1.5rem;
+}
+
+.pobb-preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.pobb-open-link {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+@media (max-width: 700px) {
+  .pobb-preview-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .pobb-open-link {
+    width: 100%;
+    text-align: center;
+  }
+}

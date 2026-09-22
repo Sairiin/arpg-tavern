@@ -642,14 +642,8 @@ export default function BuildDetailPage() {
                 href="https://pobb.in/_YmEjejyB97N"
                 target="_blank"
                 rel="noreferrer"
-                style={{
-                  display: "inline-block",
-                  marginLeft: "1rem",
-                  color: "#e8c878",
-                  fontWeight: 700,
-                }}
               >
-                Apri planner PoE 1 ↗
+                Apri planner
               </a>
 </Link>
 
