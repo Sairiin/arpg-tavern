@@ -1928,3 +1928,103 @@ button.tavern-chicken-entry:disabled {
     animation: none;
   }
 }
+
+/* Bard lute: warm magical glow */
+.bard-mobile-trigger-image {
+  filter:
+    drop-shadow(0 0 0.18rem rgba(255, 228, 145, 0.95))
+    drop-shadow(0 0 0.55rem rgba(255, 174, 55, 0.8))
+    drop-shadow(0 0 1rem rgba(255, 126, 28, 0.42));
+  animation: bard-lute-glow 2.8s ease-in-out infinite;
+}
+
+.bard-mobile-trigger:hover .bard-mobile-trigger-image,
+.bard-mobile-trigger:focus-visible .bard-mobile-trigger-image {
+  filter:
+    drop-shadow(0 0 0.25rem rgba(255, 242, 180, 1))
+    drop-shadow(0 0 0.75rem rgba(255, 195, 75, 0.95))
+    drop-shadow(0 0 1.2rem rgba(255, 139, 34, 0.65));
+}
+
+@keyframes bard-lute-glow {
+  0%,
+  100% {
+    filter:
+      drop-shadow(0 0 0.16rem rgba(255, 224, 139, 0.75))
+      drop-shadow(0 0 0.45rem rgba(255, 170, 52, 0.55))
+      drop-shadow(0 0 0.85rem rgba(255, 118, 25, 0.28));
+  }
+
+  50% {
+    filter:
+      drop-shadow(0 0 0.28rem rgba(255, 242, 174, 1))
+      drop-shadow(0 0 0.75rem rgba(255, 192, 70, 0.88))
+      drop-shadow(0 0 1.25rem rgba(255, 132, 27, 0.52));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bard-mobile-trigger-image {
+    animation: none;
+  }
+}
+
+.bard-mobile-trigger {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.bard-mobile-trigger-image {
+  display: block;
+  width: 4rem;
+  height: 4rem;
+  object-fit: contain;
+  background: transparent !important;
+  filter:
+    drop-shadow(0 0 0.18rem rgba(255, 228, 145, 0.95))
+    drop-shadow(0 0 0.55rem rgba(255, 174, 55, 0.8))
+    drop-shadow(0 0 1rem rgba(255, 126, 28, 0.42));
+  animation: bard-lute-glow 2.8s ease-in-out infinite;
+}
+
+@keyframes bard-lute-glow {
+  0%, 100% {
+    filter:
+      drop-shadow(0 0 0.16rem rgba(255, 224, 139, 0.75))
+      drop-shadow(0 0 0.45rem rgba(255, 170, 52, 0.55))
+      drop-shadow(0 0 0.85rem rgba(255, 118, 25, 0.28));
+  }
+
+  50% {
+    filter:
+      drop-shadow(0 0 0.28rem rgba(255, 242, 174, 1))
+      drop-shadow(0 0 0.75rem rgba(255, 192, 70, 0.88))
+      drop-shadow(0 0 1.25rem rgba(255, 132, 27, 0.52));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bard-mobile-trigger-image {
+    animation: none;
+  }
+}
+
+.bard-menu,
+.bard-player,
+.bard-controls,
+.bard-panel {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
+}
+
+.bard-menu button,
+.bard-player button,
+.bard-controls button,
+.bard-panel button,
+.bard-volume {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
