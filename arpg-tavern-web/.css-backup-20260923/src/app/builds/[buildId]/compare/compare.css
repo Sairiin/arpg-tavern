@@ -1,0 +1,399 @@
+.compare-page {
+  min-height: 100vh;
+  padding-bottom: 90px;
+  color: #f5e3bd;
+  background:
+    radial-gradient(circle at 12% 7%, rgba(163, 66, 20, 0.22), transparent 27rem),
+    radial-gradient(circle at 88% 22%, rgba(136, 55, 19, 0.2), transparent 29rem),
+    linear-gradient(145deg, #1a0b07, #0a0504 78%);
+}
+
+.compare-topbar,
+.compare-hero,
+.compare-picker,
+.compare-table,
+.compare-empty,
+.compare-error {
+  width: min(1160px, calc(100% - 48px));
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.compare-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 86px;
+  border-bottom: 1px solid rgba(234, 172, 78, 0.2);
+}
+
+.compare-topbar .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  color: #ffe0a0;
+  font-family: Georgia, serif;
+  font-size: 1.04rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.compare-topbar .brand-mark {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 1px solid rgba(255, 220, 140, 0.7);
+  border-radius: 50%;
+  background: radial-gradient(circle, #ca6621, #431606 70%);
+}
+
+.compare-topbar .brand-text small {
+  display: block;
+  margin-bottom: 3px;
+  color: #b99a72;
+  font-family: Arial, sans-serif;
+  font-size: 0.48rem;
+  letter-spacing: 0.16em;
+}
+
+.compare-back-link {
+  border: 1px solid rgba(225, 163, 72, 0.33);
+  border-radius: 4px;
+  padding: 8px 11px;
+  color: #dabd8b;
+  background: rgba(35, 12, 7, 0.54);
+  font-size: 0.72rem;
+  text-decoration: none;
+}
+
+.compare-hero {
+  max-width: 1160px;
+  padding: 70px 0 29px;
+  text-align: center;
+}
+
+.compare-hero .eyebrow,
+.compare-picker .eyebrow {
+  margin: 0 0 10px;
+  color: #dba04e;
+  font-family: Georgia, serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+}
+
+.compare-hero h1 {
+  margin: 0;
+  color: #fff0cf;
+  font-family: Georgia, serif;
+  font-size: clamp(2.5rem, 5vw, 4.85rem);
+  letter-spacing: -0.06em;
+  line-height: 1;
+}
+
+.compare-hero > p:last-child {
+  max-width: 620px;
+  margin: 18px auto 0;
+  color: #c7ad87;
+  line-height: 1.7;
+}
+
+.compare-picker {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  margin-top: 18px;
+  border: 1px solid rgba(229, 169, 78, 0.24);
+  padding: 22px;
+  gap: 25px;
+  background: linear-gradient(145deg, rgba(100, 39, 14, 0.28), rgba(21, 7, 4, 0.78));
+}
+
+.compare-picker h2 {
+  margin: 0;
+  color: #f0d7a6;
+  font-family: Georgia, serif;
+  font-size: 1.3rem;
+}
+
+.compare-picker select {
+  width: min(430px, 100%);
+  min-height: 43px;
+  border: 1px solid rgba(232, 174, 84, 0.35);
+  border-radius: 4px;
+  padding: 9px 11px;
+  color: #f1dfbb;
+  outline: none;
+  background: rgba(15, 5, 3, 0.56);
+  font: inherit;
+  font-size: 0.8rem;
+}
+
+.compare-picker select:focus {
+  border-color: rgba(244, 182, 86, 0.82);
+  box-shadow: 0 0 0 3px rgba(216, 129, 39, 0.15);
+}
+
+.compare-table {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 54px minmax(0, 1fr);
+  margin-top: 18px;
+  border: 1px solid rgba(228, 167, 75, 0.26);
+  background: rgba(22, 7, 4, 0.48);
+  box-shadow: 0 20px 36px rgba(0, 0, 0, 0.3);
+}
+
+.compare-column-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 88px;
+  padding: 19px;
+  background: linear-gradient(145deg, rgba(113, 46, 14, 0.57), rgba(43, 14, 6, 0.8));
+}
+
+.compare-alternative-title {
+  background: linear-gradient(145deg, rgba(86, 34, 13, 0.38), rgba(22, 7, 4, 0.82));
+}
+
+.compare-column-title > span {
+  display: grid;
+  width: 39px;
+  height: 39px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid rgba(241, 184, 89, 0.43);
+  border-radius: 50%;
+  color: #ffd175;
+  background: rgba(114, 43, 12, 0.48);
+}
+
+.compare-column-title small,
+.compare-column-title strong {
+  display: block;
+}
+
+.compare-column-title small {
+  overflow: hidden;
+  color: #b9986d;
+  font-size: 0.61rem;
+  letter-spacing: 0.07em;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.compare-column-title strong {
+  overflow: hidden;
+  margin-top: 4px;
+  color: #efd8aa;
+  font-family: Georgia, serif;
+  font-size: 0.98rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.compare-middle-title {
+  display: grid;
+  place-items: center;
+  border-right: 1px solid rgba(225, 166, 75, 0.2);
+  border-left: 1px solid rgba(225, 166, 75, 0.2);
+  color: #d9973e;
+  background: rgba(15, 4, 3, 0.55);
+  font-family: Georgia, serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.compare-row {
+  display: contents;
+}
+
+.compare-value {
+  min-height: 87px;
+  border-top: 1px solid rgba(227, 166, 75, 0.14);
+  padding: 16px 19px;
+  background: rgba(24, 8, 4, 0.43);
+}
+
+.compare-value.is-different {
+  background:
+    linear-gradient(90deg, rgba(189, 92, 25, 0.14), transparent),
+    rgba(35, 12, 5, 0.48);
+}
+
+.compare-value small {
+  color: #9f805c;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.compare-value p {
+  margin: 7px 0 0;
+  color: #e5cca0;
+  font-family: Georgia, serif;
+  font-size: 0.95rem;
+  line-height: 1.43;
+  white-space: pre-wrap;
+}
+
+.compare-value.is-notes {
+  min-height: 132px;
+}
+
+.compare-row-marker {
+  display: grid;
+  min-height: 87px;
+  place-items: center;
+  border-top: 1px solid rgba(227, 166, 75, 0.14);
+  border-right: 1px solid rgba(225, 166, 75, 0.2);
+  border-left: 1px solid rgba(225, 166, 75, 0.2);
+  color: #c28b43;
+  background: rgba(11, 3, 2, 0.48);
+  font-family: Georgia, serif;
+  font-size: 1.12rem;
+}
+
+.compare-empty {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 300px;
+  margin-top: 18px;
+  border: 1px dashed rgba(227, 167, 75, 0.32);
+  padding: 38px 24px;
+  text-align: center;
+  background: linear-gradient(145deg, rgba(88, 32, 12, 0.42), rgba(19, 6, 4, 0.8));
+}
+
+.compare-empty > span {
+  display: grid;
+  width: 53px;
+  height: 53px;
+  margin-bottom: 17px;
+  place-items: center;
+  border: 1px solid rgba(239, 181, 87, 0.42);
+  border-radius: 50%;
+  color: #f5bc62;
+  background: rgba(117, 43, 12, 0.36);
+  font-size: 1.35rem;
+}
+
+.compare-empty h2 {
+  margin: 0;
+  color: #edd4a4;
+  font-family: Georgia, serif;
+  font-size: 1.28rem;
+}
+
+.compare-empty p {
+  max-width: 500px;
+  margin: 11px 0 22px;
+  color: #bda17b;
+  font-size: 0.86rem;
+  line-height: 1.65;
+}
+
+.compare-gold-button {
+  border: 1px solid rgba(255, 213, 124, 0.72);
+  border-radius: 5px;
+  padding: 11px 15px;
+  color: #3d1b05;
+  background: linear-gradient(135deg, #ffe092, #bc6d25);
+  box-shadow: 0 4px 0 #4b1b08;
+  font-family: Georgia, serif;
+  font-size: 0.77rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.compare-error {
+  margin-top: 18px;
+  border-left: 3px solid #c8462a;
+  padding: 11px 13px;
+  color: #f0a99c;
+  background: rgba(132, 33, 17, 0.33);
+  font-size: 0.82rem;
+}
+
+.compare-loading {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  color: #e5ca9b;
+  font-family: Georgia, serif;
+}
+
+@media (max-width: 700px) {
+  .compare-topbar,
+  .compare-hero,
+  .compare-picker,
+  .compare-table,
+  .compare-empty,
+  .compare-error {
+    width: min(100% - 30px, 1160px);
+  }
+
+  .compare-topbar {
+    min-height: 75px;
+  }
+
+  .compare-topbar .brand {
+    font-size: 0.8rem;
+  }
+
+  .compare-topbar .brand-text small {
+    display: none;
+  }
+
+  .compare-hero {
+    padding-top: 49px;
+  }
+
+  .compare-picker {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .compare-picker select {
+    width: 100%;
+  }
+
+  .compare-table {
+    grid-template-columns: minmax(0, 1fr) 34px minmax(0, 1fr);
+  }
+
+  .compare-column-title {
+    min-height: 82px;
+    padding: 13px 10px;
+  }
+
+  .compare-column-title > span {
+    display: none;
+  }
+
+  .compare-column-title strong {
+    font-size: 0.8rem;
+  }
+
+  .compare-value {
+    min-height: 92px;
+    padding: 13px 10px;
+  }
+
+  .compare-value p {
+    font-size: 0.82rem;
+  }
+
+  .compare-row-marker {
+    min-height: 92px;
+    font-size: 0.94rem;
+  }
+}

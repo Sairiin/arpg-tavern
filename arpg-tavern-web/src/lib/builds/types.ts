@@ -88,6 +88,8 @@ export type BuildRecord = {
   characterClass: string;
   ascendancy?: string;
   patch: string;
+  version?: string;
+  youtubeUrl?: string;
   category: BuildCategory;
   visibility: BuildVisibility;
   notes: string;

@@ -106,14 +106,16 @@ export default function GameLibraryPage() {
   const [title, setTitle] = useState("");
   const [characterClass, setCharacterClass] = useState("");
   const [patch, setPatch] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("Generale");
   const [notes, setNotes] = useState("");
   const [buildLink, setBuildLink] = useState("");
+  const [pobCode, setPobCode] = useState("");
   const [sourceKind, setSourceKind] = useState<
     "manual" | "planner" | "guide" | "external"
   >("manual");
 
   const [searchTerm, setSearchTerm] = useState("");
+  const [buildView, setBuildView] = useState<"cards" | "list" | "columns">("cards");
   const [classFilter, setClassFilter] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState<"active" | "archived" | "all">(
@@ -316,6 +318,7 @@ export default function GameLibraryPage() {
         category: category.trim(),
         notes: notes.trim(),
         buildLink: buildLink.trim(),
+        pobCode: pobCode.trim(),
         ...(buildLink.trim()
           ? {
               sourceUrl: buildLink.trim(),
@@ -442,15 +445,16 @@ export default function GameLibraryPage() {
               <label>
                 <span>Categoria</span>
                 <select
-                  value={categoryFilter}
-                  onChange={(event) => setCategoryFilter(event.target.value)}
+                  value={category}
+                  onChange={(event) => setCategory(event.target.value)}
                 >
-                  <option value="">Tutte le categorie</option>
-                  {categoryOptions.map((buildCategory) => (
-                    <option key={buildCategory} value={buildCategory}>
-                      {buildCategory}
-                    </option>
-                  ))}
+                  <option value="Generale">Generale</option>
+                  <option value="League Starter">League Starter</option>
+                  <option value="Mapping">Mapping</option>
+                  <option value="Boss">Boss</option>
+                  <option value="Leveling">Leveling</option>
+                  <option value="Endgame">Endgame</option>
+                  <option value="Prova">Prova</option>
                 </select>
               </label>
 
@@ -556,7 +560,35 @@ export default function GameLibraryPage() {
         )}
 
         {!isLoadingBuilds && sortedBuilds.length > 0 && (
-          <div className="game-builds-grid">
+          <>
+            <div className="build-view-switcher" aria-label="Visualizzazione build">
+              <button
+                type="button"
+                className={`build-view-button ${buildView === "cards" ? "is-active" : ""}`}
+                onClick={() => setBuildView("cards")}
+                aria-pressed={buildView === "cards"}
+              >
+                ▦ Card
+              </button>
+              <button
+                type="button"
+                className={`build-view-button ${buildView === "list" ? "is-active" : ""}`}
+                onClick={() => setBuildView("list")}
+                aria-pressed={buildView === "list"}
+              >
+                ☰ Lista
+              </button>
+              <button
+                type="button"
+                className={`build-view-button ${buildView === "columns" ? "is-active" : ""}`}
+                onClick={() => setBuildView("columns")}
+                aria-pressed={buildView === "columns"}
+              >
+                ▤ Due colonne
+              </button>
+            </div>
+
+            <div className={`game-builds-grid builds-view-${buildView}`}>
             {sortedBuilds.map((build) => (
               <Link
                 className="saved-build-card saved-build-card-clickable"
@@ -594,8 +626,7 @@ export default function GameLibraryPage() {
                   )}
 
                   <div>
-                    <p className="saved-build-game">{currentGame.shortName}</p>
-                    <div className="saved-build-title-row">
+                    <div className="saved-build-title-row saved-build-title-content">
                       <h3 title={build.title}>
                         {truncateBuildTitle(build.title)}
                       </h3>
@@ -655,7 +686,8 @@ export default function GameLibraryPage() {
                 )}
               </Link>
             ))}
-          </div>
+            </div>
+          </>
         )}
       </section>
 
@@ -754,11 +786,18 @@ export default function GameLibraryPage() {
 
               <label>
                 Categoria
-                <input
+                <select
                   value={category}
                   onChange={(event) => setCategory(event.target.value)}
-                  placeholder="Es. Mapping, Bossing, Leveling"
-                />
+                >
+                  <option value="Generale">Generale</option>
+                  <option value="League Starter">League Starter</option>
+                  <option value="Mapping">Mapping</option>
+                  <option value="Boss">Boss</option>
+                  <option value="Leveling">Leveling</option>
+                  <option value="Endgame">Endgame</option>
+                  <option value="Prova">Prova</option>
+                </select>
               </label>
 
               <div className="build-modal-form-grid">
@@ -813,6 +852,17 @@ export default function GameLibraryPage() {
                   {error}
                 </p>
               )}
+
+              <label>
+                Codice PoB
+                <textarea
+                  name="pobCode"
+                  value={pobCode}
+                  onChange={(event) => setPobCode(event.target.value)}
+                  placeholder="Incolla qui il codice di Path of Building"
+                  rows={7}
+                />
+              </label>
 
               <div className="build-modal-actions">
                 <button
