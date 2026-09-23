@@ -1484,6 +1484,107 @@ button.tavern-chicken-entry:disabled {
   }
 }
 
+/* Build page: unified wood-button theme */
+.build-detail-page button,
+.build-detail-page a.button,
+.build-detail-page a.build-action-button,
+.build-detail-page a.build-footer-button,
+.build-detail-page a.pobb-open-link,
+.build-detail-page a.build-planner-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  min-height: 42px !important;
+  padding: 0.7rem 1rem !important;
+  border: 1px solid rgba(216, 168, 86, 0.75) !important;
+  border-radius: 4px !important;
+  color: #f1d79a !important;
+  background:
+    linear-gradient(180deg, rgba(143, 89, 40, 0.96), rgba(95, 53, 27, 0.96)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 235, 181, 0.35),
+    0 3px 10px rgba(0, 0, 0, 0.3) !important;
+  font: inherit !important;
+  font-weight: 700 !important;
+  line-height: 1.1 !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+}
+
+.build-detail-page button:hover,
+.build-detail-page a.button:hover,
+.build-detail-page a.build-action-button:hover,
+.build-detail-page a.build-footer-button:hover,
+.build-detail-page a.pobb-open-link:hover,
+.build-detail-page a.build-planner-link:hover {
+  color: #fff1c9 !important;
+  background:
+    linear-gradient(180deg, rgba(184, 121, 54, 0.98), rgba(117, 66, 31, 0.98)) !important;
+}
+
+/* Tema comune per tutti i pulsanti delle build */
+.build-detail-page button,
+.build-detail-page a.button,
+.build-detail-page a.build-action-button,
+.build-detail-page a.build-footer-button,
+.build-detail-page a.pobb-open-link,
+.build-detail-page a.build-planner-link,
+.build-detail-page a.build-showcase-text-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  min-height: 44px !important;
+  padding: 0.75rem 1.25rem !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  color: #f5dfaa !important;
+  background-image: url("/images/new-build-plaque.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 100% 100% !important;
+  box-shadow: none !important;
+  font: inherit !important;
+  font-weight: 700 !important;
+  line-height: 1.1 !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+}
+
+.build-detail-page button:hover,
+.build-detail-page a.button:hover,
+.build-detail-page a.build-action-button:hover,
+.build-detail-page a.build-footer-button:hover,
+.build-detail-page a.pobb-open-link:hover,
+.build-detail-page a.build-planner-link:hover,
+.build-detail-page a.build-showcase-text-link:hover {
+  color: #fff1c9 !important;
+  filter: brightness(1.15) !important;
+}
+
+.build-detail-page a[href*="maxroll.gg"] {
+  background-image: url("/images/new-build-plaque.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 100% 100% !important;
+  color: #f5dfaa !important;
+  text-decoration: none !important;
+}
+
+@media (max-width: 700px) {
+  .build-detail-page button,
+  .build-detail-page a.button,
+  .build-detail-page a.build-action-button,
+  .build-detail-page a.build-footer-button,
+  .build-detail-page a.pobb-open-link,
+  .build-detail-page a.build-planner-link,
+  .build-detail-page a.build-showcase-text-link,
+  .build-detail-page a[href*="maxroll.gg"] {
+    width: 100% !important;
+  }
+}
+
 /* Bard mobile player: keep volume visible and usable */
 .bard-player {
   display: flex;
@@ -1950,157 +2051,4 @@ button.tavern-chicken-entry:disabled {
   box-shadow: none !important;
   text-shadow: none !important;
   animation: none !important;
-}
-
-/* Responsive foundation */
-html {
-  width: 100%;
-  overflow-x: hidden;
-}
-
-body {
-  width: 100%;
-  min-width: 320px;
-  overflow-x: hidden;
-}
-
-img,
-svg,
-video,
-canvas {
-  max-width: 100%;
-  height: auto;
-}
-
-button,
-input,
-select,
-textarea {
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-.build-detail-page,
-.dashboard-page,
-.dashboard-page > main,
-.build-editor-page,
-.build-editor-container,
-.game-library-header,
-.dashboard-summary,
-.game-builds-grid,
-.build-showcase,
-.build-detail-page > * {
-  width: min(100% - 2rem, 1400px);
-  max-width: 1400px;
-  margin-left: auto;
-  margin-right: auto;
-  box-sizing: border-box;
-}
-
-.build-detail-page {
-  min-width: 0;
-}
-
-.build-detail-page > *,
-.dashboard-page > *,
-.dashboard-page main > * {
-  min-width: 0;
-}
-
-@media (max-width: 1100px) {
-  .build-detail-page,
-  .dashboard-page > main,
-  .build-editor-page,
-  .build-editor-container,
-  .game-library-header,
-  .dashboard-summary,
-  .game-builds-grid,
-  .build-showcase {
-    width: min(100% - 2rem, 1100px);
-  }
-}
-
-@media (max-width: 760px) {
-  .build-detail-page,
-  .dashboard-page > main,
-  .build-editor-page,
-  .build-editor-container,
-  .game-library-header,
-  .dashboard-summary,
-  .game-builds-grid,
-  .build-showcase {
-    width: calc(100% - 1.5rem);
-  }
-
-  .build-showcase-hero,
-  .build-showcase-stats,
-  .build-detail-layout,
-  .game-builds-grid {
-    grid-template-columns: 1fr !important;
-  }
-
-  .build-showcase-toolbar,
-  .build-showcase-footer,
-  .build-detail-actions,
-  .form-actions {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .build-showcase-toolbar .button,
-  .build-showcase-footer .button,
-  .build-detail-actions .button,
-  .form-actions .button {
-    width: 100%;
-  }
-
-  .planner-shell {
-    width: 100% !important;
-    padding: 18px !important;
-  }
-
-  .planner-shell-frame,
-  .planner-shell-frame iframe {
-    height: 780px !important;
-    min-height: 780px !important;
-  }
-}
-
-@media (max-width: 480px) {
-  .build-detail-page,
-  .dashboard-page > main,
-  .build-editor-page,
-  .build-editor-container,
-  .game-library-header,
-  .dashboard-summary,
-  .game-builds-grid,
-  .build-showcase {
-    width: calc(100% - 1rem);
-  }
-
-  .build-detail-page h1,
-  .build-showcase-copy h1 {
-    font-size: clamp(1.7rem, 9vw, 2.6rem);
-  }
-
-  .planner-shell {
-    padding: 14px !important;
-    border-radius: 6px !important;
-  }
-
-  .planner-shell-heading {
-    align-items: flex-start !important;
-    gap: 10px !important;
-  }
-
-  .planner-shell-heading h2 {
-    font-size: 1.08rem !important;
-  }
-
-  .planner-shell-frame,
-  .planner-shell-frame iframe {
-    height: 700px !important;
-    min-height: 700px !important;
-  }
 }

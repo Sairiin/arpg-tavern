@@ -15,13 +15,19 @@ export const metadata: Metadata = {
   description: "Il rifugio dei viandanti delle stagioni ARPG.",
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="it">
+    <html lang="it" className="dark" style={{ colorScheme: "dark" }}>
       <body className={medievalSharp.variable}>
         {children}
         <BardMusic />

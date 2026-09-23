@@ -23,6 +23,7 @@ import {
 } from "@/lib/builds/source-label";
 import { BuildVariantsPanel } from "@/components/library/build-variants-panel";
 import "../../../dashboard/dashboard.css";
+import "./build-detail.css";
 
 const games = {
   poe1: { name: "Path of Exile 1", shortName: "PoE 1" },
@@ -59,6 +60,8 @@ type StoredBuild = {
   notes?: string;
   buildLink?: string;
   sourceUrl?: string;
+  pobCode?: string;
+
   archived?: boolean;
   createdAt?: {
     seconds: number;
@@ -77,6 +80,7 @@ type BuildFormValues = {
   category: string;
   notes: string;
   buildLink: string;
+  pobCode: string;
 };
 
 function buildToFormValues(build: StoredBuild): BuildFormValues {
@@ -87,6 +91,7 @@ function buildToFormValues(build: StoredBuild): BuildFormValues {
     category: build.category ?? "Generale",
     notes: build.notes ?? "",
     buildLink: build.buildLink ?? "",
+    pobCode: build.pobCode ?? "",
   };
 }
 
@@ -128,6 +133,7 @@ export default function BuildDetailPage() {
     category: "Generale",
     notes: "",
     buildLink: "",
+    pobCode: "",
   });
 
   const [isSaving, setIsSaving] = useState(false);
@@ -135,6 +141,7 @@ export default function BuildDetailPage() {
   const [isArchiving, setIsArchiving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [actionError, setActionError] = useState("");
+  const [resolvedPlannerUrl, setResolvedPlannerUrl] = useState("");
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -187,6 +194,52 @@ export default function BuildDetailPage() {
 
     void loadBuild();
   }, [user, gameSlug, buildId]);
+
+  useEffect(() => {
+    const data = build as { pobCode?: string; sourceUrl?: string } | null;
+    const pobCode = data?.pobCode?.trim() || "";
+    const existingUrl = data?.sourceUrl?.trim() || "";
+
+    if (!pobCode) {
+      setResolvedPlannerUrl(existingUrl);
+      return;
+    }
+
+    let cancelled = false;
+
+    async function createPlannerLink() {
+      try {
+        const response = await fetch("/api/pob/share", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ pobCode }),
+        });
+
+        const result = await response.json();
+
+        if (!response.ok || !result.url) {
+          throw new Error(
+            result.error || "Conversione del codice PoB non riuscita."
+          );
+        }
+
+        if (!cancelled) {
+          setResolvedPlannerUrl(result.url);
+        }
+      } catch (error) {
+        console.error("Errore conversione PoB:", error);
+        if (!cancelled) {
+          setResolvedPlannerUrl(existingUrl);
+        }
+      }
+    }
+
+    createPlannerLink();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [build]);
 
   function openEditModal() {
     if (!build) {
@@ -246,6 +299,7 @@ export default function BuildDetailPage() {
         notes: formValues.notes.trim(),
         buildLink: formValues.buildLink.trim(),
         sourceUrl: formValues.buildLink.trim(),
+        pobCode: formValues.pobCode.trim(),
         updatedAt: serverTimestamp(),
       };
 
@@ -263,6 +317,7 @@ export default function BuildDetailPage() {
               notes: formValues.notes.trim(),
               buildLink: formValues.buildLink.trim(),
               sourceUrl: formValues.buildLink.trim(),
+              pobCode: formValues.pobCode.trim(),
             }
           : current,
       );
@@ -701,12 +756,14 @@ export default function BuildDetailPage() {
                       updateFormValue("category", event.target.value)
                     }
                   >
-                    {categories.map((category) => (
-                      <option key={category} value={category}>
-                        {category}
-                      </option>
-                    ))}
-                  </select>
+                  <option value="Generale">Generale</option>
+                  <option value="League Starter">League Starter</option>
+                  <option value="Mapping">Mapping</option>
+                  <option value="Boss">Boss</option>
+                  <option value="Leveling">Leveling</option>
+                  <option value="Endgame">Endgame</option>
+                  <option value="Prova">Prova</option>
+                </select>
                 </label>
 
                 <label>
@@ -729,7 +786,20 @@ export default function BuildDetailPage() {
                     updateFormValue("buildLink", event.target.value)
                   }
                   placeholder="https://..."
-                  type="url"
+                  type="text"
+                  inputMode="url"
+                />
+              </label>
+
+              <label>
+                Codice PoB
+                <textarea
+                  value={formValues.pobCode}
+                  onChange={(event) =>
+                    updateFormValue("pobCode", event.target.value)
+                  }
+                  placeholder="Incolla qui il codice di Path of Building"
+                  rows={7}
                 />
               </label>
 
@@ -769,6 +839,49 @@ export default function BuildDetailPage() {
           </section>
         </div>
       )}
+
+
+      {(() => {
+        const plannerData = build as {
+          pobUrl?: string;
+          sourceUrl?: string;
+          buildLink?: string;
+          pobCode?: string;
+        };
+
+        const plannerUrl =
+          resolvedPlannerUrl ||
+          plannerData.pobUrl ||
+          plannerData.sourceUrl ||
+          plannerData.buildLink ||
+          "";
+
+        if (!/^https?:\/\/(www\.)?pobb\.in\//i.test(plannerUrl)) {
+          return null;
+        }
+
+        return (
+          <section className="planner-shell planner-shell-centered">
+            <div className="planner-shell-heading">
+              <span aria-hidden="true">⚔</span>
+              <div>
+                <p className="eyebrow">Planner</p>
+                <h2>Pianificatore interattivo Path of Building</h2>
+              </div>
+            </div>
+
+            <div className="planner-shell-frame">
+              <iframe
+                src={plannerUrl}
+                title="PoB Planner"
+                scrolling="yes"
+                allowFullScreen
+              />
+            </div>
+          </section>
+        );
+      })()}
+
     </main>
   );
 }
