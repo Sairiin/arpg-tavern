@@ -856,7 +856,12 @@ export default function BuildDetailPage() {
           plannerData.buildLink ||
           "";
 
-        if (!/^https?:\/\/(www\.)?pobb\.in\//i.test(plannerUrl)) {
+        const supportsPobPlanner = gameSlug === "poe1" || gameSlug === "poe2";
+
+        if (
+          !supportsPobPlanner ||
+          !/^https?:\/\/(www\.)?pobb\.in\//i.test(plannerUrl)
+        ) {
           return null;
         }
 
