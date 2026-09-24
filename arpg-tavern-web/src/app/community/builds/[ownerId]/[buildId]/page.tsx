@@ -131,14 +131,20 @@ export default function CommunityBuildDetailPage() {
         </Link>
       </header>
 
-      <article className="community-card">
+      <article className="community-card community-build-detail">
         <div className="community-meta">
           <span>{build.characterClass || "Classe non indicata"}</span>
           <span>{build.patch || "Patch non indicata"}</span>
           <span>{build.category || "Generale"}</span>
         </div>
 
-        {build.notes && <p>{build.notes}</p>}
+        <section className="community-build-section">
+          <p className="eyebrow">Appunti dell'avventuriero</p>
+          <h2>Note e strategia</h2>
+          <p>
+            {build.notes || "Nessuna nota è stata aggiunta a questa build."}
+          </p>
+        </section>
 
         {build.sourceUrl && (
           <p>
