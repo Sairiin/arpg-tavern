@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged, type User } from "firebase/auth";
-import { collectionGroup, onSnapshot, query, where } from "firebase/firestore";
+import { addDoc, collection, collectionGroup, onSnapshot, query, serverTimestamp, where } from "firebase/firestore";
 import { auth, db } from "@/lib/firebase/client";
 import "../dashboard/dashboard.css";
 import "./community.css";
@@ -17,6 +17,8 @@ type CommunityBuild = {
   patch: string;
   category: string;
   updatedAt?: { seconds?: number } | null;
+  documentPath: string;
+  data: Record<string, unknown>;
 };
 
 const gameLabels: Record<string, string> = {
@@ -43,6 +45,8 @@ export default function CommunityBuildsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [gameFilter, setGameFilter] = useState("");
   const [error, setError] = useState("");
+  const [importingId, setImportingId] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
     return onAuthStateChanged(auth, (currentUser) => {
@@ -67,6 +71,8 @@ export default function CommunityBuildsPage() {
             const data = document.data();
             return {
               id: document.id,
+              documentPath: document.ref.path,
+              data,
               title: String(data.title || "Build senza nome"),
               game: String(data.game || ""),
               characterClass: String(data.characterClass || "Classe non indicata"),
@@ -83,6 +89,36 @@ export default function CommunityBuildsPage() {
       },
     );
   }, [user]);
+
+  async function importBuild(build: CommunityBuild) {
+    if (!user || importingId) {
+      return;
+    }
+
+    setImportingId(build.id);
+    setError("");
+    setSuccessMessage("");
+
+    try {
+      await addDoc(collection(db, "users", user.uid, "builds"), {
+        ...build.data,
+        visibility: "private",
+        importedFrom: {
+          path: build.documentPath,
+          importedAt: serverTimestamp(),
+        },
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp(),
+      });
+
+      setSuccessMessage(`La build "${build.title}" è stata importata nella tua libreria.`);
+    } catch (importError) {
+      console.error("Errore importazione build:", importError);
+      setError("Non è stato possibile importare la build.");
+    } finally {
+      setImportingId("");
+    }
+  }
 
   const games = useMemo(
     () => Array.from(new Set(builds.map((build) => build.game).filter(Boolean))).sort(),
@@ -127,6 +163,7 @@ export default function CommunityBuildsPage() {
         </select>
       </section>
       {error && <p className="community-error">{error}</p>}
+      {successMessage && <p className="community-success">{successMessage}</p>}
       {!error && filteredBuilds.length === 0 && <p className="community-empty">Nessuna build pubblica trovata.</p>}
       <section className="community-grid" aria-label="Build pubbliche">
         {filteredBuilds.map((build) => (
@@ -138,7 +175,17 @@ export default function CommunityBuildsPage() {
               <span>{build.patch}</span>
               <span>{build.category}</span>
             </div>
-            <footer><span>Pubblicata · {formatDate(build.updatedAt)}</span></footer>
+            <footer>
+              <span>Pubblicata · {formatDate(build.updatedAt)}</span>
+              <button
+                className="button button-secondary"
+                type="button"
+                onClick={() => void importBuild(build)}
+                disabled={importingId === build.id}
+              >
+                {importingId === build.id ? "Importazione..." : "Importa build"}
+              </button>
+            </footer>
           </article>
         ))}
       </section>

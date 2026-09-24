@@ -14,3 +14,19 @@
 .community-empty, .community-error { padding: 1.5rem; border: 1px solid rgba(255,255,255,.15); border-radius: .6rem; }
 .community-error { color: #ffb4a8; }
 @media (max-width: 700px) { .community-header { flex-direction: column; } }
+
+.community-success {
+  padding: 1.5rem;
+  border: 1px solid rgba(150, 220, 170, 0.35);
+  border-radius: 0.6rem;
+  color: #b8f0c5;
+  background: rgba(30, 90, 45, 0.2);
+}
+
+.community-card footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
