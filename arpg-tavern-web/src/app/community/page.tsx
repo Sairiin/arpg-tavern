@@ -172,7 +172,7 @@ export default function CommunityBuildsPage() {
           <article className="community-card" key={`${build.game}-${build.id}`}>
             <p className="eyebrow">{gameLabels[build.game] || build.game || "Gioco non indicato"}</p>
             <h2>
-              <Link href={`/builds/${build.id}?owner=${build.ownerId}`}>
+              <Link href={`/community/builds/${build.ownerId}/${build.id}`}>
                 {build.title}
               </Link>
             </h2>
