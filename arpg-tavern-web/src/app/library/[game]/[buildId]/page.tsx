@@ -59,6 +59,7 @@ type StoredBuild = {
   category?: string;
   notes?: string;
   buildLink?: string;
+  visibility?: "private" | "public";
   sourceUrl?: string;
   pobCode?: string;
 
@@ -80,6 +81,7 @@ type BuildFormValues = {
   category: string;
   notes: string;
   buildLink: string;
+  visibility: "private" | "public";
   pobCode: string;
 };
 
@@ -91,6 +93,7 @@ function buildToFormValues(build: StoredBuild): BuildFormValues {
     category: build.category ?? "Generale",
     notes: build.notes ?? "",
     buildLink: build.buildLink ?? "",
+    visibility: build.visibility ?? "public",
     pobCode: build.pobCode ?? "",
   };
 }
@@ -133,6 +136,7 @@ export default function BuildDetailPage() {
     category: "Generale",
     notes: "",
     buildLink: "",
+    visibility: "public",
     pobCode: "",
   });
 
@@ -777,6 +781,19 @@ export default function BuildDetailPage() {
                   />
                 </label>
               </div>
+
+              <label>
+                Visibilità
+                <select
+                  value={formValues.visibility}
+                  onChange={(event) =>
+                    updateFormValue("visibility", event.target.value)
+                  }
+                >
+                  <option value="private">Privata — solo io</option>
+                  <option value="public">Pubblica — Community</option>
+                </select>
+              </label>
 
               <label>
                 Link build
