@@ -113,6 +113,7 @@ export default function GameLibraryPage() {
   const [sourceKind, setSourceKind] = useState<
     "manual" | "planner" | "guide" | "external"
   >("manual");
+  const [visibility, setVisibility] = useState<"private" | "public">("private");
 
   const [searchTerm, setSearchTerm] = useState("");
   const [buildView, setBuildView] = useState<"cards" | "list" | "columns">("list");
@@ -287,6 +288,7 @@ export default function GameLibraryPage() {
     setNotes("");
     setBuildLink("");
     setSourceKind("manual");
+    setVisibility("private");
   }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -328,7 +330,7 @@ export default function GameLibraryPage() {
           : {
               sourceType: "manual",
             }),
-        visibility: "public",
+        visibility,
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp(),
       });
@@ -797,6 +799,19 @@ export default function GameLibraryPage() {
                   <option value="Leveling">Leveling</option>
                   <option value="Endgame">Endgame</option>
                   <option value="Prova">Prova</option>
+                </select>
+              </label>
+
+              <label>
+                Visibilità
+                <select
+                  value={visibility}
+                  onChange={(event) =>
+                    setVisibility(event.target.value as "private" | "public")
+                  }
+                >
+                  <option value="private">Privata — solo io</option>
+                  <option value="public">Pubblica — Community</option>
                 </select>
               </label>
 

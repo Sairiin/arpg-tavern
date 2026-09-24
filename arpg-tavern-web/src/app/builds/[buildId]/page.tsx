@@ -598,7 +598,7 @@ export default function BuildDetailPage() {
             }
           >
             <option value="private">Privata — solo io</option>
-            <option value="unlisted">Non in elenco</option>
+            <option value="public">Pubblica — Community</option>
           </select>
         </label>
 
