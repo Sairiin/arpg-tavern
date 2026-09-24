@@ -85,7 +85,7 @@ export function BuildVariants({
               title: data.title || "Variante senza nome",
               patch: data.patch || "",
               category: data.category || "Theorycraft",
-              visibility: data.visibility || "private",
+              visibility: data.visibility || "public",
               notes: data.notes || "",
               createdAt: data.createdAt || null
             };

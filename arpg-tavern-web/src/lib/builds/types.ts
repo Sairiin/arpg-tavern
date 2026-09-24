@@ -25,7 +25,7 @@ export const buildSourceTypes = [
 export type ArpgGame = (typeof arpgGames)[number];
 export type BuildCategory = (typeof buildCategories)[number];
 export type BuildSourceType = (typeof buildSourceTypes)[number];
-export type BuildVisibility = "private" | "unlisted";
+export type BuildVisibility = "public" | "private";
 export type ImportedGem = {
   name: string;
   level?: number;

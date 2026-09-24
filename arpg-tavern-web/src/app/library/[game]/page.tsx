@@ -81,7 +81,7 @@ function mapBuild(
     characterClass: String(data.characterClass || ""),
     patch: String(data.patch || ""),
     category: String(data.category || "") as BuildRecord["category"],
-    visibility: String(data.visibility || "private") as BuildRecord["visibility"],
+    visibility: String(data.visibility || "public") as BuildRecord["visibility"],
     notes: String(data.notes || ""),
     sourceUrl,
     archived: data.archived === true,
@@ -115,7 +115,7 @@ export default function GameLibraryPage() {
   >("manual");
 
   const [searchTerm, setSearchTerm] = useState("");
-  const [buildView, setBuildView] = useState<"cards" | "list" | "columns">("cards");
+  const [buildView, setBuildView] = useState<"cards" | "list" | "columns">("list");
   const [classFilter, setClassFilter] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState<"active" | "archived" | "all">(
@@ -328,7 +328,7 @@ export default function GameLibraryPage() {
           : {
               sourceType: "manual",
             }),
-        visibility: "private",
+        visibility: "public",
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp(),
       });

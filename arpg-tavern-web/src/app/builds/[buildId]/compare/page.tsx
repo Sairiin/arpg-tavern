@@ -110,7 +110,7 @@ const userId = user.uid;
           characterClass: buildData.characterClass || "",
           patch: buildData.patch || "",
           category: buildData.category || "Theorycraft",
-          visibility: buildData.visibility || "private",
+          visibility: buildData.visibility || "public",
           notes: buildData.notes || ""
         };
 
