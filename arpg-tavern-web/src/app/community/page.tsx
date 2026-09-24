@@ -190,17 +190,19 @@ export default function CommunityBuildsPage() {
       <section className={`community-grid community-view-${buildView}`} aria-label="Build pubbliche">
         {filteredBuilds.map((build) => (
           <article className="community-card" key={`${build.game}-${build.id}`}>
-            <p className="eyebrow">{gameLabels[build.game] || build.game || "Gioco non indicato"}</p>
-            <h2>
-              <Link href={`/community/builds/${build.ownerId}/${build.id}`}>
-                {build.title}
-              </Link>
-            </h2>
-            <div className="community-meta">
-              <span>{build.characterClass}</span>
-              <span>{build.patch}</span>
-              <span>{build.category}</span>
-            </div>
+            <Link
+              className="community-card-main-link"
+              href={`/community/builds/${build.ownerId}/${build.id}`}
+              aria-label={`Apri la build ${build.title}`}
+            >
+              <p className="eyebrow">{gameLabels[build.game] || build.game || "Gioco non indicato"}</p>
+              <h2>{build.title}</h2>
+              <div className="community-meta">
+                <span>{build.characterClass}</span>
+                <span>{build.patch}</span>
+                <span>{build.category}</span>
+              </div>
+            </Link>
             <footer>
               <span>Pubblicata · {formatDate(build.updatedAt)}</span>
               <button
