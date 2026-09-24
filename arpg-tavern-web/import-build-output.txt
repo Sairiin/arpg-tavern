@@ -1,0 +1,41 @@
+
+> arpg-tavern-web@0.1.0 build
+> next build
+
+▲ Next.js 16.3.5 (Turbopack)
+- Environments: .env.local
+✓ Running next.config.ts took 40ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 6.0s
+  Running TypeScript ...
+  Finished TypeScript in 2.7s ...
+  Collecting page data using 1 worker ...
+  Generating static pages using 1 worker (0/13) ...
+  Generating static pages using 1 worker (3/13) 
+  Generating static pages using 1 worker (6/13) 
+  Generating static pages using 1 worker (9/13) 
+✓ Generating static pages using 1 worker (13/13) in 691ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /account
+├ ƒ /api/pastebin/create
+├ ƒ /api/pob/resolve
+├ ƒ /api/pob/share
+├ ○ /builds
+├ ƒ /builds/[buildId]
+├ ƒ /builds/[buildId]/compare
+├ ○ /builds/poe2
+├ ○ /community
+├ ○ /dashboard
+├ ƒ /library/[game]
+├ ƒ /library/[game]/[buildId]
+└ ○ /login
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

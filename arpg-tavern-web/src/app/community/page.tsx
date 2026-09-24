@@ -11,6 +11,7 @@ import "./community.css";
 
 type CommunityBuild = {
   id: string;
+  ownerId: string;
   title: string;
   game: string;
   characterClass: string;
@@ -71,6 +72,7 @@ export default function CommunityBuildsPage() {
             const data = document.data();
             return {
               id: document.id,
+              ownerId: document.ref.parent.parent?.id || "",
               documentPath: document.ref.path,
               data,
               title: String(data.title || "Build senza nome"),
@@ -151,7 +153,7 @@ export default function CommunityBuildsPage() {
         <div>
           <p className="eyebrow">Archivio condiviso</p>
           <h1>Community Builds</h1>
-          <p>Esplora le build pubblicate dalla community. Importazione non ancora disponibile.</p>
+          <p>Esplora e importa le build pubblicate dalla community.</p>
         </div>
         <Link className="button button-secondary" href="/dashboard">Torna al dashboard</Link>
       </header>
@@ -169,7 +171,11 @@ export default function CommunityBuildsPage() {
         {filteredBuilds.map((build) => (
           <article className="community-card" key={`${build.game}-${build.id}`}>
             <p className="eyebrow">{gameLabels[build.game] || build.game || "Gioco non indicato"}</p>
-            <h2>{build.title}</h2>
+            <h2>
+              <Link href={`/builds/${build.id}?owner=${build.ownerId}`}>
+                {build.title}
+              </Link>
+            </h2>
             <div className="community-meta">
               <span>{build.characterClass}</span>
               <span>{build.patch}</span>
