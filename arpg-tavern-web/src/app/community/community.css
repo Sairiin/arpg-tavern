@@ -1,0 +1,16 @@
+.community-page { min-height: 100vh; padding: 2rem clamp(1rem, 4vw, 4rem); }
+.community-header { display: flex; justify-content: space-between; gap: 2rem; align-items: flex-start; margin-bottom: 2rem; }
+.community-header h1 { margin: .25rem 0 .75rem; }
+.community-header p { max-width: 44rem; }
+.community-toolbar { display: flex; gap: .75rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.community-toolbar input, .community-toolbar select { min-height: 2.75rem; padding: .6rem .8rem; color: inherit; background: rgba(0,0,0,.35); border: 1px solid rgba(255,255,255,.2); border-radius: .4rem; }
+.community-toolbar input { flex: 1 1 18rem; }
+.community-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; }
+.community-card { padding: 1.25rem; border: 1px solid rgba(255,255,255,.15); border-radius: .6rem; background: rgba(0,0,0,.28); }
+.community-card h2 { margin: .35rem 0 1rem; }
+.community-meta { display: flex; flex-wrap: wrap; gap: .4rem; }
+.community-meta span { padding: .3rem .55rem; border: 1px solid rgba(255,255,255,.15); border-radius: 999px; font-size: .85rem; }
+.community-card footer { margin-top: 1rem; font-size: .8rem; opacity: .72; }
+.community-empty, .community-error { padding: 1.5rem; border: 1px solid rgba(255,255,255,.15); border-radius: .6rem; }
+.community-error { color: #ffb4a8; }
+@media (max-width: 700px) { .community-header { flex-direction: column; } }
