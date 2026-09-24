@@ -30,3 +30,35 @@
   gap: 1rem;
   flex-wrap: wrap;
 }
+
+.community-card {
+  position: relative;
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.community-card:hover,
+.community-card:focus-within {
+  border-color: rgba(190, 150, 90, 0.9);
+  box-shadow: 0 0 0 2px rgba(190, 150, 90, 0.18), 0 0.8rem 2rem rgba(0, 0, 0, 0.25);
+  transform: translateY(-2px);
+}
+
+.community-card-main-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  border-radius: 0.45rem;
+  outline: none;
+}
+
+.community-card-main-link:focus-visible {
+  box-shadow: 0 0 0 3px rgba(240, 205, 130, 0.95);
+}
+
+.community-card-main-link h2 {
+  color: inherit;
+}
+
+.community-card-main-link h2:hover {
+  color: #f0cd82;
+}
