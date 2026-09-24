@@ -113,7 +113,7 @@ export default function GameLibraryPage() {
   const [sourceKind, setSourceKind] = useState<
     "manual" | "planner" | "guide" | "external"
   >("manual");
-  const [visibility, setVisibility] = useState<"private" | "public">("private");
+  const [visibility, setVisibility] = useState<"private" | "public">("public");
 
   const [searchTerm, setSearchTerm] = useState("");
   const [buildView, setBuildView] = useState<"cards" | "list" | "columns">("list");
@@ -288,7 +288,7 @@ export default function GameLibraryPage() {
     setNotes("");
     setBuildLink("");
     setSourceKind("manual");
-    setVisibility("private");
+    setVisibility("public");
   }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
