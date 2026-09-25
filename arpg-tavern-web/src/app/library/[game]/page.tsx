@@ -534,7 +534,7 @@ export default function GameLibraryPage() {
 
         {!isLoadingBuilds && !error && builds.length === 0 && (
           <div className="builds-empty-state">
-            <span aria-hidden="true">✦</span>
+            <span aria-hidden="true"><span className="site-guild-emblem" aria-hidden="true" /></span>
             <p>
               Non hai ancora salvato build per {currentGame.shortName}. Crea la
               prima con il pulsante “Nuova build”.

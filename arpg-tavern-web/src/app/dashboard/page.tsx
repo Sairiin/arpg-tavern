@@ -141,6 +141,22 @@ export default function DashboardPage() {
           </p>
         </div>
 
+        <Link
+          className="dashboard-community-tile"
+          href="/community"
+          aria-label="Apri Community Builds"
+        >
+          <span className="dashboard-community-tile-emblem" aria-hidden="true" />
+          <span className="dashboard-community-tile-copy">
+            <span className="game-card-kicker">La gilda degli avventurieri</span>
+            <strong>Community Builds</strong>
+            <span>Esplora, vota e importa le build condivise.</span>
+          </span>
+          <span className="dashboard-community-tile-action" aria-hidden="true">
+            Apri la community ↗
+          </span>
+        </Link>
+
         <div className="game-selector-grid">
           {games.map((game) => (
             <Link

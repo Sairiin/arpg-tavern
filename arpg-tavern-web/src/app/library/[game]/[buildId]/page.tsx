@@ -230,8 +230,7 @@ export default function BuildDetailPage() {
         if (!cancelled) {
           setResolvedPlannerUrl(result.url);
         }
-      } catch (error) {
-        console.error("Errore conversione PoB:", error);
+      } catch {
         if (!cancelled) {
           setResolvedPlannerUrl(existingUrl);
         }
@@ -648,7 +647,7 @@ export default function BuildDetailPage() {
 
             <section className="build-showcase-notes">
               <div className="build-showcase-section-heading">
-                <span aria-hidden="true">✦</span>
+                <span aria-hidden="true"><span className="site-guild-emblem" aria-hidden="true" /></span>
                 <div>
                   <p className="eyebrow">Appunti dell'avventuriero</p>
                   <h2>Note e strategia</h2>

@@ -246,7 +246,7 @@ const userId = user.uid;
     <main className="compare-page">
       <header className="compare-topbar">
         <Link className="brand" href={`/builds/${buildId}`}>
-          <span className="brand-mark">✦</span>
+          <span className="brand-mark"><span className="site-guild-emblem" aria-hidden="true" /></span>
           <span className="brand-text">
             <small>Il tavolo del cartografo</small>
             ARPG Tavern
