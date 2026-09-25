@@ -45,6 +45,7 @@ export default function CommunityBuildsPage() {
   const [builds, setBuilds] = useState<CommunityBuild[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [gameFilter, setGameFilter] = useState("");
+  const [buildView, setBuildView] = useState<"cards" | "list">("cards");
   const [error, setError] = useState("");
   const [importingId, setImportingId] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -163,24 +164,45 @@ export default function CommunityBuildsPage() {
           <option value="">Tutti i giochi</option>
           {games.map((game) => <option key={game} value={game}>{gameLabels[game] || game}</option>)}
         </select>
+
+        <div className="community-view-switcher" aria-label="Visualizzazione build">
+          <button
+            type="button"
+            className={`community-view-button ${buildView === "cards" ? "is-active" : ""}`}
+            onClick={() => setBuildView("cards")}
+            aria-pressed={buildView === "cards"}
+          >
+            ▦ Card
+          </button>
+          <button
+            type="button"
+            className={`community-view-button ${buildView === "list" ? "is-active" : ""}`}
+            onClick={() => setBuildView("list")}
+            aria-pressed={buildView === "list"}
+          >
+            ☰ Lista
+          </button>
+        </div>
       </section>
       {error && <p className="community-error">{error}</p>}
       {successMessage && <p className="community-success">{successMessage}</p>}
       {!error && filteredBuilds.length === 0 && <p className="community-empty">Nessuna build pubblica trovata.</p>}
-      <section className="community-grid" aria-label="Build pubbliche">
+      <section className={`community-grid community-view-${buildView}`} aria-label="Build pubbliche">
         {filteredBuilds.map((build) => (
           <article className="community-card" key={`${build.game}-${build.id}`}>
-            <p className="eyebrow">{gameLabels[build.game] || build.game || "Gioco non indicato"}</p>
-            <h2>
-              <Link href={`/community/builds/${build.ownerId}/${build.id}`}>
-                {build.title}
-              </Link>
-            </h2>
-            <div className="community-meta">
-              <span>{build.characterClass}</span>
-              <span>{build.patch}</span>
-              <span>{build.category}</span>
-            </div>
+            <Link
+              className="community-card-main-link"
+              href={`/community/builds/${build.ownerId}/${build.id}`}
+              aria-label={`Apri la build ${build.title}`}
+            >
+              <p className="eyebrow">{gameLabels[build.game] || build.game || "Gioco non indicato"}</p>
+              <h2>{build.title}</h2>
+              <div className="community-meta">
+                <span>{build.characterClass}</span>
+                <span>{build.patch}</span>
+                <span>{build.category}</span>
+              </div>
+            </Link>
             <footer>
               <span>Pubblicata · {formatDate(build.updatedAt)}</span>
               <button
