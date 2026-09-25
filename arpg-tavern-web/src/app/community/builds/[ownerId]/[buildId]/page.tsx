@@ -1,5 +1,7 @@
 "use client";
 
+import { LinkedBuildNotes } from "@/components/library/linked-build-notes";
+
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { doc, getDoc, addDoc, collection, serverTimestamp, increment, updateDoc } from "firebase/firestore";
@@ -385,10 +387,9 @@ export default function CommunityBuildDetailPage() {
                 <h2>Note e strategia</h2>
               </div>
             </div>
-            <p>
-              {build.notes ||
-                "Nessuna nota è stata aggiunta a questa build."}
-            </p>
+            <LinkedBuildNotes
+              text={build.notes || "Nessuna nota è stata aggiunta a questa build."}
+            />
           </section>
 
           {message && <p className="community-success">{message}</p>}

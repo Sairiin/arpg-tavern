@@ -251,3 +251,18 @@
     opacity: 0.34;
   }
 }
+
+/* Links in user-written build notes */
+.build-showcase-notes .linked-build-notes {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.build-showcase-notes .linked-build-notes a {
+  color: #f0cd82;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+.build-showcase-notes .linked-build-notes a:hover,
+.build-showcase-notes .linked-build-notes a:focus-visible {
+  color: #fff0c4;
+}

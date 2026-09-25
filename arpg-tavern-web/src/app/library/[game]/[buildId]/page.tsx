@@ -1,5 +1,7 @@
 "use client";
 
+import { LinkedBuildNotes } from "@/components/library/linked-build-notes";
+
 import Link from "next/link";
 import { FormEvent, useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
@@ -654,10 +656,10 @@ export default function BuildDetailPage() {
                 </div>
               </div>
 
-              <p>
-                {build.notes ||
+              <LinkedBuildNotes
+                text={build.notes ||
                   "Nessuna nota è stata aggiunta a questa build. Puoi completarla dalla schermata di modifica."}
-              </p>
+              />
             </section>
 
             <BuildVariantsPanel
