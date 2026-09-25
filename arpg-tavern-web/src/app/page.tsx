@@ -227,9 +227,9 @@ export default function HomePage() {
       <section id="journey" className="journey-section">
         <div className="quest-board">
           <div className="quest-board-title">
-            <span aria-hidden="true">✦</span>
+            <span aria-hidden="true"><span className="site-guild-emblem" aria-hidden="true" /></span>
             Registro dell&apos;avventuriero
-            <span aria-hidden="true">✦</span>
+            <span aria-hidden="true"><span className="site-guild-emblem" aria-hidden="true" /></span>
           </div>
 
           <div className="quest-list">

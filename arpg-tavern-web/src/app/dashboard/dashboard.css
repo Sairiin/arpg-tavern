@@ -4989,3 +4989,87 @@ body {
     font-size: 0.55rem !important;
   }
 }
+
+
+/* Community tile in the real dashboard game selector */
+.dashboard-community-tile {
+  position: relative;
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  min-height: 8rem;
+  padding: 1.2rem 1.5rem;
+  overflow: hidden;
+  color: #f4e3bd;
+  text-decoration: none;
+  border: 1px solid rgba(220, 172, 83, .7);
+  border-radius: 1rem;
+  background:
+    linear-gradient(90deg, rgba(25, 12, 5, .93), rgba(8, 4, 2, .68)),
+    url("/images/community/community-tavern-guild-background.jpg") center / cover;
+  box-shadow: inset 0 0 2.5rem rgba(0, 0, 0, .32), 0 .8rem 2rem rgba(0, 0, 0, .25);
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.dashboard-community-tile:hover,
+.dashboard-community-tile:focus-visible {
+  color: #fff0c4;
+  border-color: #f0cd82;
+  box-shadow: 0 0 0 1px rgba(240, 205, 130, .3), 0 0 2rem rgba(190, 125, 35, .3), 0 1rem 2.5rem rgba(0, 0, 0, .38);
+  transform: translateY(-2px);
+}
+
+.dashboard-community-tile-emblem {
+  width: 5rem;
+  height: 5rem;
+  flex: 0 0 5rem;
+  background: url("/images/community/community-guild-emblem.png") center / contain no-repeat;
+  filter: drop-shadow(0 0 .8rem rgba(240, 205, 130, .6));
+}
+
+.dashboard-community-tile-copy {
+  display: grid;
+  gap: .3rem;
+  min-width: 0;
+}
+
+.dashboard-community-tile-copy .game-card-kicker {
+  color: #d6a957;
+}
+
+.dashboard-community-tile-copy strong {
+  color: #f7dda4;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-variant: small-caps;
+  letter-spacing: .06em;
+}
+
+.dashboard-community-tile-copy > span:last-child {
+  color: rgba(244, 227, 189, .78);
+}
+
+.dashboard-community-tile-action {
+  margin-left: auto;
+  color: #f0cd82;
+  font-size: .82rem;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .dashboard-community-tile {
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .dashboard-community-tile-emblem {
+    width: 3.5rem;
+    height: 3.5rem;
+    flex-basis: 3.5rem;
+  }
+
+  .dashboard-community-tile-action {
+    display: none;
+  }
+}

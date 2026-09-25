@@ -62,3 +62,839 @@
 .community-card-main-link h2:hover {
   color: #f0cd82;
 }
+
+.community-build-card {
+  overflow: hidden;
+}
+
+.community-build-card .community-card-main-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.community-build-card .saved-build-card-top {
+  min-width: 0;
+}
+
+.community-build-card .saved-build-card-top > div {
+  min-width: 0;
+}
+
+.community-build-card .saved-build-title-row {
+  display: block;
+}
+
+.community-build-card .saved-build-title-row h2 {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.community-build-card .saved-build-meta {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.community-build-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 14px 12px;
+}
+
+@media (max-width: 620px) {
+  .community-build-card-footer {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}
+
+/* Public Community build detail: read-only styling. */
+.community-public-build-detail .sheet-action--primary {
+  display: none;
+}
+
+.community-public-build-detail .character-sheet-toolbar-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.community-public-build-detail .community-public-source {
+  width: min(1180px, calc(100% - 32px));
+  margin: 20px auto;
+}
+
+.community-public-build-detail .community-public-source a {
+  color: #f0cd82;
+}
+
+
+/* Community catalogue layout */
+.community-page {
+  width: min(1480px, 100%);
+  margin: 0 auto;
+  padding: clamp(1.5rem, 4vw, 4rem) clamp(1rem, 4vw, 4rem) 5rem;
+}
+
+.community-header {
+  width: min(1180px, 100%);
+  margin: 0 auto 2rem;
+  padding: 1.5rem 0;
+}
+
+.community-toolbar {
+  width: min(1180px, 100%);
+  margin: 0 auto 2rem;
+  align-items: center;
+}
+
+.community-toolbar input {
+  min-width: 16rem;
+}
+
+.game-builds-grid {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.game-builds-grid.builds-view-columns {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.game-builds-grid.builds-view-list {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.community-build-card {
+  min-width: 0;
+  min-height: 13rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  border-color: rgba(190, 150, 90, .48);
+  box-shadow: inset 0 0 3rem rgba(0, 0, 0, .28), 0 .6rem 1.5rem rgba(0, 0, 0, .18);
+}
+
+.community-card-main-link {
+  min-height: 9.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.35rem;
+}
+
+.community-card-crest {
+  width: 3.5rem;
+  height: 3.5rem;
+  flex: 0 0 3.5rem;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(240, 205, 130, .72);
+  border-radius: 50%;
+  background: rgba(20, 12, 7, .72);
+  box-shadow: 0 0 1.2rem rgba(240, 205, 130, .24);
+  color: #f0cd82;
+  font-size: 1.4rem;
+}
+
+.community-card-crest img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.community-card-copy {
+  min-width: 0;
+  display: grid;
+  gap: .45rem;
+}
+
+.community-card-copy .saved-build-title-row h2 {
+  font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+  line-height: 1.15;
+  white-space: normal;
+}
+
+.community-card-copy .saved-build-meta {
+  white-space: normal;
+  line-height: 1.45;
+}
+
+.community-build-card-footer {
+  min-height: 3.75rem;
+  padding: .85rem 1.15rem;
+  border-top: 1px solid rgba(190, 150, 90, .24);
+  background: rgba(8, 5, 3, .5);
+}
+
+.community-build-card-footer span {
+  font-size: .78rem;
+  color: rgba(255, 242, 210, .78);
+}
+
+@media (max-width: 980px) {
+  .game-builds-grid,
+  .game-builds-grid.builds-view-columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .game-builds-grid,
+  .game-builds-grid.builds-view-columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .community-page {
+    padding-inline: 1rem;
+  }
+}
+
+
+/* Community rankings */
+.community-rankings {
+  width: min(1180px, 100%);
+  margin: 0 auto 2rem;
+  padding: 1.25rem;
+  border: 1px solid rgba(190, 150, 90, .35);
+  border-radius: .75rem;
+  background: linear-gradient(135deg, rgba(30, 18, 10, .76), rgba(8, 5, 3, .62));
+  box-shadow: inset 0 0 2rem rgba(0, 0, 0, .25);
+}
+
+.community-rankings-heading {
+  margin-bottom: 1rem;
+}
+
+.community-rankings-heading h2 {
+  margin: .25rem 0 .4rem;
+}
+
+.community-rankings-heading p:last-child {
+  margin: 0;
+  opacity: .72;
+}
+
+.community-rankings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1rem;
+}
+
+.community-ranking {
+  padding: 1rem;
+  border: 1px solid rgba(190, 150, 90, .28);
+  border-radius: .6rem;
+  background: rgba(0, 0, 0, .22);
+}
+
+.community-ranking header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: .75rem;
+  border-bottom: 1px solid rgba(190, 150, 90, .2);
+}
+
+.community-ranking h3 {
+  margin: .35rem 0 0;
+  font-size: .95rem;
+}
+
+.community-ranking-badge {
+  color: #f0cd82;
+  font-size: 1.35rem;
+}
+
+.community-ranking ol {
+  margin: .7rem 0 0;
+  padding-left: 1.35rem;
+}
+
+.community-ranking li {
+  padding: .35rem 0;
+}
+
+.community-ranking li::marker {
+  color: #f0cd82;
+  font-weight: 700;
+}
+
+.community-ranking li a {
+  display: flex;
+  justify-content: space-between;
+  gap: .75rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.community-ranking li a:hover,
+.community-ranking li a:focus-visible {
+  color: #f0cd82;
+}
+
+.community-ranking li small {
+  opacity: .65;
+  white-space: nowrap;
+}
+
+.game-builds-grid.builds-view-list .community-build-card {
+  min-height: auto;
+}
+
+.game-builds-grid.builds-view-list .community-card-main-link {
+  min-height: 6.5rem;
+  align-items: center;
+}
+
+.game-builds-grid.builds-view-list .community-build-card-footer {
+  min-height: 3.25rem;
+}
+
+
+/* Community visual polish */
+.community-page {
+  color: #f4e3bd;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.community-header {
+  position: relative;
+  padding: 2.4rem clamp(1rem, 3vw, 2.5rem) 2rem;
+  border-bottom: 1px solid rgba(210, 171, 98, .35);
+  text-align: center;
+}
+
+.community-header::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -0.8rem;
+  transform: translateX(-50%);
+  padding: 0 .75rem;
+  color: #f0cd82;
+  background: #120b06;
+  font-size: 1rem;
+}
+
+.community-header .eyebrow {
+  color: #d6a957;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  font-size: .72rem;
+}
+
+.community-header h1 {
+  margin: .45rem 0 .7rem;
+  color: #f7dda4;
+  font-size: clamp(2rem, 4vw, 3.6rem);
+  font-weight: 600;
+  letter-spacing: .025em;
+  text-shadow: 0 .15rem .8rem rgba(0, 0, 0, .62);
+}
+
+.community-header p:not(.eyebrow) {
+  margin-inline: auto;
+  color: rgba(244, 227, 189, .78);
+  font-size: 1rem;
+}
+
+.community-toolbar {
+  padding: 1rem;
+  border: 1px solid rgba(190, 150, 90, .28);
+  border-radius: .75rem;
+  background: linear-gradient(90deg, rgba(26, 15, 8, .82), rgba(8, 5, 3, .58));
+  box-shadow: 0 .6rem 1.5rem rgba(0, 0, 0, .18);
+}
+
+.community-toolbar input,
+.community-toolbar select {
+  border-color: rgba(214, 169, 87, .45);
+  color: #f4e3bd;
+  background: rgba(8, 5, 3, .72);
+  font-family: inherit;
+  font-size: .95rem;
+}
+
+.community-toolbar input::placeholder {
+  color: rgba(244, 227, 189, .52);
+}
+
+.community-view-switcher {
+  display: flex;
+  gap: .4rem;
+  flex-wrap: wrap;
+}
+
+.community-view-button {
+  min-height: 2.75rem;
+  padding: .55rem .85rem;
+  border: 1px solid rgba(190, 150, 90, .38);
+  border-radius: .4rem;
+  color: rgba(244, 227, 189, .78);
+  background: rgba(0, 0, 0, .28);
+  font: inherit;
+  cursor: pointer;
+  transition: color 160ms ease, background 160ms ease, border-color 160ms ease;
+}
+
+.community-view-button:hover,
+.community-view-button.is-active {
+  color: #211207;
+  border-color: #e0b866;
+  background: linear-gradient(135deg, #f2d38d, #b67d31);
+  box-shadow: 0 .25rem .8rem rgba(0, 0, 0, .22);
+}
+
+.community-rankings {
+  position: relative;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border-color: rgba(214, 169, 87, .48);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(151, 103, 41, .2), transparent 42%),
+    linear-gradient(135deg, rgba(35, 20, 10, .92), rgba(9, 5, 3, .84));
+}
+
+.community-rankings-heading {
+  padding-bottom: 1.15rem;
+  text-align: center;
+  border-bottom: 1px solid rgba(214, 169, 87, .28);
+}
+
+.community-rankings-heading .eyebrow {
+  color: #d6a957;
+  letter-spacing: .2em;
+  font-size: .7rem;
+  text-transform: uppercase;
+}
+
+.community-rankings-heading h2 {
+  color: #f7dda4;
+  font-size: clamp(1.45rem, 3vw, 2.2rem);
+  letter-spacing: .035em;
+}
+
+.community-rankings-heading p:last-child {
+  color: rgba(244, 227, 189, .68);
+}
+
+.community-rankings-grid {
+  grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+  gap: 1.2rem;
+  margin-top: 1.25rem;
+}
+
+.community-ranking {
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  border-color: rgba(214, 169, 87, .36);
+  border-radius: .7rem;
+  background: linear-gradient(180deg, rgba(36, 21, 10, .8), rgba(8, 5, 3, .68));
+  box-shadow: 0 .7rem 1.6rem rgba(0, 0, 0, .2);
+}
+
+.community-ranking::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: .22rem;
+  background: linear-gradient(90deg, #8e5f25, #f2d38d, #8e5f25);
+}
+
+.community-ranking header {
+  align-items: center;
+  padding: 1.1rem 1.15rem .9rem;
+  border-bottom-color: rgba(214, 169, 87, .28);
+}
+
+.community-ranking header > div {
+  min-width: 0;
+}
+
+.community-ranking .saved-build-game {
+  color: #d6a957;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-size: .7rem;
+}
+
+.community-ranking h3 {
+  color: #f4e3bd;
+  font-size: .92rem;
+  font-weight: 400;
+}
+
+.community-ranking-badge {
+  width: 2.25rem;
+  height: 2.25rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(240, 205, 130, .55);
+  border-radius: 50%;
+  color: #211207;
+  background: linear-gradient(135deg, #f2d38d, #a66f29);
+  box-shadow: 0 0 .9rem rgba(240, 205, 130, .22);
+}
+
+.community-ranking ol {
+  margin: 0;
+  padding: .45rem 1.15rem .85rem 2.8rem;
+  list-style: decimal-leading-zero;
+}
+
+.community-ranking li {
+  padding: .75rem .25rem;
+  border-bottom: 1px solid rgba(214, 169, 87, .14);
+}
+
+.community-ranking li:last-child {
+  border-bottom: 0;
+}
+
+.community-ranking li::marker {
+  color: #e7bd68;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: .9rem;
+}
+
+.community-ranking li a {
+  align-items: center;
+  color: #f4e3bd;
+  font-size: .94rem;
+}
+
+.community-ranking li a > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.community-ranking li a:hover,
+.community-ranking li a:focus-visible {
+  color: #f7d78f;
+}
+
+.community-ranking li small {
+  color: rgba(244, 227, 189, .58);
+  font-size: .72rem;
+  text-align: right;
+}
+
+.community-build-card {
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.community-card-copy .saved-build-game {
+  color: #d6a957;
+  font-size: .7rem;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.community-card-copy .saved-build-title-row h2 {
+  color: #f7dda4;
+  font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+  font-weight: 600;
+  letter-spacing: .015em;
+}
+
+.community-card-copy .saved-build-meta {
+  color: rgba(244, 227, 189, .68);
+  font-size: .82rem;
+}
+
+.community-build-card-footer .button {
+  font-family: inherit;
+  font-size: .78rem;
+}
+
+@media (max-width: 700px) {
+  .community-header {
+    text-align: left;
+  }
+
+  .community-header::after {
+    left: 1.25rem;
+    transform: none;
+  }
+
+  .community-rankings-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+
+/* D&D fantasy tavern presentation */
+.community-page {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 50% 12%, rgba(148, 97, 39, .16), transparent 30%),
+    linear-gradient(180deg, rgba(9, 5, 3, .16), rgba(9, 5, 3, .52));
+}
+
+.community-page::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  opacity: .22;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(255, 225, 165, .035) 0 1px, transparent 1px 5px),
+    radial-gradient(circle at 18% 22%, rgba(227, 178, 87, .12), transparent 18%),
+    radial-gradient(circle at 84% 66%, rgba(114, 66, 24, .15), transparent 22%);
+  mix-blend-mode: screen;
+}
+
+.community-header,
+.community-toolbar,
+.community-rankings,
+.game-builds-grid {
+  position: relative;
+}
+
+.community-header {
+  border-top: 1px solid rgba(238, 197, 112, .26);
+  border-bottom: 1px solid rgba(238, 197, 112, .36);
+  background: linear-gradient(180deg, rgba(28, 15, 7, .44), transparent);
+}
+
+.community-header::before,
+.community-header::after {
+  color: #f2d38d;
+  text-shadow: 0 0 .8rem rgba(240, 195, 93, .6);
+}
+
+.community-header h1,
+.community-rankings-heading h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-variant: small-caps;
+  letter-spacing: .075em;
+}
+
+.community-header h1::first-letter {
+  color: #f2c56b;
+}
+
+.community-toolbar {
+  border-color: rgba(219, 170, 80, .46);
+  background:
+    linear-gradient(90deg, rgba(35, 19, 9, .9), rgba(14, 8, 4, .78)),
+    repeating-linear-gradient(90deg, transparent 0 12px, rgba(255, 225, 165, .025) 12px 13px);
+  box-shadow: inset 0 1px rgba(255, 231, 170, .08), 0 .8rem 2rem rgba(0, 0, 0, .24);
+}
+
+.community-toolbar::before {
+  content: "FILTRI DELLA GILDA";
+  display: block;
+  width: 100%;
+  margin-bottom: .35rem;
+  color: rgba(237, 192, 104, .72);
+  font-size: .65rem;
+  letter-spacing: .2em;
+  text-align: center;
+}
+
+.community-build-card {
+  border-color: rgba(207, 157, 69, .52);
+  background-color: rgba(15, 8, 4, .86);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 230, 163, .035),
+    inset 0 0 2.5rem rgba(0, 0, 0, .32),
+    0 .8rem 1.8rem rgba(0, 0, 0, .25);
+}
+
+.community-build-card::before,
+.community-build-card::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  width: .65rem;
+  height: .65rem;
+  border-color: rgba(238, 195, 103, .72);
+  pointer-events: none;
+}
+
+.community-build-card::before {
+  top: .45rem;
+  left: .45rem;
+  border-top: 1px solid;
+  border-left: 1px solid;
+}
+
+.community-build-card::after {
+  right: .45rem;
+  bottom: .45rem;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+}
+
+.community-build-card:hover,
+.community-build-card:focus-within {
+  border-color: #e7bb61;
+  box-shadow:
+    0 0 0 1px rgba(231, 187, 97, .24),
+    0 0 1.8rem rgba(186, 119, 34, .22),
+    0 1rem 2.4rem rgba(0, 0, 0, .34);
+}
+
+.community-card-crest {
+  border-color: rgba(240, 205, 130, .78);
+  box-shadow: 0 0 1rem rgba(240, 205, 130, .22), inset 0 0 1rem rgba(0, 0, 0, .45);
+}
+
+.community-card-copy .saved-build-title-row h2 {
+  font-variant: small-caps;
+  letter-spacing: .04em;
+  text-shadow: 0 .1rem .5rem rgba(0, 0, 0, .72);
+}
+
+.community-build-card-footer {
+  background: linear-gradient(90deg, rgba(5, 3, 2, .72), rgba(41, 22, 8, .45));
+  border-top-color: rgba(220, 172, 83, .3);
+}
+
+.community-rankings {
+  border-width: 1px;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 225, 165, .035),
+    inset 0 0 3rem rgba(0, 0, 0, .28),
+    0 1rem 2.5rem rgba(0, 0, 0, .25);
+}
+
+.community-rankings-heading::before {
+  content: "♜";
+  display: block;
+  margin-bottom: .3rem;
+  color: #e4b45f;
+  font-size: 1.5rem;
+  text-shadow: 0 0 .8rem rgba(228, 180, 95, .55);
+}
+
+.community-ranking {
+  border-color: rgba(211, 163, 77, .42);
+  background:
+    linear-gradient(135deg, rgba(47, 26, 11, .72), rgba(8, 5, 3, .85)),
+    repeating-linear-gradient(0deg, transparent 0 8px, rgba(255, 222, 151, .018) 8px 9px);
+}
+
+.community-ranking::after {
+  content: "";
+  position: absolute;
+  inset: .55rem;
+  border: 1px solid rgba(240, 205, 130, .09);
+  border-radius: .35rem;
+  pointer-events: none;
+}
+
+.community-ranking header,
+.community-ranking ol {
+  position: relative;
+  z-index: 1;
+}
+
+.community-ranking h3 {
+  font-variant: small-caps;
+  letter-spacing: .045em;
+}
+
+.community-ranking li a > span {
+  font-weight: 600;
+  letter-spacing: .015em;
+}
+
+.community-ranking li small {
+  color: #d5b878;
+}
+
+@media (max-width: 620px) {
+  .community-toolbar::before {
+    text-align: left;
+  }
+}
+
+\n/* Realistic Community environment assets */
+.community-page {
+  background:
+    linear-gradient(rgba(8, 4, 2, .58), rgba(8, 4, 2, .78)),
+    url("/images/community/community-tavern-guild-background.jpg") center top / cover fixed;
+}
+
+.community-page::before {
+  opacity: .12;
+  background:
+    linear-gradient(rgba(15, 7, 3, .35), rgba(15, 7, 3, .58)),
+    url("/images/community/community-tavern-guild-background.jpg") center / cover;
+  mix-blend-mode: multiply;
+}
+
+.community-rankings {
+  background:
+    linear-gradient(rgba(14, 7, 3, .7), rgba(10, 5, 2, .88)),
+    url("/images/community/community-ranking-board.jpg") center / cover;
+}
+
+.community-rankings-heading::before {
+  content: "";
+  width: 3.2rem;
+  height: 3.2rem;
+  display: block;
+  margin: 0 auto .6rem;
+  background: url("/images/community/community-guild-emblem.png") center / contain no-repeat;
+  filter: drop-shadow(0 0 .6rem rgba(226, 177, 82, .45));
+}
+
+.community-rankings-heading::after {
+  content: "";
+  display: block;
+  width: min(22rem, 70%);
+  height: 1px;
+  margin: .9rem auto 0;
+  background: linear-gradient(90deg, transparent, rgba(226, 177, 82, .75), transparent);
+}
+
+.community-ranking {
+  background:
+    linear-gradient(rgba(24, 12, 5, .78), rgba(8, 4, 2, .9)),
+    url("/images/community/community-ranking-board.jpg") center / cover;
+}
+
+
+/* Emblem without circular frame */
+.site-guild-emblem {
+  border: 0 !important;
+  border-radius: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+  filter: drop-shadow(0 0 .35rem rgba(224, 177, 84, .48));
+}
+
+.community-header::after {
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+}
+
+.community-rankings-heading::before {
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+}

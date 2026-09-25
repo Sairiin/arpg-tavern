@@ -6,6 +6,10 @@ import { useRouter } from "next/navigation";
 import { onAuthStateChanged, type User } from "firebase/auth";
 import { addDoc, collection, collectionGroup, onSnapshot, query, serverTimestamp, where } from "firebase/firestore";
 import { auth, db } from "@/lib/firebase/client";
+import {
+  getClassBackgroundImage,
+  getClassCrestImage,
+} from "@/lib/games/class-crests";
 import "../dashboard/dashboard.css";
 import "./community.css";
 
@@ -18,6 +22,10 @@ type CommunityBuild = {
   patch: string;
   category: string;
   updatedAt?: { seconds?: number } | null;
+  viewCount?: number;
+  importCount?: number;
+  voteScore?: number;
+  voteCount?: number;
   documentPath: string;
   data: Record<string, unknown>;
 };
@@ -30,6 +38,20 @@ const gameLabels: Record<string, string> = {
   "last-epoch": "Last Epoch",
   "grim-dawn": "Grim Dawn",
 };
+
+function normalizeGameSlug(value: string) {
+  const normalized = value.trim().toLocaleLowerCase("it");
+
+  if (normalized === "path of exile 2" || normalized === "poe 2") {
+    return "poe2";
+  }
+
+  if (normalized === "path of exile 1" || normalized === "poe 1") {
+    return "poe1";
+  }
+
+  return normalized;
+}
 
 function formatDate(timestamp?: { seconds?: number } | null) {
   if (!timestamp?.seconds) return "Data non disponibile";
@@ -45,7 +67,7 @@ export default function CommunityBuildsPage() {
   const [builds, setBuilds] = useState<CommunityBuild[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [gameFilter, setGameFilter] = useState("");
-  const [buildView, setBuildView] = useState<"cards" | "list">("cards");
+  const [buildView, setBuildView] = useState<"cards" | "list" | "columns">("list");
   const [error, setError] = useState("");
   const [importingId, setImportingId] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -82,6 +104,10 @@ export default function CommunityBuildsPage() {
               patch: String(data.patch || "Patch non indicata"),
               category: String(data.category || "Generale"),
               updatedAt: data.updatedAt as CommunityBuild["updatedAt"],
+              viewCount: Number(data.viewCount || 0),
+              importCount: Number(data.importCount || 0),
+              voteScore: Number(data.voteScore || 0),
+              voteCount: Number(data.voteCount || 0),
             };
           }),
         );
@@ -131,7 +157,7 @@ export default function CommunityBuildsPage() {
   const filteredBuilds = useMemo(() => {
     const normalized = searchTerm.trim().toLocaleLowerCase("it");
     return [...builds]
-      .filter((build) => !gameFilter || build.game === gameFilter)
+      .filter((build) => !gameFilter || normalizeGameSlug(build.game) === normalizeGameSlug(gameFilter))
       .filter((build) => {
         if (!normalized) return true;
         return [build.title, build.game, build.characterClass, build.patch, build.category]
@@ -143,6 +169,38 @@ export default function CommunityBuildsPage() {
         (second.updatedAt?.seconds ?? 0) - (first.updatedAt?.seconds ?? 0),
       );
   }, [builds, gameFilter, searchTerm]);
+
+  const rankings = useMemo(() => {
+    const grouped = new Map<string, CommunityBuild[]>();
+
+    for (const build of filteredBuilds) {
+      const gameKey = normalizeGameSlug(build.game);
+      const current = grouped.get(gameKey) ?? [];
+      current.push(build);
+      grouped.set(gameKey, current);
+    }
+
+    return Array.from(grouped.entries())
+      .map(([game, gameBuilds]) => ({
+        game,
+        total: gameBuilds.length,
+        builds: [...gameBuilds]
+          .sort((first, second) => {
+            const firstScore =
+              (first.voteScore ?? 0) * 3 +
+              (first.importCount ?? 0) * 2 +
+              (first.viewCount ?? 0) * 0.25;
+            const secondScore =
+              (second.voteScore ?? 0) * 3 +
+              (second.importCount ?? 0) * 2 +
+              (second.viewCount ?? 0) * 0.25;
+            return secondScore - firstScore;
+          })
+          .slice(0, 5),
+      }))
+      .sort((first, second) => second.total - first.total);
+  }, [filteredBuilds]);
+
 
   if (isCheckingAuth) {
     return <main className="dashboard-page community-page"><p>Il locandiere sta aprendo il catalogo...</p></main>;
@@ -182,28 +240,99 @@ export default function CommunityBuildsPage() {
           >
             ☰ Lista
           </button>
+            <button
+              type="button"
+              className={`community-view-button ${buildView === "columns" ? "is-active" : ""}`}
+              onClick={() => setBuildView("columns")}
+              aria-pressed={buildView === "columns"}
+            >
+              ▦ Due colonne
+            </button>
         </div>
       </section>
+      {rankings.length > 0 && (
+        <section className="community-rankings" aria-label="Classifiche Community">
+          <div className="community-rankings-heading">
+            <div>
+              <p className="eyebrow">Classifiche</p>
+              <h2>Classifiche Community per gioco</h2>
+              <p>Voti, importazioni e visualizzazioni determinano la posizione.</p>
+            </div>
+          </div>
+          <div className="community-rankings-grid">
+            {rankings.map((ranking) => (
+              <article className="community-ranking" key={ranking.game}>
+                <header>
+                  <div>
+                    <span className="saved-build-game">
+                      {gameLabels[ranking.game] || ranking.game}
+                    </span>
+                    <h3>{ranking.total} build pubbliche</h3>
+                  </div>
+                  <span className="community-ranking-badge">★</span>
+                </header>
+                <ol>
+                  {ranking.builds.map((build) => (
+                    <li key={build.id}>
+                      <Link href={`/community/builds/${build.ownerId}/${build.id}`}>
+                        <span>{build.title}</span>
+                        <small>
+                          {build.characterClass} · ★ {build.voteScore ?? 0} · ↓ {build.importCount ?? 0} · ◉ {build.viewCount ?? 0}
+                        </small>
+                      </Link>
+                    </li>
+                  ))}
+                </ol>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
       {error && <p className="community-error">{error}</p>}
       {successMessage && <p className="community-success">{successMessage}</p>}
       {!error && filteredBuilds.length === 0 && <p className="community-empty">Nessuna build pubblica trovata.</p>}
-      <section className={`community-grid community-view-${buildView}`} aria-label="Build pubbliche">
+      <section className={`game-builds-grid builds-view-${buildView}`} aria-label="Build pubbliche">
         {filteredBuilds.map((build) => (
-          <article className="community-card" key={`${build.game}-${build.id}`}>
+          <article
+            className="saved-build-card saved-build-card-clickable community-build-card"
+            key={`${build.game}-${build.id}`}
+            style={
+              getClassBackgroundImage(build.characterClass)
+                ? {
+                    backgroundImage: `linear-gradient(rgba(15, 9, 5, .72), rgba(15, 9, 5, .9)), url(${getClassBackgroundImage(build.characterClass)})`,
+                  }
+                : undefined
+            }
+          >
             <Link
-              className="community-card-main-link"
+              className="community-card-main-link saved-build-card-top"
               href={`/community/builds/${build.ownerId}/${build.id}`}
               aria-label={`Apri la build ${build.title}`}
             >
-              <p className="eyebrow">{gameLabels[build.game] || build.game || "Gioco non indicato"}</p>
-              <h2>{build.title}</h2>
-              <div className="community-meta">
-                <span>{build.characterClass}</span>
-                <span>{build.patch}</span>
-                <span>{build.category}</span>
+              <span className="community-card-crest" aria-hidden="true">
+                {getClassCrestImage(build.game, build.characterClass) ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={getClassCrestImage(build.game, build.characterClass) ?? ""}
+                    alt=""
+                  />
+                ) : (
+                  <span>◈</span>
+                )}
+              </span>
+              <div className="community-card-copy">
+                <span className="saved-build-game">
+                  {gameLabels[build.game] || build.game || "Gioco non indicato"}
+                </span>
+                <span className="saved-build-title-row">
+                  <h2>{build.title}</h2>
+                </span>
+                <span className="saved-build-meta">
+                  {build.characterClass} · {build.patch} · {build.category}
+                </span>
               </div>
             </Link>
-            <footer>
+            <footer className="community-build-card-footer">
               <span>Pubblicata · {formatDate(build.updatedAt)}</span>
               <button
                 className="button button-secondary"

@@ -40,7 +40,7 @@ export default function AccountPage() {
     <main className="dashboard-page">
       <header className="dashboard-topbar">
         <Link className="brand" href="/dashboard">
-          <span className="brand-mark">✦</span>
+          <span className="brand-mark"><span className="site-guild-emblem" aria-hidden="true" /></span>
 
           <span className="brand-text">
             <small>La casa dei theorycrafter</small>
