@@ -63,6 +63,11 @@ const CLASS_CRESTS: Record<string, Record<string, string>> = {
 };
 
 export function getClassCrestImage(game: string, characterClass: string) {
+  if (normalize(characterClass) === "guida") {
+    return "/images/class-crests/guide.png";
+  }
+
+
   const gameCrests = CLASS_CRESTS[game];
 
   if (!gameCrests) {

@@ -7,6 +7,7 @@ export const GAME_CLASSES = {
     "Templar",
     "Shadow",
     "Scion",
+    "GUIDA",
   ],
   poe2: [
     "Warrior",
@@ -17,6 +18,7 @@ export const GAME_CLASSES = {
     "Monk",
     "Huntress",
     "Druid",
+    "GUIDA",
   ],
   "diablo-2": [
     "Amazon",
@@ -26,6 +28,7 @@ export const GAME_CLASSES = {
     "Necromancer",
     "Paladin",
     "Sorceress",
+    "GUIDA",
   ],
   "diablo-4": [
     "Barbarian",
@@ -34,6 +37,7 @@ export const GAME_CLASSES = {
     "Rogue",
     "Sorcerer",
     "Spiritborn",
+    "GUIDA",
   ],
   "last-epoch": [
     "Acolyte",
@@ -41,6 +45,7 @@ export const GAME_CLASSES = {
     "Primalist",
     "Rogue",
     "Sentinel",
+    "GUIDA",
   ],
   "grim-dawn": [
     "Soldier",
@@ -52,6 +57,7 @@ export const GAME_CLASSES = {
     "Inquisitor",
     "Necromancer",
     "Oathkeeper",
+    "GUIDA",
   ],
 } as const;
 
