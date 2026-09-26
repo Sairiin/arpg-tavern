@@ -266,3 +266,31 @@
 .build-showcase-notes .linked-build-notes a:focus-visible {
   color: #fff0c4;
 }
+
+/* Expandable build notes and linked images */
+.build-showcase-notes .build-notes-expandable { width: 100%; }
+.build-showcase-notes .build-notes-toggle {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
+  width: 100%; min-height: 2.25rem; margin: 0; padding: 0;
+  color: inherit; text-align: left; font: inherit; background: none;
+  border: 0; border-radius: 0; box-shadow: none; cursor: pointer;
+}
+.build-showcase-notes .build-notes-toggle:hover,
+.build-showcase-notes .build-notes-toggle:focus-visible { color: #f0cd82; }
+.build-showcase-notes .build-notes-preview {
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3;
+  line-clamp: 3; overflow: hidden; white-space: pre-wrap; overflow-wrap: anywhere;
+}
+.build-showcase-notes .build-notes-preview.is-expanded { display: block; }
+.build-showcase-notes .build-notes-chevron { flex: none; font-size: 1.15rem; }
+.build-showcase-notes .linked-build-notes {
+  margin-top: 1rem; white-space: pre-wrap; overflow-wrap: anywhere;
+}
+.build-showcase-notes .linked-build-notes a { color: #f0cd82; text-decoration: underline; }
+.build-showcase-notes .linked-build-notes .build-note-image-link {
+  display: block; width: fit-content; max-width: 100%; margin: .85rem 0;
+}
+.build-showcase-notes .build-note-image-link img {
+  display: block; max-width: min(100%, 900px); max-height: 600px;
+  width: auto; height: auto; object-fit: contain; border-radius: .35rem;
+}

@@ -16,6 +16,7 @@ export const GAME_CLASSES = {
     "Sorceress",
     "Monk",
     "Huntress",
+    "Druid",
   ],
   "diablo-2": [
     "Amazon",
