@@ -23,6 +23,7 @@ const CLASS_CRESTS: Record<string, Record<string, string>> = {
     sorceress: "/images/class-crests/poe2-sorceress.png",
     monk: "/images/class-crests/poe2-monk.png",
     huntress: "/images/class-crests/poe2-huntress.png",
+    druid: "/images/class-crests/poe2-druid.png",
   },
   "diablo-2": {
     amazon: "/images/class-crests/diablo-2-amazon.png",
